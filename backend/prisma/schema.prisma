@@ -1,0 +1,411 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// SQLite for local development - simple and no external dependencies
+// For production, switch to PostgreSQL by changing provider and DATABASE_URL
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// User & Authentication
+// ==========================================
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String
+  role      String    @default("ADMIN") // SUPER_ADMIN, ADMIN, STAFF
+  isActive  Boolean   @default(true)
+  lastLogin DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relations
+  contactsHandled Contact[]           @relation("ContactHandler")
+  quotesHandled   QuoteRequest[]      @relation("QuoteHandler")
+  dealersReviewed DealerApplication[] @relation("DealerReviewer")
+
+  @@map("users")
+}
+
+// ==========================================
+// Products & Categories
+// ==========================================
+
+model Category {
+  id              Int       @id @default(autoincrement())
+  name            String    @unique
+  slug            String    @unique
+  description     String?
+  image           String?
+  catalogueUrl    String?   // PDF catalogue URL for download
+  order           Int       @default(0)
+  isActive        Boolean   @default(true)
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id               Int      @id @default(autoincrement())
+  name             String
+  slug             String   @unique
+  description      String?
+  shortDescription String?
+  price            Float?
+  unit             String   @default("sq ft")
+  sku              String?  @unique
+  features         String?  // JSON string for array: ["feature1", "feature2"]
+  applications     String?  // JSON string for array: ["app1", "app2"]
+  finishes         String?  // JSON string for array: [{name, hex, image, images[]}, ...]
+  sortOrder        Int      @default(0)
+  isFeatured       Boolean  @default(false)
+  isActive         Boolean  @default(true)
+  metaTitle        String?
+  metaDescription  String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  categoryId     Int
+  category       Category        @relation(fields: [categoryId], references: [id])
+  images         ProductImage[]
+  specifications Specification[]
+
+  @@index([categoryId])
+  @@index([slug])
+  @@map("products")
+}
+
+model ProductImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  alt       String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  // Relations
+  productId Int
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@map("product_images")
+}
+
+model Specification {
+  id        Int      @id @default(autoincrement())
+  name      String
+  value     String
+  unit      String?
+  createdAt DateTime @default(now())
+
+  // Relations
+  productId Int
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@map("specifications")
+}
+
+// ==========================================
+// Contact & Inquiries
+// ==========================================
+
+model Contact {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  subject     String
+  message     String
+  status      String   @default("PENDING") // PENDING, IN_PROGRESS, RESPONDED, CLOSED
+  isRead      Boolean  @default(false)
+  notes       String?
+  ipAddress   String?
+  userAgent   String?
+  respondedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  respondedBy   Int?
+  respondedUser User? @relation("ContactHandler", fields: [respondedBy], references: [id])
+
+  @@index([status])
+  @@index([email])
+  @@index([createdAt])
+  @@map("contacts")
+}
+
+// ==========================================
+// Quote Requests
+// ==========================================
+
+model QuoteRequest {
+  id                Int       @id @default(autoincrement())
+  referenceNumber   String    @unique
+  name              String
+  email             String
+  phone             String
+  company           String?
+  projectType       String
+  projectDetails    String?
+  estimatedArea     Float?
+  areaUnit          String    @default("sq ft")
+  preferredProducts String?   // JSON string for array
+  budget            String?
+  timeline          String?
+  deliveryAddress   String?
+  additionalNotes   String?
+  status            String    @default("PENDING") // PENDING, UNDER_REVIEW, QUOTED, ACCEPTED, REJECTED, EXPIRED
+  quotedAmount      Float?
+  quotedAt          DateTime?
+  validUntil        DateTime?
+  acceptedAt        DateTime?
+  rejectedAt        DateTime?
+  notes             String?
+  ipAddress         String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  handledBy   Int?
+  handledUser User? @relation("QuoteHandler", fields: [handledBy], references: [id])
+
+  @@index([referenceNumber])
+  @@index([status])
+  @@index([email])
+  @@index([createdAt])
+  @@map("quote_requests")
+}
+
+// ==========================================
+// Dealer Applications
+// ==========================================
+
+model DealerApplication {
+  id              Int      @id @default(autoincrement())
+  referenceNumber String   @unique
+
+  // Business Information
+  companyName    String
+  businessType   String
+  gstNumber      String?
+  panNumber      String?
+  establishedYear Int?
+  annualTurnover String?
+
+  // Contact Information
+  contactPerson  String
+  designation    String?
+  email          String
+  phone          String
+  alternatePhone String?
+
+  // Address
+  address String
+  city    String
+  state   String
+  pincode String
+
+  // Business Details
+  currentProducts  String? // JSON string for array
+  warehouseArea    Int?
+  showroomArea     Int?
+  salesTeamSize    Int?
+  deliveryVehicles Int?
+
+  // Experience
+  yearsInBusiness    Int?
+  existingBrands     String? // JSON string for array
+  monthlyTargetValue Float?
+
+  // Additional
+  coverageAreas   String? // JSON string for array
+  referenceSource String?
+  additionalNotes String?
+
+  // Status
+  status          String    @default("PENDING") // PENDING, UNDER_REVIEW, APPROVED, REJECTED, ON_HOLD
+  notes           String?
+  rejectionReason String?
+  reviewedAt      DateTime?
+  approvedAt      DateTime?
+  rejectedAt      DateTime?
+  ipAddress       String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  reviewedBy   Int?
+  reviewedUser User? @relation("DealerReviewer", fields: [reviewedBy], references: [id])
+
+  @@index([referenceNumber])
+  @@index([status])
+  @@index([email])
+  @@index([state])
+  @@index([createdAt])
+  @@map("dealer_applications")
+}
+
+// ==========================================
+// Newsletter
+// ==========================================
+
+model Newsletter {
+  id             Int       @id @default(autoincrement())
+  email          String    @unique
+  name           String?
+  source         String    @default("website")
+  isActive       Boolean   @default(true)
+  unsubscribedAt DateTime?
+  resubscribedAt DateTime?
+  ipAddress      String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([email])
+  @@index([isActive])
+  @@map("newsletter_subscribers")
+}
+
+// ==========================================
+// Testimonials
+// ==========================================
+
+model Testimonial {
+  id            Int      @id @default(autoincrement())
+  name          String
+  designation   String?
+  company       String?
+  location      String?
+  content       String
+  rating        Int      @default(5)
+  image         String?
+  projectType   String?
+  projectImages String?  // JSON string for array
+  isFeatured    Boolean  @default(false)
+  isActive      Boolean  @default(true)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+// ==========================================
+// Site Settings & Content
+// ==========================================
+
+model SiteSetting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  type      String   @default("text") // text, number, boolean, json
+  group     String   @default("general")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model FAQ {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  category  String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@index([isActive])
+  @@map("faqs")
+}
+
+// ==========================================
+// File Uploads / Media
+// ==========================================
+
+model Media {
+  id           Int      @id @default(autoincrement())
+  filename     String
+  originalName String
+  mimeType     String
+  size         Int
+  url          String
+  alt          String?
+  folder       String   @default("uploads")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([folder])
+  @@map("media")
+}
+
+// ==========================================
+// Catalogue Downloads Tracking
+// ==========================================
+
+model Catalogue {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  description String?
+  fileUrl     String   // URL to the PDF file
+  fileSize    Int?     // File size in bytes
+  thumbnail   String?  // Thumbnail image URL
+  category    String?  // e.g., "product", "technical", "marketing"
+  version     String?  // e.g., "2024", "v2.0"
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  downloads CatalogueDownload[]
+
+  @@index([category])
+  @@index([isActive])
+  @@map("catalogues")
+}
+
+model CatalogueDownload {
+  id          Int      @id @default(autoincrement())
+  catalogueId Int
+  catalogue   Catalogue @relation(fields: [catalogueId], references: [id], onDelete: Cascade)
+  
+  // User info (optional - for tracking)
+  name        String?
+  email       String?
+  phone       String?
+  company     String?
+  
+  // Tracking info
+  ipAddress   String?
+  userAgent   String?
+  referrer    String?  // Where they came from
+  source      String?  // e.g., "website", "email", "social"
+  
+  createdAt   DateTime @default(now())
+
+  @@index([catalogueId])
+  @@index([email])
+  @@index([createdAt])
+  @@map("catalogue_downloads")
+}
