@@ -1,0 +1,41 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
+          script_stop: true
+          script: |
+            cd /var/www/pranjil-heights
+            
+            echo "📥 Pulling latest code..."
+            git pull origin main
+            
+            echo "📦 Installing backend dependencies..."
+            cd backend
+            npm install --production
+            npx prisma generate
+            npx prisma db push --accept-data-loss
+            cd ..
+            
+            echo "🏗️ Building frontend..."
+            npm install
+            npm run build
+            
+            echo "🔄 Restarting backend..."
+            pm2 restart pranjil-api
+            
+            echo "✅ Deployment complete!"
+            pm2 status
