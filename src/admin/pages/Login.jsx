@@ -74,7 +74,7 @@ const Login = () => {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-                  placeholder="admin@pranjilheights.com"
+                  placeholder="admin@pranijheightsindia.com"
                 />
               </div>
             </div>

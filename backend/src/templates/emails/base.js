@@ -23,11 +23,11 @@ const COLORS = {
 const COMPANY = {
   name: 'Pranjil Heights India',
   tagline: 'Premium PVC Panel Manufacturer',
-  website: process.env.FRONTEND_URL || 'https://pranjilheights.com',
-  email: 'info@pranjilheights.com',
+  website: process.env.FRONTEND_URL || 'https://pranijheightsindia.com',
+  email: 'info@pranijheightsindia.com',
   phone: '+91 XXXXX XXXXX',
   address: 'Your Address, City, State, India',
-  logo: 'https://pranjilheights.com/logo.png', // Update with actual logo URL
+  logo: 'https://pranijheightsindia.com/logo.png', // Update with actual logo URL
 };
 
 /**

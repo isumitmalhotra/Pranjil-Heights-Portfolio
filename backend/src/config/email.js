@@ -78,7 +78,7 @@ export const sendEmail = async ({ to, subject, html, text }) => {
 
   try {
     const mailOptions = {
-      from: process.env.EMAIL_FROM || `"${COMPANY.name}" <noreply@pranjilheights.com>`,
+      from: process.env.EMAIL_FROM || `"${COMPANY.name}" <noreply@pranijheightsindia.com>`,
       to,
       subject,
       text: text || subject, // Fallback text
