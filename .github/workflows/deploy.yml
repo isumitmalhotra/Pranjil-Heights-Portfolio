@@ -14,12 +14,8 @@ jobs:
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
-          # Prefer key-based auth. Keep password as fallback for servers that allow it.
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          # Password-only auth
           password: ${{ secrets.VPS_PASSWORD }}
-          # Optional but recommended: set this secret to enable host verification.
-          fingerprint: ${{ secrets.VPS_HOST_FINGERPRINT }}
           port: 22
           script_stop: true
           timeout: 120s
