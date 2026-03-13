@@ -9,36 +9,55 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          # Password-only auth
-          password: ${{ secrets.VPS_PASSWORD }}
-          port: 22
-          script_stop: true
-          timeout: 120s
-          command_timeout: 30m
-          script: |
-            cd /var/www/pranjil-heights
-            
-            echo "📥 Pulling latest code..."
-            git pull origin main
-            
-            echo "📦 Installing backend dependencies..."
-            cd backend
-            npm install --production
-            npx prisma generate
-            npx prisma db push --accept-data-loss
-            cd ..
-            
-            echo "🏗️ Building frontend..."
-            npm install
-            npm run build
-            
-            echo "🔄 Restarting backend..."
-            pm2 restart pranjil-api
-            
-            echo "✅ Deployment complete!"
-            pm2 status
+      - name: Install SSH client utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openssh-client sshpass
+
+      - name: Deploy to VPS via password auth
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${VPS_HOST}" ] || [ -z "${VPS_USER}" ] || [ -z "${VPS_PASSWORD}" ]; then
+            echo "Missing required secrets: VPS_HOST, VPS_USER, or VPS_PASSWORD"
+            exit 1
+          fi
+
+          PORT="${VPS_PORT:-22}"
+
+          sshpass -p "${VPS_PASSWORD}" ssh \
+            -p "${PORT}" \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -o PreferredAuthentications=password,keyboard-interactive \
+            -o PubkeyAuthentication=no \
+            -o NumberOfPasswordPrompts=1 \
+            "${VPS_USER}@${VPS_HOST}" << 'EOF'
+              set -e
+              cd /var/www/pranjil-heights
+
+              echo "📥 Pulling latest code..."
+              git pull origin main
+
+              echo "📦 Installing backend dependencies..."
+              cd backend
+              npm install --production
+              npx prisma generate
+              npx prisma db push --accept-data-loss
+              cd ..
+
+              echo "🏗️ Building frontend..."
+              npm install
+              npm run build
+
+              echo "🔄 Restarting backend..."
+              pm2 restart pranjil-api
+
+              echo "✅ Deployment complete!"
+              pm2 status
+          EOF
