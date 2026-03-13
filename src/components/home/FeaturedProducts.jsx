@@ -182,10 +182,10 @@ const ProductCard = ({ product, index }) => {
                     exit={{ opacity: 0, y: 20 }}
                     className="absolute bottom-4 left-4 right-4 flex justify-center gap-2"
                   >
-                    <button className="p-3 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white hover:bg-white/50 transition-colors">
+                    <button className="p-3 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white hover:bg-blue-300/25 transition-colors">
                       <Eye className="w-5 h-5" />
                     </button>
-                    <button className="p-3 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white hover:bg-white/50 transition-colors">
+                    <button className="p-3 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white hover:bg-blue-300/25 transition-colors">
                       <FileText className="w-5 h-5" />
                     </button>
                     <button className="p-3 rounded-full bg-teal/80 backdrop-blur-md text-white hover:bg-teal transition-colors">
@@ -201,7 +201,7 @@ const ProductCard = ({ product, index }) => {
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-yellow-600 text-sm font-medium mb-1">{product.category}</p>
-                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-yellow-600 transition-colors">
+                  <h3 className="text-xl font-bold text-white group-hover:text-yellow-600 transition-colors">
                     {product.name}
                   </h3>
                 </div>
@@ -216,14 +216,14 @@ const ProductCard = ({ product, index }) => {
               {/* Product Features */}
               <div className="flex flex-wrap gap-2">
                 {product.features.map((feature, i) => (
-                  <span key={i} className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">
+                  <span key={i} className="text-xs text-slate-200 bg-blue-300/16 border border-blue-200/25 px-2 py-1 rounded-full">
                     {feature}
                   </span>
                 ))}
               </div>
 
               {/* Product Properties */}
-              <div className="flex items-center gap-4 text-xs text-gray-500">
+              <div className="flex items-center gap-4 text-xs text-slate-300">
                 <span className="flex items-center gap-1">
                   <Droplets className="w-3 h-3" /> Water Resistant
                 </span>
@@ -236,8 +236,8 @@ const ProductCard = ({ product, index }) => {
               </div>
 
               {/* View Details */}
-              <div className="pt-4 border-t border-black/5 flex items-center justify-between">
-                <span className="text-sm text-gray-500">{product.finishes} Finishes Available</span>
+              <div className="pt-4 border-t border-blue-200/25 flex items-center justify-between">
+                <span className="text-sm text-slate-300">{product.finishes} Finishes Available</span>
                 <motion.span
                   className="flex items-center gap-1 text-yellow-600 text-sm font-medium"
                   animate={isHovered ? { x: 5 } : { x: 0 }}

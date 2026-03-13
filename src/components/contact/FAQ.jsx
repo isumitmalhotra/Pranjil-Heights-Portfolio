@@ -12,8 +12,8 @@ const FAQItem = ({ question, answer, index, isOpen, onClick }) => {
       transition={{ delay: index * 0.1 }}
       className="group"
     >
-      <div className={`border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ${
-        isOpen ? 'bg-gray-50 border-yellow-500/30' : 'hover:border-gray-300'
+      <div className={`border border-blue-200/25 rounded-2xl overflow-hidden transition-all duration-300 ${
+        isOpen ? 'bg-blue-400/10 border-yellow-500/30' : 'hover:border-blue-200/30'
       }`}>
         <button
           onClick={onClick}
@@ -21,12 +21,12 @@ const FAQItem = ({ question, answer, index, isOpen, onClick }) => {
         >
           <div className="flex items-center gap-4">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 ${
-              isOpen ? 'bg-yellow-600 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'
+              isOpen ? 'bg-yellow-600 text-white' : 'bg-blue-300/15 text-slate-300 group-hover:bg-gray-200'
             }`}>
               <HelpCircle className="w-5 h-5" />
             </div>
             <span className={`text-lg font-medium transition-colors ${
-              isOpen ? 'text-gray-800' : 'text-gray-700 group-hover:text-gray-900'
+              isOpen ? 'text-white' : 'text-slate-200 group-hover:text-white'
             }`}>
               {question}
             </span>
@@ -36,7 +36,7 @@ const FAQItem = ({ question, answer, index, isOpen, onClick }) => {
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3 }}
             className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all ${
-              isOpen ? 'bg-yellow-100 text-yellow-600' : 'bg-gray-100 text-gray-600'
+              isOpen ? 'bg-yellow-100 text-yellow-600' : 'bg-blue-300/15 text-slate-300'
             }`}
           >
             <ChevronDown className="w-5 h-5" />
@@ -54,7 +54,7 @@ const FAQItem = ({ question, answer, index, isOpen, onClick }) => {
             >
               <div className="px-6 pb-6 pl-20">
                 <div className="h-px bg-gray-200 mb-4" />
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed">
                   {answer}
                 </p>
               </div>
@@ -88,7 +88,7 @@ export const FAQ = () => {
     },
     {
       question: "What is the minimum order quantity?",
-      answer: "For standard designs, we have no minimum order quantity — order as few or as many panels as you need. For custom designs or specific color matches, a minimum order of 1000 sqft applies to ensure cost-effectiveness."
+      answer: "For standard designs, we have no minimum order quantity - order as few or as many panels as you need. For custom designs or specific color matches, a minimum order of 1000 sqft applies to ensure cost-effectiveness."
     },
     {
       question: "Do you provide samples before purchase?",
@@ -114,4 +114,5 @@ export const FAQ = () => {
     </div>
   );
 };
+
 

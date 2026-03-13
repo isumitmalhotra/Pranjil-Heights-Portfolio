@@ -46,7 +46,7 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative aspect-square rounded-3xl overflow-hidden shadow-lg border border-gray-200 bg-white cursor-grab active:cursor-grabbing"
+        className="relative aspect-square rounded-3xl overflow-hidden shadow-lg border border-blue-200/25 bg-blue-300/15 cursor-grab active:cursor-grabbing"
       >
         {/* Product Image */}
         <motion.div
@@ -72,29 +72,29 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
         {/* Navigation Arrows */}
         <button 
           onClick={() => onSelect(selectedIndex === 0 ? images.length - 1 : selectedIndex - 1)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-gray-800 hover:bg-white transition-all"
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-blue-300/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-300/40 transition-all"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
         <button 
           onClick={() => onSelect(selectedIndex === images.length - 1 ? 0 : selectedIndex + 1)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-gray-800 hover:bg-white transition-all"
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-blue-300/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-300/40 transition-all"
         >
           <ChevronRight className="w-6 h-6" />
         </button>
         
         {/* Action Buttons */}
         <div className="absolute top-4 right-4 flex gap-2">
-          <button className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-gray-800 hover:bg-white transition-all">
+          <button className="w-10 h-10 rounded-full bg-blue-300/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-300/40 transition-all">
             <Share2 className="w-5 h-5" />
           </button>
-          <button className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-gray-800 hover:bg-white transition-all">
+          <button className="w-10 h-10 rounded-full bg-blue-300/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-300/40 transition-all">
             <Maximize className="w-5 h-5" />
           </button>
         </div>
         
         {/* Zoom indicator */}
-        <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm text-gray-800 text-sm">
+        <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-300/80 backdrop-blur-sm text-white text-sm">
           <ZoomIn className="w-4 h-4" />
           Drag to rotate
         </div>
@@ -111,7 +111,7 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
             className={`relative flex-1 aspect-square rounded-xl overflow-hidden border-2 transition-all ${
               selectedIndex === index 
                 ? 'border-yellow-600 shadow-md' 
-                : 'border-gray-200 hover:border-yellow-300'
+                : 'border-blue-200/25 hover:border-yellow-300'
             } ${img}`}
           >
             {selectedIndex === index && (
@@ -131,7 +131,7 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
 const ColorSelector = ({ colors, selected, onSelect }) => (
   <div className="space-y-4">
     <div className="flex items-center justify-between">
-      <h3 className="text-gray-800 font-semibold">Available Finishes</h3>
+      <h3 className="text-white font-semibold">Available Finishes</h3>
       <span className="text-yellow-600 font-medium">{selected?.name}</span>
     </div>
     <div className="flex flex-wrap gap-3">
@@ -177,15 +177,15 @@ const ColorSelector = ({ colors, selected, onSelect }) => (
                 exit={{ scale: 0 }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center">
-                  <Check className="w-5 h-5 text-gray-800" />
+                <div className="w-8 h-8 rounded-full bg-blue-300/90 flex items-center justify-center">
+                  <Check className="w-5 h-5 text-white" />
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
           
           {/* Tooltip with finish name */}
-          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-white rounded text-xs text-gray-800 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
+          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-blue-300/15 rounded text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
             {color.name}
           </div>
         </motion.button>
@@ -197,7 +197,7 @@ const ColorSelector = ({ colors, selected, onSelect }) => (
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-4 p-3 bg-gray-50 rounded-lg"
+        className="mt-4 p-3 bg-blue-400/10 rounded-lg"
       >
         <div className="flex items-center gap-3">
           <img 
@@ -206,8 +206,8 @@ const ColorSelector = ({ colors, selected, onSelect }) => (
             className="w-20 h-14 object-cover rounded-lg shadow"
           />
           <div>
-            <p className="text-sm font-medium text-gray-800">{selected.name}</p>
-            <p className="text-xs text-gray-500">Texture Preview</p>
+            <p className="text-sm font-medium text-white">{selected.name}</p>
+            <p className="text-xs text-slate-400">Texture Preview</p>
           </div>
         </div>
       </motion.div>
@@ -222,33 +222,33 @@ const SpecRow = ({ label, value, index }) => (
     animate={{ opacity: 1, x: 0 }}
     transition={{ delay: index * 0.05 }}
     className={`flex items-center justify-between py-4 px-6 ${
-      index % 2 === 0 ? 'bg-gray-100' : ''
+      index % 2 === 0 ? 'bg-blue-300/15' : ''
     }`}
   >
-    <span className="text-gray-600 capitalize">
+    <span className="text-slate-300 capitalize">
       {label.replace(/([A-Z])/g, ' $1').trim()}
     </span>
-    <span className="text-gray-800 font-medium">{value}</span>
+    <span className="text-white font-medium">{value}</span>
   </motion.div>
 );
 
 // Product Feature Badge
 const FeatureBadge = ({ icon: IconComponent, label, color }) => (
-  <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 border border-black/5">
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-300/15 border border-blue-200/20">
     <IconComponent className={`w-4 h-4 ${color}`} />
-    <span className="text-gray-700 text-sm">{label}</span>
+    <span className="text-slate-200 text-sm">{label}</span>
   </div>
 );
 
 // Trust Badge Component
 const TrustBadge = ({ icon: IconComponent, title, subtitle }) => (
-  <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-200">
+  <div className="flex items-center gap-3 p-4 rounded-xl bg-blue-400/10 border border-blue-200/25">
     <div className="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center text-yellow-600">
       <IconComponent className="w-5 h-5" />
     </div>
     <div>
-      <div className="text-gray-800 font-medium text-sm">{title}</div>
-      <div className="text-gray-500 text-xs">{subtitle}</div>
+      <div className="text-white font-medium text-sm">{title}</div>
+      <div className="text-slate-400 text-xs">{subtitle}</div>
     </div>
   </div>
 );
@@ -287,7 +287,7 @@ const ApplicationsSection = ({ category }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: index * 0.1 }}
-          className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-gold/30 transition-all"
+          className="p-4 rounded-xl bg-blue-300/15 border border-blue-200/25 hover:border-gold/30 transition-all"
         >
           <h4 className="text-ivory font-medium mb-1">{app.name}</h4>
           <p className="text-ivory/60 text-sm">{app.description}</p>
@@ -447,7 +447,7 @@ const ProductDetails = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-yellow-500 mx-auto mb-4" />
-          <p className="text-gray-600">Loading product...</p>
+          <p className="text-slate-300">Loading product...</p>
         </div>
       </div>
     );
@@ -457,8 +457,8 @@ const ProductDetails = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <GlassCard className="text-center p-12">
-          <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
-            <Package className="w-10 h-10 text-gray-400" />
+          <div className="w-20 h-20 rounded-full bg-blue-300/15 flex items-center justify-center mx-auto mb-6">
+            <Package className="w-10 h-10 text-slate-300" />
           </div>
           <H2 className="mb-4">Product Not Found</H2>
           <Body className="text-ivory/60 mb-6">
@@ -494,7 +494,7 @@ const ProductDetails = () => {
         >
           <Link 
             to="/products" 
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 border border-gray-200 text-gray-700 hover:text-yellow-600 hover:border-yellow-300 transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-300/15 border border-blue-200/25 text-slate-200 hover:text-yellow-600 hover:border-yellow-300 transition-all"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Products
@@ -527,7 +527,7 @@ const ProductDetails = () => {
             {/* Header */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <SectionBadge className="bg-yellow-100 text-yellow-600 border-yellow-200">{product.category}</SectionBadge>
+                <SectionBadge className="bg-blue-300/16 text-orange-300 border-blue-200/30">{product.category}</SectionBadge>
                 {product.badge && (
                   <span className="px-3 py-1 rounded-full bg-yellow-100 text-yellow-600 text-sm font-medium">
                     {product.badge}
@@ -535,7 +535,7 @@ const ProductDetails = () => {
                 )}
               </div>
               
-              <H1 className="mb-4 font-heading text-gray-800">{displayTitle}</H1>
+              <H1 className="mb-4 font-heading text-white">{displayTitle}</H1>
               
               {/* Product Features */}
               <div className="flex flex-wrap gap-2 mb-6">
@@ -546,25 +546,25 @@ const ProductDetails = () => {
             </div>
 
             {/* Description */}
-            <Body className="text-gray-700 leading-relaxed">{product.description}</Body>
+            <Body className="text-slate-200 leading-relaxed">{product.description}</Body>
 
             {/* Quick Specs */}
-            <div className="grid grid-cols-2 gap-4 p-4 rounded-xl bg-gray-100 border border-black/5">
+            <div className="grid grid-cols-2 gap-4 p-4 rounded-xl bg-blue-300/15 border border-blue-200/20">
               <div>
-                <span className="text-gray-500 text-sm">Thickness</span>
-                <p className="text-gray-800 font-medium">{product.specifications?.thickness}</p>
+                <span className="text-slate-400 text-sm">Thickness</span>
+                <p className="text-white font-medium">{product.specifications?.thickness}</p>
               </div>
               <div>
-                <span className="text-gray-500 text-sm">Dimensions</span>
-                <p className="text-gray-800 font-medium">{product.specifications?.width} × {product.specifications?.length}</p>
+                <span className="text-slate-400 text-sm">Dimensions</span>
+                <p className="text-white font-medium">{product.specifications?.width} x {product.specifications?.length}</p>
               </div>
               <div>
-                <span className="text-gray-500 text-sm">Finish</span>
-                <p className="text-gray-800 font-medium">{product.specifications?.finish}</p>
+                <span className="text-slate-400 text-sm">Finish</span>
+                <p className="text-white font-medium">{product.specifications?.finish}</p>
               </div>
               <div>
-                <span className="text-gray-500 text-sm">Available Finishes</span>
-                <p className="text-gray-800 font-medium">{product.colors.length} options</p>
+                <span className="text-slate-400 text-sm">Available Finishes</span>
+                <p className="text-white font-medium">{product.colors.length} options</p>
               </div>
             </div>
 
@@ -632,11 +632,11 @@ const ProductDetails = () => {
           className="mt-24"
         >
           <div className="text-center mb-12">
-            <SectionBadge className="mb-4 bg-yellow-100 text-yellow-600 border-yellow-200">
+            <SectionBadge className="mb-4 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Sparkles className="w-4 h-4" />
               Specifications
             </SectionBadge>
-            <H2 className="font-heading text-gray-800">Technical <span className="text-yellow-600">Details</span></H2>
+            <H2 className="font-heading text-white">Technical <span className="text-yellow-600">Details</span></H2>
           </div>
 
           <GlassCard className="p-0 overflow-hidden">
@@ -656,12 +656,12 @@ const ProductDetails = () => {
           className="mt-24"
         >
           <div className="text-center mb-12">
-            <SectionBadge className="mb-4 bg-yellow-100 text-yellow-600 border-yellow-200">
+            <SectionBadge className="mb-4 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Factory className="w-4 h-4" />
               Applications
             </SectionBadge>
-            <H2 className="font-heading text-gray-800">Ideal <span className="text-yellow-600">Use Cases</span></H2>
-            <Body className="text-gray-600 max-w-2xl mx-auto mt-4">
+            <H2 className="font-heading text-white">Ideal <span className="text-yellow-600">Use Cases</span></H2>
+            <Body className="text-slate-300 max-w-2xl mx-auto mt-4">
               This product is recommended for the following commercial and residential applications.
             </Body>
           </div>
@@ -678,10 +678,10 @@ const ProductDetails = () => {
         >
           <GlassCard className="p-12 text-center">
             <Award className="w-12 h-12 text-yellow-600 mx-auto mb-6" />
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               Ready to <span className="text-yellow-600">Place an Order?</span>
             </H2>
-            <Body className="text-gray-700 max-w-2xl mx-auto mb-8">
+            <Body className="text-slate-200 max-w-2xl mx-auto mb-8">
               Contact our sales team for bulk pricing, custom specifications, and delivery timelines. 
               We offer competitive rates for distributors and project contractors.
             </Body>
@@ -709,11 +709,11 @@ const ProductDetails = () => {
           className="mt-24 pb-16"
         >
           <div className="text-center mb-12">
-            <SectionBadge className="mb-4 bg-yellow-100 text-yellow-600 border-yellow-200">
+            <SectionBadge className="mb-4 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Package className="w-4 h-4" />
               Related Products
             </SectionBadge>
-            <H2 className="font-heading text-gray-800">You May Also <span className="text-yellow-600">Like</span></H2>
+            <H2 className="font-heading text-white">You May Also <span className="text-yellow-600">Like</span></H2>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -729,10 +729,10 @@ const ProductDetails = () => {
                   <GlassCard className="p-4 hover:border-yellow-300 transition-all group">
                     <div className={`aspect-square rounded-xl mb-4 ${relatedProduct.images?.[0] || 'bg-gray-200'} group-hover:scale-105 transition-transform`} />
                     <p className="text-yellow-600 text-xs font-medium mb-1">{relatedProduct.category}</p>
-                    <h3 className="text-gray-800 font-medium group-hover:text-yellow-600 transition-colors">
+                    <h3 className="text-white font-medium group-hover:text-yellow-600 transition-colors">
                       {relatedProduct.name}
                     </h3>
-                    <p className="text-gray-500 text-sm mt-1">{relatedProduct.colors?.length || 4} finishes</p>
+                    <p className="text-slate-400 text-sm mt-1">{relatedProduct.colors?.length || 4} finishes</p>
                   </GlassCard>
                 </Link>
               </motion.div>
@@ -745,4 +745,5 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
 

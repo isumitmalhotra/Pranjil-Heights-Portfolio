@@ -46,19 +46,19 @@ const StatCard = ({ icon: Icon, value, suffix, label, delay }) => (
     transition={{ duration: 0.6, delay }}
     className="relative group"
   >
-    <div className="glass-card p-6 text-center hover:border-yellow-600/30 transition-all duration-300">
+    <div className="p-6 text-center rounded-2xl bg-blue-300/16 border border-blue-200/25 backdrop-blur-sm hover:border-orange-400/50 transition-all duration-300">
       {/* Icon */}
-      <div className="w-14 h-14 rounded-xl bg-yellow-50 flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-100 transition-colors">
-        <Icon className="w-7 h-7 text-yellow-600" />
+      <div className="w-14 h-14 rounded-xl bg-blue-300/16 flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-500/20 transition-colors">
+        <Icon className="w-7 h-7 text-orange-400" />
       </div>
       
       {/* Value */}
-      <div className="text-4xl md:text-5xl font-bold text-yellow-600 mb-2">
+      <div className="text-4xl md:text-5xl font-bold text-white mb-2">
         <AnimatedCounter value={value} suffix={suffix} />
       </div>
       
       {/* Label */}
-      <div className="text-ivory/50 text-sm uppercase tracking-wider">
+      <div className="text-slate-300 text-sm uppercase tracking-wider">
         {label}
       </div>
     </div>
@@ -76,12 +76,12 @@ export const CompanyIntro = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-white" />
-      <div className="absolute inset-0 mesh-gradient opacity-10" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#0F2A44] via-[#1B2A4A] to-[#243B63]" />
+      <div className="absolute inset-0 mesh-gradient opacity-20" />
       
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-yellow-600/5 rounded-full filter blur-[120px]" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-600/5 rounded-full filter blur-[120px]" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-400/15 rounded-full filter blur-[120px]" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-500/15 rounded-full filter blur-[120px]" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
@@ -94,22 +94,22 @@ export const CompanyIntro = () => {
             className="space-y-6"
           >
             {/* Section Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-50 border border-yellow-600/20">
-              <span className="text-yellow-600 text-sm font-medium">About PVCPro</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-300/16 border border-blue-200/30">
+              <span className="text-orange-300 text-sm font-medium">About PVCPro</span>
             </div>
             
-            <H2>
+            <H2 className="text-white">
               India's Trusted Name in{' '}
-              <span className="text-yellow-600">Premium PVC Solutions</span>
+              <span className="text-orange-400">Premium PVC Solutions</span>
             </H2>
             
-            <Body className="text-gray-600" size="lg">
+            <Body className="text-slate-200" size="lg">
               Since 1998, we have been at the forefront of revolutionizing interior spaces 
               across India. Our commitment to innovation, quality, and customer satisfaction 
               has made us the preferred choice for architects, builders, and interior designers.
             </Body>
             
-            <Body className="text-gray-600">
+            <Body className="text-slate-200">
               With state-of-the-art manufacturing facilities and a nationwide distribution network, 
               we deliver premium PVC wall and ceiling panels that combine aesthetic excellence 
               with unmatched durability. Our products are designed to meet the diverse needs of 
@@ -118,12 +118,12 @@ export const CompanyIntro = () => {
             
             <div className="flex flex-wrap gap-4 pt-4">
               <Link to="/about">
-                <Button variant="outline" icon={ArrowRight}>
+                <Button variant="outline" icon={ArrowRight} className="border-white text-white hover:bg-blue-300/16 hover:border-white">
                   Learn Our Story
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button variant="ghost">
+                <Button variant="premium">
                   Contact Us
                 </Button>
               </Link>
@@ -146,7 +146,7 @@ export const CompanyIntro = () => {
                 className="w-full h-full object-cover"
               />
               {/* Overlay */}
-              <div className="absolute inset-0 bg-linear-to-t from-charcoal/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-[#0F2A44]/85 via-[#1B2A4A]/25 to-transparent" />
               
               {/* Floating Card */}
               <motion.div
@@ -154,23 +154,23 @@ export const CompanyIntro = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
-                className="absolute bottom-6 left-6 right-6 glass-card p-4"
+                className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-blue-300/16 border border-blue-200/30 backdrop-blur-sm"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-yellow-600/20 flex items-center justify-center">
-                    <Building2 className="w-6 h-6 text-yellow-600" />
+                  <div className="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center">
+                    <Building2 className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
-                    <div className="text-gray-800 font-semibold">State-of-the-Art Facility</div>
-                    <div className="text-gray-500 text-sm">50,000 sq.ft. Manufacturing Plant</div>
+                    <div className="text-white font-semibold">State-of-the-Art Facility</div>
+                    <div className="text-slate-200 text-sm">50,000 sq.ft. Manufacturing Plant</div>
                   </div>
                 </div>
               </motion.div>
             </div>
             
             {/* Corner Decoration */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-yellow-600/30 rounded-tr-3xl" />
-            <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-yellow-600/30 rounded-bl-3xl" />
+            <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-orange-400/40 rounded-tr-3xl" />
+            <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-blue-300/40 rounded-bl-3xl" />
           </motion.div>
         </div>
         

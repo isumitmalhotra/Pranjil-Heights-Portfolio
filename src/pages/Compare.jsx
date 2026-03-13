@@ -25,7 +25,7 @@ const ComparisonBadge = ({ value, isBest, type = 'text' }) => {
   }
   
   return (
-    <span className={`font-medium ${isBest ? 'text-yellow-600' : 'text-gray-800'}`}>
+    <span className={`font-medium ${isBest ? 'text-yellow-600' : 'text-white'}`}>
       {value}
       {isBest && (
         <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-600 text-xs">
@@ -50,7 +50,7 @@ const CompareProductCard = ({ product, onRemove }) => (
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={onRemove}
-        className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-red-500/20 hover:text-red-400 transition-all opacity-0 group-hover:opacity-100"
+        className="absolute top-3 right-3 w-8 h-8 rounded-full bg-blue-300/15 flex items-center justify-center text-slate-300 hover:bg-red-500/20 hover:text-red-400 transition-all opacity-0 group-hover:opacity-100"
       >
         <X className="w-4 h-4" />
       </motion.button>
@@ -62,7 +62,7 @@ const CompareProductCard = ({ product, onRemove }) => (
       />
       
       {/* Product Info */}
-      <h3 className="text-lg font-bold text-gray-800 mb-1">{product.name}</h3>
+      <h3 className="text-lg font-bold text-white mb-1">{product.name}</h3>
       <p className="text-yellow-600 text-sm font-medium">{product.category}</p>
     </GlassCard>
   </motion.div>
@@ -77,21 +77,21 @@ const AddProductCard = ({ onClick, disabled }) => (
     disabled={disabled}
     className={`w-full h-full min-h-70 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center transition-all group ${
       disabled 
-        ? 'border-white/5 text-gray-600 cursor-not-allowed'
-        : 'border-white/10 text-gray-400 hover:text-teal hover:border-teal/50'
+        ? 'border-blue-200/20 text-slate-300 cursor-not-allowed'
+        : 'border-blue-200/25 text-slate-300 hover:text-teal hover:border-teal/50'
     }`}
   >
     <motion.div 
       animate={!disabled ? { scale: [1, 1.1, 1] } : {}}
       transition={{ repeat: Infinity, duration: 2 }}
       className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
-        disabled ? 'bg-white/5' : 'bg-white/5 group-hover:bg-teal/10'
+        disabled ? 'bg-blue-300/15' : 'bg-blue-300/15 group-hover:bg-teal/10'
       }`}
     >
       <Plus className="w-8 h-8" />
     </motion.div>
     <span className="font-medium text-lg">Add Product</span>
-    <span className="text-sm mt-1 text-gray-500">
+    <span className="text-sm mt-1 text-slate-400">
       {disabled ? 'Maximum 4 products' : 'Click to select'}
     </span>
   </motion.button>
@@ -120,16 +120,16 @@ const ProductModal = ({ isOpen, onClose, onSelect, excludeIds }) => {
           >
             <GlassCard className="max-h-[80vh] overflow-hidden flex flex-col">
               {/* Header */}
-              <div className="flex justify-between items-center mb-6 pb-6 border-b border-white/10">
+              <div className="flex justify-between items-center mb-6 pb-6 border-b border-blue-200/25">
                 <div>
                   <h3 className="text-2xl font-bold text-white">Select Product</h3>
-                  <p className="text-gray-400 text-sm mt-1">Choose a product to add to comparison</p>
+                  <p className="text-slate-300 text-sm mt-1">Choose a product to add to comparison</p>
                 </div>
                 <motion.button 
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={onClose} 
-                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                  className="w-10 h-10 rounded-full bg-blue-300/15 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-300/10 transition-all"
                 >
                   <X className="w-5 h-5" />
                 </motion.button>
@@ -148,25 +148,25 @@ const ProductModal = ({ isOpen, onClose, onSelect, excludeIds }) => {
                         onClick={() => onSelect(product)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-4 p-4 rounded-xl border border-white/10 hover:bg-white/5 hover:border-teal/50 transition-all text-left group"
+                        className="flex items-center gap-4 p-4 rounded-xl border border-blue-200/25 hover:bg-blue-300/15 hover:border-teal/50 transition-all text-left group"
                       >
                         <div className={`w-20 h-20 rounded-xl shadow-lg ${product.images[0]}`} />
                         <div className="flex-1">
                           <h4 className="font-bold text-white group-hover:text-teal transition-colors">
                             {product.name}
                           </h4>
-                          <p className="text-sm text-gray-400">{product.category}</p>
+                          <p className="text-sm text-slate-300">{product.category}</p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-gray-600 group-hover:text-teal transition-all group-hover:translate-x-1" />
+                        <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-teal transition-all group-hover:translate-x-1" />
                       </motion.button>
                     ))}
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 rounded-full bg-blue-300/15 flex items-center justify-center mx-auto mb-4">
                       <Check className="w-8 h-8 text-teal" />
                     </div>
-                    <p className="text-gray-400">All products have been selected for comparison.</p>
+                    <p className="text-slate-300">All products have been selected for comparison.</p>
                   </div>
                 )}
               </div>
@@ -235,7 +235,7 @@ const Compare = () => {
               Compare <span className="text-yellow-600">Products</span>
             </H1>
             
-            <Body className="text-gray-400 text-lg">
+            <Body className="text-slate-300 text-lg">
               Compare specifications and features side by side to find the perfect match for your project.
             </Body>
           </motion.div>
@@ -252,11 +252,11 @@ const Compare = () => {
               className="text-center py-24"
             >
               <GlassCard className="max-w-md mx-auto py-16">
-                <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
-                  <Scale className="w-10 h-10 text-gray-400" />
+                <div className="w-20 h-20 rounded-full bg-blue-300/15 flex items-center justify-center mx-auto mb-6">
+                  <Scale className="w-10 h-10 text-slate-300" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">No Products Selected</h3>
-                <p className="text-gray-500 mb-8">
+                <h3 className="text-xl font-bold text-white mb-2">No Products Selected</h3>
+                <p className="text-slate-400 mb-8">
                   Select up to 4 products to compare their features and specifications.
                 </p>
                 <Button onClick={() => setIsModalOpen(true)} variant="primary" glow>
@@ -269,8 +269,8 @@ const Compare = () => {
             <>
               {/* Action Bar */}
               <div className="flex justify-between items-center mb-8">
-                <p className="text-gray-500">
-                  Comparing <span className="text-gray-800 font-medium">{selectedProducts.length}</span> of 4 products
+                <p className="text-slate-400">
+                  Comparing <span className="text-white font-medium">{selectedProducts.length}</span> of 4 products
                 </p>
                 <div className="flex gap-4">
                   <Button variant="ghost" onClick={resetComparison} icon={RefreshCw}>
@@ -313,7 +313,7 @@ const Compare = () => {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.05 }}
-                          className={index % 2 === 0 ? 'bg-white/5' : ''}
+                          className={index % 2 === 0 ? 'bg-blue-300/15' : ''}
                         >
                           <td className="p-5 text-gray-300 font-medium w-48">
                             {spec.label}
@@ -335,7 +335,7 @@ const Compare = () => {
                       ))}
                       
                       {/* Action Row */}
-                      <tr className="border-t border-white/10">
+                      <tr className="border-t border-blue-200/25">
                         <td className="p-5" />
                         {selectedProducts.map(product => (
                           <td key={product.id} className="p-5 text-center">
@@ -369,12 +369,12 @@ const Compare = () => {
                   <Sparkles className="w-6 h-6 text-yellow-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-2">Pro Tip</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-lg font-bold text-white mb-2">Pro Tip</h3>
+                  <p className="text-slate-300">
                     Not sure which product to choose? Consider your specific needs: 
                     <span className="text-yellow-600"> Waterproof panels</span> are ideal for bathrooms, 
                     <span className="text-red-600"> Fire-resistant panels</span> are recommended for commercial spaces, and 
-                    <span className="text-gray-800 font-medium"> Premium finishes</span> work best for living areas and bedrooms.
+                    <span className="text-white font-medium"> Premium finishes</span> work best for living areas and bedrooms.
                     Our team is always happy to help you make the right choice!
                   </p>
                 </div>
@@ -396,4 +396,5 @@ const Compare = () => {
 };
 
 export default Compare;
+
 

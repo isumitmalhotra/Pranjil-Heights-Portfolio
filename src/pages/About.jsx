@@ -40,8 +40,8 @@ const TimelineItem = ({ year, title, description, index, isLast }) => {
       <div className="flex-1">
         <GlassCard className={`p-6 ${index % 2 === 0 ? 'md:ml-auto' : ''} max-w-md`}>
           <span className="text-yellow-600 font-bold text-2xl mb-2 block">{year}</span>
-          <H3 className="mb-3 text-gray-800">{title}</H3>
-          <p className="text-gray-600">{description}</p>
+          <H3 className="mb-3 text-white">{title}</H3>
+          <p className="text-slate-300">{description}</p>
         </GlassCard>
       </div>
       
@@ -74,16 +74,16 @@ const ValueCard = ({ icon: IconComponent, title, description }) => (
   >
     <GlassCard className="p-8 h-full relative overflow-hidden">
       {/* Gradient Background on Hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 bg-yellow-50" />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 bg-orange-500/10" />
       
       <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 bg-yellow-100">
         <IconComponent className="w-8 h-8 text-yellow-600" />
       </div>
       
-      <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-yellow-600 transition-all font-heading">
+      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-yellow-600 transition-all font-heading">
         {title}
       </h3>
-      <p className="text-gray-600 leading-relaxed">{description}</p>
+      <p className="text-slate-300 group-hover:text-slate-200 transition-colors leading-relaxed">{description}</p>
     </GlassCard>
   </motion.div>
 );
@@ -95,12 +95,12 @@ const LeadershipCard = ({ name, role, experience }) => (
     className="group"
   >
     <GlassCard className="p-6 text-center">
-      <div className="w-24 h-24 rounded-full bg-gray-100 mx-auto mb-4 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-blue-300/15 mx-auto mb-4 flex items-center justify-center">
         <Briefcase className="w-10 h-10 text-yellow-600" />
       </div>
-      <h4 className="text-gray-800 font-bold text-lg font-heading">{name}</h4>
+      <h4 className="text-white font-bold text-lg font-heading">{name}</h4>
       <p className="text-yellow-600 text-sm font-medium mb-2">{role}</p>
-      <p className="text-gray-500 text-sm">{experience}</p>
+      <p className="text-slate-400 text-sm">{experience}</p>
     </GlassCard>
   </motion.div>
 );
@@ -112,8 +112,8 @@ const FacilityFeature = ({ icon: IconComponent, title, description }) => (
       <IconComponent className="w-6 h-6 text-yellow-600" />
     </div>
     <div>
-      <h4 className="text-gray-800 font-medium mb-1">{title}</h4>
-      <p className="text-gray-600 text-sm">{description}</p>
+      <h4 className="text-white font-medium mb-1">{title}</h4>
+      <p className="text-slate-300 text-sm">{description}</p>
     </div>
   </div>
 );
@@ -199,16 +199,16 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <SectionBadge className="mb-6 bg-yellow-100 text-yellow-600 border-yellow-200">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Building className="w-4 h-4" />
               About Our Company
             </SectionBadge>
             
-            <H1 className="mb-6 max-w-4xl mx-auto font-heading text-gray-800">
+            <H1 className="mb-6 max-w-4xl mx-auto font-heading text-white">
               India's Leading Manufacturer of <span className="text-yellow-600">Premium PVC Panels</span>
             </H1>
             
-            <Body className="max-w-3xl mx-auto text-xl text-gray-700 mb-8">
+            <Body className="max-w-3xl mx-auto text-xl text-slate-200 mb-8">
               For over 25 years, we have been at the forefront of PVC panel manufacturing, 
               delivering quality products to architects, contractors, and dealers across India.
             </Body>
@@ -255,7 +255,7 @@ const About = () => {
                     <div className="text-3xl md:text-4xl font-bold text-yellow-600 mb-2 font-heading">
                       <AnimatedNumber value={stat.value} />
                     </div>
-                    <div className="text-gray-600 text-sm">{stat.label}</div>
+                    <div className="text-slate-300 text-sm">{stat.label}</div>
                   </GlassCard>
                 </motion.div>
               ))}
@@ -274,20 +274,20 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <SectionBadge className="mb-6 bg-yellow-50 text-yellow-600 border-yellow-200">Company Overview</SectionBadge>
+              <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">Company Overview</SectionBadge>
               
-              <H2 className="mb-6 font-heading text-gray-800">
+              <H2 className="mb-6 font-heading text-white">
                 Building India's <span className="text-yellow-600">Interior Future</span>
               </H2>
               
-              <Body className="text-gray-700 mb-6 leading-relaxed">
+              <Body className="text-slate-200 mb-6 leading-relaxed">
                 Established in 1998, PVCPro has grown from a small manufacturing unit to become 
                 one of India's most trusted names in PVC wall and ceiling panels. Our commitment 
                 to quality, innovation, and customer service has made us the preferred choice for 
                 architects, interior designers, and contractors nationwide.
               </Body>
               
-              <Body className="text-gray-700 mb-8 leading-relaxed">
+              <Body className="text-slate-200 mb-8 leading-relaxed">
                 With a production capacity of 50,000+ square feet per day and a network of 500+ 
                 authorized dealers, we ensure reliable supply and consistent quality across the country. 
                 Our products are specified in premium residential projects, commercial spaces, 
@@ -316,7 +316,7 @@ const About = () => {
                 <motion.div 
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.4 }}
-                  className="rounded-3xl overflow-hidden shadow-2xl border border-gray-200 aspect-4/3 bg-linear-to-br from-gray-800 to-gray-900 relative"
+                  className="rounded-3xl overflow-hidden shadow-2xl border border-blue-200/25 aspect-4/3 bg-linear-to-br from-gray-800 to-gray-900 relative"
                 >
                   <div className="absolute inset-0 flex items-center justify-center">
                     <Factory className="w-32 h-32 text-yellow-400/30" />
@@ -339,7 +339,7 @@ const About = () => {
       </section>
 
       {/* Leadership Section */}
-      <section className="relative py-24 bg-gray-50">
+      <section className="relative py-24 bg-blue-400/10">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -347,16 +347,16 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <SectionBadge className="mb-6 bg-yellow-50 text-yellow-600 border-yellow-200">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Users className="w-4 h-4" />
               Leadership Team
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               Meet Our <span className="text-yellow-600">Leaders</span>
             </H2>
             
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               Experienced professionals driving innovation and excellence in PVC manufacturing.
             </p>
           </motion.div>
@@ -387,11 +387,11 @@ const About = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="rounded-3xl overflow-hidden border border-gray-200 bg-linear-to-br from-gray-800 to-gray-900 aspect-video relative">
+              <div className="rounded-3xl overflow-hidden border border-blue-200/25 bg-linear-to-br from-gray-800 to-gray-900 aspect-video relative">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
                     <Factory className="w-20 h-20 text-yellow-400/30 mx-auto mb-4" />
-                    <p className="text-gray-500">Manufacturing Facility</p>
+                    <p className="text-slate-400">Manufacturing Facility</p>
                   </div>
                 </div>
               </div>
@@ -403,16 +403,16 @@ const About = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <SectionBadge className="mb-6 bg-yellow-50 text-yellow-600 border-yellow-200">
+              <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
                 <Factory className="w-4 h-4" />
                 Our Facilities
               </SectionBadge>
               
-              <H2 className="mb-6 font-heading text-gray-800">
+              <H2 className="mb-6 font-heading text-white">
                 World-Class <span className="text-yellow-600">Manufacturing</span>
               </H2>
               
-              <Body className="text-gray-700 mb-8">
+              <Body className="text-slate-200 mb-8">
                 Our 100,000 sq ft facility is equipped with the latest German and Italian machinery, 
                 ensuring precision manufacturing and consistent quality in every panel.
               </Body>
@@ -436,7 +436,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="relative py-24 bg-gray-50">
+      <section className="relative py-24 bg-blue-400/10">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -444,16 +444,16 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <SectionBadge className="mb-6 bg-yellow-50 text-yellow-600 border-yellow-200">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Heart className="w-4 h-4" />
               Our Values
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               What <span className="text-yellow-600">Drives Us</span>
             </H2>
             
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               Our core values shape everything we do, from product design to customer relationships.
             </p>
           </motion.div>
@@ -483,12 +483,12 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <SectionBadge className="mb-6 bg-yellow-50 text-yellow-600 border-yellow-200">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <TrendingUp className="w-4 h-4" />
               Our Journey
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               25+ Years of <span className="text-yellow-600">Excellence</span>
             </H2>
           </motion.div>
@@ -509,7 +509,7 @@ const About = () => {
       </section>
 
       {/* Certifications Section */}
-      <section className="relative py-24 bg-gray-50">
+      <section className="relative py-24 bg-blue-400/10">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Certification Grid */}
@@ -533,8 +533,8 @@ const About = () => {
                       <div className="w-16 h-16 rounded-2xl bg-yellow-50 flex items-center justify-center mb-4">
                         <Award className="w-8 h-8 text-yellow-600" />
                       </div>
-                      <span className="text-gray-800 font-bold text-lg font-heading">{cert.name}</span>
-                      <span className="text-gray-500 text-sm mt-1">{cert.subtitle}</span>
+                      <span className="text-white font-bold text-lg font-heading">{cert.name}</span>
+                      <span className="text-slate-400 text-sm mt-1">{cert.subtitle}</span>
                     </GlassCard>
                   </motion.div>
                 ))}
@@ -548,16 +548,16 @@ const About = () => {
               viewport={{ once: true }}
               className="order-1 lg:order-2"
             >
-              <SectionBadge className="mb-6 bg-yellow-50 text-yellow-600 border-yellow-200">
+              <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
                 <Award className="w-4 h-4" />
                 Certifications
               </SectionBadge>
               
-              <H2 className="mb-6 font-heading text-gray-800">
+              <H2 className="mb-6 font-heading text-white">
                 Certified <span className="text-yellow-600">Excellence</span>
               </H2>
               
-              <Body className="text-gray-700 mb-8 leading-relaxed">
+              <Body className="text-slate-200 mb-8 leading-relaxed">
                 Quality is not just a promise; it's verified by independent certifications. 
                 We adhere to the strictest international and Indian standards for manufacturing, 
                 safety, and environmental sustainability.
@@ -577,7 +577,7 @@ const About = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-3 text-gray-700"
+                    className="flex items-center gap-3 text-slate-200"
                   >
                     <div className="w-6 h-6 rounded-full bg-yellow-50 flex items-center justify-center">
                       <CheckCircle className="w-4 h-4 text-yellow-600" />
@@ -606,11 +606,11 @@ const About = () => {
               <div className="max-w-2xl mx-auto">
                 <Award className="w-12 h-12 text-yellow-600 mx-auto mb-6" />
                 
-                <H2 className="mb-4 font-heading text-gray-800">
+                <H2 className="mb-4 font-heading text-white">
                   Partner With <span className="text-yellow-600">India's Best</span>
                 </H2>
                 
-                <p className="text-gray-700 mb-8 text-lg">
+                <p className="text-slate-200 mb-8 text-lg">
                   Join our network of 500+ dealers and contractors. Experience reliable supply, 
                   competitive pricing, and dedicated support.
                 </p>
@@ -638,4 +638,5 @@ const About = () => {
 };
 
 export default About;
+
 

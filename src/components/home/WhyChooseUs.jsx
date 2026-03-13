@@ -74,7 +74,7 @@ export const WhyChooseUs = () => {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/4 -right-64 w-125 h-125 border border-white/5 rounded-full"
+        className="absolute top-1/4 -right-64 w-125 h-125 border border-blue-200/20 rounded-full"
       />
       <motion.div
         animate={{ rotate: -360 }}

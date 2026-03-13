@@ -58,7 +58,7 @@ export const StatCard = ({ value, suffix = '', prefix = '', label, icon: Icon, d
       transition={{ duration: 0.6, delay }}
       className="relative group"
     >
-      <div className="text-center p-6 md:p-8 bg-white/5 rounded-2xl border border-white/5 hover:border-yellow-600/20 hover:bg-white/10 transition-all duration-500">
+      <div className="text-center p-6 md:p-8 bg-blue-300/12 rounded-2xl border border-blue-200/20 hover:border-yellow-600/20 hover:bg-blue-300/16 transition-all duration-500">
         {/* Icon */}
         {Icon && (
           <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-yellow-50 border border-yellow-600/20 flex items-center justify-center group-hover:bg-yellow-100 transition-colors">

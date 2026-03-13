@@ -19,15 +19,15 @@ export const GlassCard = ({
     none: '',
   };
 
-  // Clean white cards with subtle shadows - no blur effects
+  // Blue glass cards for consistent theme across all pages
   const variants = {
-    default: 'bg-white border border-gray-200 shadow-sm hover:shadow-md',
-    solid: 'bg-white border border-gray-200 shadow-sm hover:shadow-md',
-    gradient: 'bg-white border border-gray-200 shadow-sm hover:shadow-md',
-    glow: 'bg-white border border-gray-200 shadow-sm hover:shadow-md ring-1 ring-yellow-500/10',
-    premium: 'bg-white border border-gray-200 shadow-sm hover:shadow-lg border-l-4 border-l-yellow-600',
-    dark: 'bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md',
-    outlined: 'bg-white border-2 border-gray-300 hover:border-yellow-500 shadow-sm hover:shadow-md',
+    default: 'bg-blue-300/20 border border-blue-200/30 backdrop-blur-md shadow-lg shadow-black/25',
+    solid: 'bg-blue-300/22 border border-blue-200/35 backdrop-blur-md shadow-lg shadow-black/25',
+    gradient: 'bg-linear-to-br from-blue-300/20 to-blue-400/10 border border-blue-200/30 backdrop-blur-md shadow-lg shadow-black/25',
+    glow: 'bg-blue-300/22 border border-blue-200/35 backdrop-blur-md shadow-lg shadow-black/25 ring-1 ring-orange-400/20',
+    premium: 'bg-blue-300/22 border border-blue-200/35 backdrop-blur-md shadow-xl shadow-black/30 border-l-4 border-l-orange-500',
+    dark: 'bg-[#102B4C]/85 border border-blue-200/30 backdrop-blur-md shadow-lg shadow-black/30',
+    outlined: 'bg-blue-300/16 border-2 border-blue-200/35 hover:border-orange-400/60 backdrop-blur-md shadow-lg shadow-black/25',
   };
 
   return (
@@ -50,9 +50,9 @@ export const GlassCard = ({
       )}
       {...props}
     >
-      {/* Subtle hover state enhancement */}
+      {/* Soft orange tint on hover */}
       {hoverEffect && (
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-yellow-50/30" />
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-orange-500/8" />
       )}
       
       {/* Content */}
@@ -77,9 +77,9 @@ export const FeatureCard = ({
   ...props 
 }) => {
   const iconColors = {
-    teal: 'bg-gold/10 text-gold group-hover:bg-gold/20 group-hover:shadow-lg group-hover:shadow-gold/20',
-    gold: 'bg-gold/10 text-gold group-hover:bg-gold/20 group-hover:shadow-lg group-hover:shadow-gold/20',
-    white: 'bg-gray-100 text-gray-800 group-hover:bg-gray-200',
+    teal: 'bg-orange-500/20 text-orange-300 group-hover:bg-orange-500/30 group-hover:shadow-lg group-hover:shadow-orange-500/30',
+    gold: 'bg-orange-500/20 text-orange-300 group-hover:bg-orange-500/30 group-hover:shadow-lg group-hover:shadow-orange-500/30',
+    white: 'bg-blue-200/20 text-slate-100 group-hover:bg-blue-200/30',
   };
 
   return (
@@ -94,8 +94,8 @@ export const FeatureCard = ({
       >
         <IconComponent className="w-8 h-8" />
       </motion.div>
-      <h3 className="text-xl font-bold text-gray-800 mb-3 font-heading">{title}</h3>
-      <p className="text-gray-600 leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold text-white mb-3 font-heading">{title}</h3>
+      <p className="text-slate-200 leading-relaxed">{description}</p>
     </GlassCard>
   );
 };
@@ -118,7 +118,7 @@ export const StatCard = ({ value, label, icon: IconComponent, className, ...prop
       >
         {value}
       </motion.div>
-      <div className="text-gray-500 text-sm uppercase tracking-wider">{label}</div>
+      <div className="text-slate-300 text-sm uppercase tracking-wider">{label}</div>
     </GlassCard>
   );
 };
@@ -161,14 +161,14 @@ export const ProductCard = ({
       
       {/* Content */}
       <div className="p-6">
-        <h3 className="text-lg font-bold text-gray-800 mb-3 group-hover:text-gold transition-colors font-heading">
+        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-orange-300 transition-colors font-heading">
           {title}
         </h3>
         
         {features.length > 0 && (
           <ul className="space-y-2">
             {features.slice(0, 4).map((feature, index) => (
-              <li key={index} className="flex items-start gap-2 text-gray-500 text-sm">
+              <li key={index} className="flex items-start gap-2 text-slate-200 text-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0 mt-1.5" />
                 <span>{feature}</span>
               </li>
@@ -198,10 +198,10 @@ export const InfoCard = ({
           </div>
         )}
         <div>
-          <div className="text-gray-500 text-sm mb-1">{title}</div>
-          <div className="text-xl font-bold text-gray-800 mb-1">{value}</div>
+          <div className="text-slate-300 text-sm mb-1">{title}</div>
+          <div className="text-xl font-bold text-white mb-1">{value}</div>
           {description && (
-            <div className="text-gray-600 text-sm">{description}</div>
+            <div className="text-slate-200 text-sm">{description}</div>
           )}
         </div>
       </div>

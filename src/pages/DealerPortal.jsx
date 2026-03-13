@@ -24,8 +24,8 @@ const BenefitCard = ({ icon: IconComponent, title, description }) => (
       <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
         <IconComponent className="w-6 h-6 text-gold" />
       </div>
-      <h4 className="text-gray-800 font-bold mb-2 font-heading">{title}</h4>
-      <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+      <h4 className="text-white font-bold mb-2 font-heading">{title}</h4>
+      <p className="text-slate-300 text-sm leading-relaxed">{description}</p>
     </GlassCard>
   </motion.div>
 );
@@ -34,7 +34,7 @@ const BenefitCard = ({ icon: IconComponent, title, description }) => (
 const StatCard = ({ value, label }) => (
   <div className="text-center">
     <div className="text-4xl font-bold text-gold mb-2 font-heading">{value}</div>
-    <div className="text-gray-600 text-sm">{label}</div>
+    <div className="text-slate-300 text-sm">{label}</div>
   </div>
 );
 
@@ -48,33 +48,33 @@ const DealerLogin = () => {
         <div className="w-16 h-16 rounded-2xl bg-gold/20 flex items-center justify-center mx-auto mb-4">
           <Lock className="w-8 h-8 text-gold" />
         </div>
-        <h3 className="text-xl font-bold text-gray-800 font-heading mb-2">Dealer Login</h3>
-        <p className="text-gray-600 text-sm">Access your dealer dashboard</p>
+        <h3 className="text-xl font-bold text-white font-heading mb-2">Dealer Login</h3>
+        <p className="text-slate-300 text-sm">Access your dealer dashboard</p>
       </div>
 
       <form className="space-y-4">
         <div>
-          <label className="block text-gray-700 text-sm mb-2">Email Address</label>
+          <label className="block text-slate-200 text-sm mb-2">Email Address</label>
           <input
             type="email"
             value={credentials.email}
             onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
-            className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+            className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
             placeholder="dealer@company.com"
           />
         </div>
         <div>
-          <label className="block text-gray-700 text-sm mb-2">Password</label>
+          <label className="block text-slate-200 text-sm mb-2">Password</label>
           <input
             type="password"
             value={credentials.password}
             onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-            className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
-            placeholder="••••••••"
+            className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+            placeholder="********"
           />
         </div>
         <div className="flex items-center justify-between text-sm">
-          <label className="flex items-center gap-2 text-gray-600">
+          <label className="flex items-center gap-2 text-slate-300">
             <input type="checkbox" className="rounded border-black/20" />
             Remember me
           </label>
@@ -89,8 +89,8 @@ const DealerLogin = () => {
         </Button>
       </form>
 
-      <div className="mt-6 pt-6 border-t border-black/10 text-center">
-        <p className="text-gray-600 text-sm">
+      <div className="mt-6 pt-6 border-t border-blue-200/25 text-center">
+        <p className="text-slate-300 text-sm">
           Not a dealer yet?{' '}
           <a href="#apply" className="text-gold hover:underline">Apply now</a>
         </p>
@@ -175,8 +175,8 @@ const DealerApplicationForm = () => {
           <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center">
             <CheckCircle className="w-10 h-10 text-green-500" />
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-3 font-heading">Application Submitted!</h3>
-          <p className="text-gray-600 max-w-md mx-auto">
+          <h3 className="text-2xl font-bold text-white mb-3 font-heading">Application Submitted!</h3>
+          <p className="text-slate-300 max-w-md mx-auto">
             Thank you for your interest in becoming a dealer. Our team will review your application 
             and contact you within 48 hours.
           </p>
@@ -188,40 +188,40 @@ const DealerApplicationForm = () => {
   return (
     <GlassCard className="p-8 border-gold/20" id="apply">
       <div className="text-center mb-8">
-        <SectionBadge className="mb-4 bg-gold/20 text-gold border-gold/30">
+        <SectionBadge className="mb-4 bg-blue-300/16 text-orange-300 border-blue-200/30">
           <Building className="w-4 h-4" />
           Dealer Application
         </SectionBadge>
-        <H3 className="text-gray-800 font-heading">Apply to Become a Dealer</H3>
-        <p className="text-gray-600 mt-2">Fill out the form below and our team will get back to you within 48 hours.</p>
+        <H3 className="text-white font-heading">Apply to Become a Dealer</H3>
+        <p className="text-slate-300 mt-2">Fill out the form below and our team will get back to you within 48 hours.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Company Information */}
         <div className="space-y-4">
-          <h4 className="text-gray-800 font-medium text-sm uppercase tracking-wider border-b border-black/10 pb-2">
+          <h4 className="text-white font-medium text-sm uppercase tracking-wider border-b border-blue-200/25 pb-2">
             Company Information
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-700 text-sm mb-2">Company Name *</label>
+              <label className="block text-slate-200 text-sm mb-2">Company Name *</label>
               <input
                 type="text"
                 required
                 value={formData.companyName}
                 onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
                 placeholder="Your Company Pvt. Ltd."
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm mb-2">Contact Person *</label>
+              <label className="block text-slate-200 text-sm mb-2">Contact Person *</label>
               <input
                 type="text"
                 required
                 value={formData.contactName}
                 onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
                 placeholder="Full Name"
               />
             </div>
@@ -229,24 +229,24 @@ const DealerApplicationForm = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-700 text-sm mb-2">Email Address *</label>
+              <label className="block text-slate-200 text-sm mb-2">Email Address *</label>
               <input
                 type="email"
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
                 placeholder="business@company.com"
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm mb-2">Phone Number *</label>
+              <label className="block text-slate-200 text-sm mb-2">Phone Number *</label>
               <input
                 type="tel"
                 required
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
                 placeholder="+91 98765 43210"
               />
             </div>
@@ -254,24 +254,24 @@ const DealerApplicationForm = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-700 text-sm mb-2">City *</label>
+              <label className="block text-slate-200 text-sm mb-2">City *</label>
               <input
                 type="text"
                 required
                 value={formData.city}
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
                 placeholder="Your City"
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm mb-2">State *</label>
+              <label className="block text-slate-200 text-sm mb-2">State *</label>
               <input
                 type="text"
                 required
                 value={formData.state}
                 onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
                 placeholder="Your State"
               />
             </div>
@@ -280,77 +280,77 @@ const DealerApplicationForm = () => {
 
         {/* Business Details */}
         <div className="space-y-4">
-          <h4 className="text-gray-800 font-medium text-sm uppercase tracking-wider border-b border-black/10 pb-2">
+          <h4 className="text-white font-medium text-sm uppercase tracking-wider border-b border-blue-200/25 pb-2">
             Business Details
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-700 text-sm mb-2">Business Type *</label>
+              <label className="block text-slate-200 text-sm mb-2">Business Type *</label>
               <select
                 required
                 value={formData.businessType}
                 onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
               >
-                <option value="" className="bg-white">Select Type...</option>
-                <option value="retailer" className="bg-white">Retailer</option>
-                <option value="distributor" className="bg-white">Distributor</option>
-                <option value="contractor" className="bg-white">Contractor / Builder</option>
-                <option value="architect" className="bg-white">Architect / Interior Designer</option>
-                <option value="wholesaler" className="bg-white">Wholesaler</option>
+                <option value="" className="bg-blue-300/15">Select Type...</option>
+                <option value="retailer" className="bg-blue-300/15">Retailer</option>
+                <option value="distributor" className="bg-blue-300/15">Distributor</option>
+                <option value="contractor" className="bg-blue-300/15">Contractor / Builder</option>
+                <option value="architect" className="bg-blue-300/15">Architect / Interior Designer</option>
+                <option value="wholesaler" className="bg-blue-300/15">Wholesaler</option>
               </select>
             </div>
             <div>
-              <label className="block text-gray-700 text-sm mb-2">Years in Business *</label>
+              <label className="block text-slate-200 text-sm mb-2">Years in Business *</label>
               <select
                 required
                 value={formData.yearsInBusiness}
                 onChange={(e) => setFormData({ ...formData, yearsInBusiness: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
               >
-                <option value="" className="bg-white">Select...</option>
-                <option value="0-2" className="bg-white">0-2 years</option>
-                <option value="3-5" className="bg-white">3-5 years</option>
-                <option value="5-10" className="bg-white">5-10 years</option>
-                <option value="10+" className="bg-white">10+ years</option>
+                <option value="" className="bg-blue-300/15">Select...</option>
+                <option value="0-2" className="bg-blue-300/15">0-2 years</option>
+                <option value="3-5" className="bg-blue-300/15">3-5 years</option>
+                <option value="5-10" className="bg-blue-300/15">5-10 years</option>
+                <option value="10+" className="bg-blue-300/15">10+ years</option>
               </select>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-700 text-sm mb-2">Current Product Lines</label>
+              <label className="block text-slate-200 text-sm mb-2">Current Product Lines</label>
               <input
                 type="text"
                 value={formData.currentProducts}
                 onChange={(e) => setFormData({ ...formData, currentProducts: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
                 placeholder="e.g., Building materials, Hardware"
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm mb-2">Expected Monthly Volume (sqft)</label>
+              <label className="block text-slate-200 text-sm mb-2">Expected Monthly Volume (sqft)</label>
               <select
                 value={formData.monthlyVolume}
                 onChange={(e) => setFormData({ ...formData, monthlyVolume: e.target.value })}
-                className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
               >
-                <option value="" className="bg-white">Select...</option>
-                <option value="500-2000" className="bg-white">500 - 2,000 sqft</option>
-                <option value="2000-5000" className="bg-white">2,000 - 5,000 sqft</option>
-                <option value="5000-10000" className="bg-white">5,000 - 10,000 sqft</option>
-                <option value="10000+" className="bg-white">10,000+ sqft</option>
+                <option value="" className="bg-blue-300/15">Select...</option>
+                <option value="500-2000" className="bg-blue-300/15">500 - 2,000 sqft</option>
+                <option value="2000-5000" className="bg-blue-300/15">2,000 - 5,000 sqft</option>
+                <option value="5000-10000" className="bg-blue-300/15">5,000 - 10,000 sqft</option>
+                <option value="10000+" className="bg-blue-300/15">10,000+ sqft</option>
               </select>
             </div>
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm mb-2">Tell us about your business</label>
+            <label className="block text-slate-200 text-sm mb-2">Tell us about your business</label>
             <textarea
               rows={4}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors resize-none"
+              className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors resize-none"
               placeholder="Describe your business, existing customer base, and why you want to partner with Pranjil Heights India..."
             />
           </div>
@@ -358,7 +358,7 @@ const DealerApplicationForm = () => {
 
         <div className="flex items-start gap-3">
           <input type="checkbox" required className="mt-1 rounded border-black/20" />
-          <p className="text-gray-600 text-sm">
+          <p className="text-slate-300 text-sm">
             I agree to the <a href="#" className="text-gold hover:underline">Terms & Conditions</a> and 
             authorize Pranjil Heights India to contact me regarding the dealer partnership.
           </p>
@@ -426,16 +426,16 @@ const DealerPortal = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+              <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
                 <Building className="w-4 h-4" />
                 Dealer Partnership
               </SectionBadge>
               
-              <H1 className="mb-6 font-heading text-gray-800">
+              <H1 className="mb-6 font-heading text-white">
                 Partner With India's <span className="text-gold">Leading</span> PVC Panel Brand
               </H1>
               
-              <Body className="text-gray-700 text-lg mb-8">
+              <Body className="text-slate-200 text-lg mb-8">
                 Join our network of 500+ successful dealers across India. Get access to premium products, 
                 competitive pricing, and comprehensive business support.
               </Body>
@@ -484,16 +484,16 @@ const DealerPortal = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Award className="w-4 h-4" />
               Partnership Benefits
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               Why Partner With <span className="text-gold">PVCPro</span>
             </H2>
             
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               Our dealer program is designed to help you succeed with industry-leading support and margins.
             </p>
           </motion.div>
@@ -523,16 +523,16 @@ const DealerPortal = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+              <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
                 <Briefcase className="w-4 h-4" />
                 Requirements
               </SectionBadge>
               
-              <H2 className="mb-6 font-heading text-gray-800">
+              <H2 className="mb-6 font-heading text-white">
                 Dealer <span className="text-gold">Eligibility</span>
               </H2>
               
-              <Body className="text-gray-700 mb-8">
+              <Body className="text-slate-200 mb-8">
                 We partner with established businesses that share our commitment to quality and customer service. 
                 Here's what we look for in our dealer partners:
               </Body>
@@ -550,7 +550,7 @@ const DealerPortal = () => {
                     <div className="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center shrink-0 mt-0.5">
                       <CheckCircle className="w-4 h-4 text-gold" />
                     </div>
-                    <span className="text-gray-700">{req}</span>
+                    <span className="text-slate-200">{req}</span>
                   </motion.li>
                 ))}
               </ul>
@@ -570,14 +570,14 @@ const DealerPortal = () => {
                       <Star key={i} className="w-4 h-4 text-gold fill-gold" />
                     ))}
                   </div>
-                  <p className="text-gray-700 italic mb-4">"{testimonial.quote}"</p>
+                  <p className="text-slate-200 italic mb-4">"{testimonial.quote}"</p>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
                       <Building className="w-5 h-5 text-gold" />
                     </div>
                     <div>
-                      <p className="text-gray-800 font-medium">{testimonial.name}</p>
-                      <p className="text-gray-600 text-sm">{testimonial.location}</p>
+                      <p className="text-white font-medium">{testimonial.name}</p>
+                      <p className="text-slate-300 text-sm">{testimonial.location}</p>
                     </div>
                   </div>
                 </GlassCard>
@@ -610,11 +610,11 @@ const DealerPortal = () => {
               <div className="max-w-2xl mx-auto">
                 <Globe className="w-12 h-12 text-gold mx-auto mb-6" />
                 
-                <H2 className="mb-4 font-heading text-gray-800">
+                <H2 className="mb-4 font-heading text-white">
                   Ready to <span className="text-gold">Grow Together?</span>
                 </H2>
                 
-                <p className="text-gray-700 mb-8">
+                <p className="text-slate-200 mb-8">
                   Have questions about the dealer program? Our business development team is here to help.
                 </p>
                 
@@ -642,4 +642,5 @@ const DealerPortal = () => {
 };
 
 export default DealerPortal;
+
 

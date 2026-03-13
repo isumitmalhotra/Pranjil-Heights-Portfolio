@@ -9,7 +9,7 @@ import { products } from '../../data/products';
 // Animated Input Field
 const FormInput = ({ icon: Icon, label, required, ...props }) => (
   <div className="space-y-2">
-    <label className="text-sm text-gray-600 flex items-center gap-2">
+    <label className="text-sm text-slate-300 flex items-center gap-2">
       {Icon && <Icon className="w-4 h-4 text-teal" />}
       {label} {required && <span className="text-red-400">*</span>}
     </label>
@@ -17,7 +17,7 @@ const FormInput = ({ icon: Icon, label, required, ...props }) => (
       <input
         {...props}
         required={required}
-        className="w-full bg-gray-50 border border-black/10 rounded-xl px-4 py-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all"
+        className="w-full bg-blue-400/10 border border-blue-200/25 rounded-xl px-4 py-4 text-white placeholder-gray-400 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all"
       />
       <div className="absolute inset-0 rounded-xl bg-linear-to-r from-teal/20 to-gold/20 opacity-0 group-focus-within:opacity-100 -z-10 blur-xl transition-opacity" />
     </div>
@@ -27,14 +27,14 @@ const FormInput = ({ icon: Icon, label, required, ...props }) => (
 // Animated Textarea
 const FormTextarea = ({ icon: Icon, label, ...props }) => (
   <div className="space-y-2">
-    <label className="text-sm text-gray-600 flex items-center gap-2">
+    <label className="text-sm text-slate-300 flex items-center gap-2">
       {Icon && <Icon className="w-4 h-4 text-teal" />}
       {label}
     </label>
     <div className="relative group">
       <textarea
         {...props}
-        className="w-full bg-gray-50 border border-black/10 rounded-xl px-4 py-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all resize-none"
+        className="w-full bg-blue-400/10 border border-blue-200/25 rounded-xl px-4 py-4 text-white placeholder-gray-400 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all resize-none"
       />
       <div className="absolute inset-0 rounded-xl bg-linear-to-r from-teal/20 to-gold/20 opacity-0 group-focus-within:opacity-100 -z-10 blur-xl transition-opacity" />
     </div>
@@ -59,11 +59,11 @@ const RadioOption = ({ name, value, checked, onChange, label }) => (
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          className="w-2 h-2 rounded-full bg-white"
+          className="w-2 h-2 rounded-full bg-blue-300/15"
         />
       )}
     </div>
-    <span className={`transition-colors ${checked ? 'text-gray-800' : 'text-gray-600 group-hover:text-gray-800'}`}>
+    <span className={`transition-colors ${checked ? 'text-white' : 'text-slate-300 group-hover:text-white'}`}>
       {label}
     </span>
   </label>
@@ -121,10 +121,10 @@ export const QuotationForm = ({ compact = false }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <h3 className="text-3xl font-bold text-gray-800 mb-4">
+          <h3 className="text-3xl font-bold text-white mb-4">
             Request <span className="gradient-text">Received!</span>
           </h3>
-          <p className="text-gray-600 mb-8 max-w-md">
+          <p className="text-slate-300 mb-8 max-w-md">
             Thank you for your interest. Our team will review your requirements and get back to you within 24 hours.
           </p>
           
@@ -151,8 +151,8 @@ export const QuotationForm = ({ compact = false }) => {
           <Sparkles className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h3 className="text-2xl font-bold text-gray-800">Request a Quote</h3>
-          <p className="text-gray-500 text-sm">Fill out the form and we'll get back to you</p>
+          <h3 className="text-2xl font-bold text-white">Request a Quote</h3>
+          <p className="text-slate-400 text-sm">Fill out the form and we'll get back to you</p>
         </div>
       </div>
 
@@ -203,7 +203,7 @@ export const QuotationForm = ({ compact = false }) => {
         {!compact && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="text-sm text-gray-400 flex items-center gap-2">
+              <label className="text-sm text-slate-300 flex items-center gap-2">
                 <Package className="w-4 h-4 text-teal" />
                 Interested Products
               </label>
@@ -212,13 +212,13 @@ export const QuotationForm = ({ compact = false }) => {
                 name="products"
                 value={formData.products}
                 onChange={handleProductChange}
-                className="w-full bg-gray-50 border border-black/10 rounded-xl px-4 py-4 text-gray-800 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all h-32"
+                className="w-full bg-blue-400/10 border border-blue-200/25 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all h-32"
               >
                 {products.map(p => (
-                  <option key={p.id} value={p.name} className="bg-white py-2">{p.name}</option>
+                  <option key={p.id} value={p.name} className="bg-blue-300/15 py-2">{p.name}</option>
                 ))}
               </select>
-              <p className="text-xs text-gray-500">Hold Ctrl/Cmd to select multiple</p>
+              <p className="text-xs text-slate-400">Hold Ctrl/Cmd to select multiple</p>
             </div>
             <div className="space-y-6">
               <FormInput
@@ -252,7 +252,7 @@ export const QuotationForm = ({ compact = false }) => {
 
         {/* Contact Preference */}
         <div className="space-y-3">
-          <label className="text-sm text-gray-600">Preferred Contact Method</label>
+          <label className="text-sm text-slate-300">Preferred Contact Method</label>
           <div className="flex gap-8">
             <RadioOption
               name="contactMethod"
@@ -300,11 +300,12 @@ export const QuotationForm = ({ compact = false }) => {
           )}
         </Button>
 
-        <p className="text-center text-gray-500 text-xs">
+        <p className="text-center text-slate-400 text-xs">
           By submitting, you agree to our Privacy Policy and Terms of Service
         </p>
       </form>
     </GlassCard>
   );
 };
+
 

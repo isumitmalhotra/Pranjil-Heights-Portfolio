@@ -10,7 +10,7 @@ export const CTASection = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-yellow-50 via-gray-50 to-gray-100" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#0F2A44] via-[#1B2A4A] to-[#243B63]" />
       
       {/* Animated Background Elements */}
       <motion.div
@@ -40,7 +40,7 @@ export const CTASection = () => {
       />
       
       {/* Decorative Lines */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-yellow-600/30 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-orange-400/40 to-transparent" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -51,12 +51,12 @@ export const CTASection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <H2 className="mb-6 text-4xl md:text-5xl lg:text-6xl">
+            <H2 className="mb-6 text-4xl md:text-5xl lg:text-6xl text-white">
               Ready to Partner <br />
-              <span className="text-yellow-600">With Us?</span>
+              <span className="text-orange-400">With Us?</span>
             </H2>
             
-            <p className="text-gray-600 mb-10 max-w-2xl mx-auto text-lg">
+            <p className="text-slate-200 mb-10 max-w-2xl mx-auto text-lg">
               Connect with our business development team to discuss dealership opportunities, 
               bulk orders, or project requirements.
             </p>
@@ -76,12 +76,12 @@ export const CTASection = () => {
               </Button>
             </Link>
             <a href="/catalogue.pdf" download>
-              <Button variant="outline" size="xl" icon={Download} iconPosition="left">
+              <Button variant="outline" size="xl" icon={Download} iconPosition="left" className="border-white text-white hover:bg-blue-300/16 hover:border-white">
                 Download Catalogue
               </Button>
             </a>
             <a href="tel:+919876543210">
-              <Button variant="glass" size="xl" icon={Phone} iconPosition="left">
+              <Button variant="glass" size="xl" icon={Phone} iconPosition="left" className="bg-blue-300/16 border-white/25 text-white hover:bg-blue-300/25">
                 Call Now
               </Button>
             </a>
@@ -93,7 +93,7 @@ export const CTASection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="flex flex-wrap justify-center gap-8 text-sm text-gray-500"
+            className="flex flex-wrap justify-center gap-8 text-sm text-slate-200"
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -139,11 +139,11 @@ export const CTASection = () => {
                 whileHover={{ y: -5, scale: 1.02 }}
                 className="glass-card p-6 group cursor-pointer hover:border-yellow-600/30 transition-all"
               >
-                <h3 className="text-gray-800 font-semibold mb-2 group-hover:text-yellow-600 transition-colors">
+                <h3 className="text-white font-semibold mb-2 group-hover:text-orange-300 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-gray-500 text-sm mb-4">{item.description}</p>
-                <span className="text-yellow-600 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                <p className="text-slate-200 text-sm mb-4">{item.description}</p>
+                <span className="text-orange-300 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                   Learn more <ArrowRight className="w-4 h-4" />
                 </span>
               </motion.div>

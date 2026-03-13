@@ -16,45 +16,45 @@ export const Button = ({
   const variants = {
     primary: `
       relative overflow-hidden
-      bg-yellow-600 hover:bg-yellow-700
+      bg-[#1B2A4A] hover:bg-[#0F2A44]
       text-white font-semibold
-      border border-yellow-600
-      shadow-md shadow-yellow-600/20
-      hover:shadow-lg hover:shadow-yellow-600/30
+      border border-[#1B2A4A]
+      shadow-md shadow-[#1B2A4A]/25
+      hover:shadow-lg hover:shadow-[#1B2A4A]/35
       transition-all duration-200
     `,
     secondary: `
-      bg-gray-100 text-gray-800
-      border border-gray-200
-      hover:bg-gray-200 hover:border-gray-300
+      bg-blue-300/16 text-white
+      border border-blue-200/30
+      hover:bg-blue-300/24 hover:border-blue-200/40
       transition-all duration-200
     `,
     outline: `
       bg-transparent 
-      border-2 border-yellow-600 text-yellow-600
-      hover:bg-yellow-50 hover:border-yellow-700
+      border-2 border-blue-200/35 text-slate-100
+      hover:bg-blue-300/16 hover:border-orange-400/50
       transition-all duration-200
     `,
     ghost: `
-      bg-transparent text-gray-600
-      hover:text-gray-800 hover:bg-gray-100
+      bg-transparent text-slate-200
+      hover:text-white hover:bg-blue-300/16
       transition-all duration-200
     `,
     glass: `
-      bg-white
-      border border-gray-200
-      text-gray-800
-      hover:bg-gray-50 hover:border-yellow-300
-      shadow-sm
+      bg-blue-300/16
+      border border-blue-200/30
+      text-white
+      hover:bg-blue-300/24 hover:border-[#F97316]/40
+      shadow-md shadow-black/20
       transition-all duration-200
     `,
     premium: `
       relative overflow-hidden
-      bg-yellow-600 hover:bg-yellow-700
+      bg-[#F97316] hover:bg-[#EA580C]
       text-white font-semibold
-      border border-yellow-500
-      shadow-lg shadow-yellow-600/30
-      hover:shadow-xl hover:shadow-yellow-600/40
+      border border-[#EA580C]
+      shadow-lg shadow-[#F97316]/30
+      hover:shadow-xl hover:shadow-[#F97316]/40
       transition-all duration-200
     `,
     danger: `
@@ -67,10 +67,10 @@ export const Button = ({
     `,
     corporate: `
       relative overflow-hidden
-      bg-white text-gray-800 font-semibold
-      border border-gray-300
-      shadow-sm
-      hover:border-yellow-500 hover:bg-gray-50
+      bg-blue-300/12 text-white font-semibold
+      border border-blue-200/30
+      shadow-md shadow-black/20
+      hover:border-[#F97316] hover:bg-blue-300/20
       transition-all duration-200
     `
   };
@@ -92,7 +92,7 @@ export const Button = ({
       whileTap={{ scale: 0.98 }}
       className={cn(
         "relative inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-300",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/50 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal",
         "disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
         variants[variant],
         sizes[size],
@@ -159,9 +159,9 @@ export const IconButton = ({
       whileTap={{ scale: 0.95 }}
       className={cn(
         "inline-flex items-center justify-center rounded-xl transition-all duration-300",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/50",
-        variant === 'ghost' && "bg-white/5 hover:bg-white/10 text-white/70 hover:text-white",
-        variant === 'primary' && "bg-teal/20 hover:bg-teal/30 text-teal",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]/50",
+        variant === 'ghost' && "bg-blue-300/12 hover:bg-blue-300/20 text-white/70 hover:text-white",
+        variant === 'primary' && "bg-[#1B2A4A]/25 hover:bg-[#1B2A4A]/35 text-orange-300",
         sizes[size],
         className
       )}

@@ -95,7 +95,7 @@ const GalleryCard = ({ item, onClick, delay }) => (
       </div>
       
       {/* Zoom Icon */}
-      <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-blue-300/16 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <ZoomIn className="w-5 h-5 text-ivory" />
       </div>
       
@@ -122,7 +122,7 @@ const Lightbox = ({ item, onClose, onPrev, onNext, hasNext, hasPrev }) => (
     {/* Close Button */}
     <button
       onClick={onClose}
-      className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-ivory hover:bg-white/20 transition-colors z-10"
+      className="absolute top-6 right-6 w-12 h-12 rounded-full bg-blue-300/16 flex items-center justify-center text-ivory hover:bg-blue-300/25 transition-colors z-10"
     >
       <X className="w-6 h-6" />
     </button>
@@ -131,7 +131,7 @@ const Lightbox = ({ item, onClose, onPrev, onNext, hasNext, hasPrev }) => (
     {hasPrev && (
       <button
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        className="absolute left-4 md:left-8 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-ivory hover:bg-yellow-600/20 hover:text-yellow-600 transition-colors z-10"
+        className="absolute left-4 md:left-8 w-12 h-12 rounded-full bg-blue-300/16 flex items-center justify-center text-ivory hover:bg-yellow-600/20 hover:text-yellow-600 transition-colors z-10"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
@@ -140,7 +140,7 @@ const Lightbox = ({ item, onClose, onPrev, onNext, hasNext, hasPrev }) => (
     {hasNext && (
       <button
         onClick={(e) => { e.stopPropagation(); onNext(); }}
-        className="absolute right-4 md:right-8 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-ivory hover:bg-yellow-600/20 hover:text-yellow-600 transition-colors z-10"
+        className="absolute right-4 md:right-8 w-12 h-12 rounded-full bg-blue-300/16 flex items-center justify-center text-ivory hover:bg-yellow-600/20 hover:text-yellow-600 transition-colors z-10"
       >
         <ChevronRight className="w-6 h-6" />
       </button>
@@ -265,7 +265,7 @@ export const ApplicationGallery = ({
                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeCategory === category
                     ? 'bg-yellow-600 text-white'
-                    : 'bg-white/5 text-ivory/70 hover:bg-white/10 hover:text-ivory border border-white/10'
+                    : 'bg-blue-300/12 text-ivory/70 hover:bg-blue-300/16 hover:text-ivory border border-blue-200/25'
                 }`}
               >
                 {category}

@@ -114,13 +114,13 @@ const ProductCard = ({ product, index, viewMode }) => {
                     </span>
                   )}
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 group-hover:text-yellow-600 transition-colors font-heading">
+                <h3 className="text-xl font-bold text-white group-hover:text-yellow-600 transition-colors font-heading">
                   {product.name}
                 </h3>
-                <p className="text-gray-600 text-sm line-clamp-2 mt-2">{product.description}</p>
+                <p className="text-slate-300 text-sm line-clamp-2 mt-2">{product.description}</p>
               </div>
               <div className="flex items-center justify-between mt-4">
-                <div className="flex items-center gap-4 text-sm text-gray-600">
+                <div className="flex items-center gap-4 text-sm text-slate-300">
                   <span>{product.specifications?.thickness} thick</span>
                   <span className="w-1 h-1 rounded-full bg-gray-400" />
                   <span>{product.colors.length} finishes available</span>
@@ -144,7 +144,7 @@ const ProductCard = ({ product, index, viewMode }) => {
       className="group"
     >
       <Link to={`/products/${product.slug || product.id}`}>
-        <div className="relative overflow-hidden rounded-2xl bg-white border border-gray-200 transition-all duration-500 group-hover:border-yellow-500/30 group-hover:shadow-lg">
+        <div className="relative overflow-hidden rounded-2xl bg-blue-300/15 border border-blue-200/25 transition-all duration-500 group-hover:border-yellow-500/30 group-hover:shadow-lg">
           {/* Badge */}
           {product.badge && (
             <div className="absolute top-4 right-4 z-20">
@@ -159,7 +159,7 @@ const ProductCard = ({ product, index, viewMode }) => {
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.div
                 whileHover={{ scale: 1.1 }}
-                className="w-20 h-20 rounded-2xl bg-white/30 backdrop-blur-sm border border-white/40 flex items-center justify-center"
+                className="w-20 h-20 rounded-2xl bg-blue-300/30 backdrop-blur-sm border border-white/40 flex items-center justify-center"
               >
                 <Package className="w-8 h-8 text-white/80" />
               </motion.div>
@@ -178,17 +178,17 @@ const ProductCard = ({ product, index, viewMode }) => {
           <div className="p-5 space-y-3">
             <div>
               <p className="text-yellow-600 text-sm font-medium mb-1">{product.category}</p>
-              <h3 className="text-lg font-bold text-gray-800 group-hover:text-yellow-600 transition-colors font-heading">
+              <h3 className="text-lg font-bold text-white group-hover:text-yellow-600 transition-colors font-heading">
                 {product.name}
               </h3>
             </div>
 
-            <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
+            <p className="text-slate-300 text-sm line-clamp-2">{product.description}</p>
 
-            <div className="pt-3 border-t border-black/5">
+            <div className="pt-3 border-t border-blue-200/20">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">{product.specifications?.thickness} thickness</span>
-                <span className="text-gray-600">{product.colors.length} finishes</span>
+                <span className="text-slate-300">{product.specifications?.thickness} thickness</span>
+                <span className="text-slate-300">{product.colors.length} finishes</span>
               </div>
             </div>
           </div>
@@ -211,19 +211,19 @@ const CategoryCard = ({ category, products: allProducts, onClick, isSelected }) 
       className={`text-left p-6 rounded-2xl border transition-all duration-300 ${
         isSelected 
           ? 'bg-yellow-50 border-yellow-500 shadow-md' 
-          : 'bg-gray-50 border-gray-200 hover:border-yellow-300'
+          : 'bg-blue-400/10 border-blue-200/25 hover:border-yellow-300'
       }`}
     >
       <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-        isSelected ? 'bg-yellow-600 text-white' : 'bg-gray-100 text-yellow-600'
+        isSelected ? 'bg-yellow-600 text-white' : 'bg-blue-300/15 text-yellow-600'
       }`}>
         <IconComponent className="w-6 h-6" />
       </div>
-      <h3 className={`font-bold mb-1 ${isSelected ? 'text-yellow-600' : 'text-gray-800'}`}>
+      <h3 className={`font-bold mb-1 ${isSelected ? 'text-yellow-600' : 'text-white'}`}>
         {category}
       </h3>
-      <p className="text-sm text-gray-600 mb-2">{productCount} products</p>
-      <p className="text-xs text-gray-500 line-clamp-2">{info.description}</p>
+      <p className="text-sm text-slate-300 mb-2">{productCount} products</p>
+      <p className="text-xs text-slate-400 line-clamp-2">{info.description}</p>
     </motion.button>
   );
 };
@@ -367,7 +367,7 @@ const Products = () => {
               )}
             </H1>
             
-            <Body className="text-gray-600 text-lg mb-8">
+            <Body className="text-slate-300 text-lg mb-8">
               {mappedCategory ? (
                 `Explore our comprehensive range of high-quality ${activeCategoryName.toLowerCase()}. 
                 Each product is engineered for durability, aesthetics, and ease of installation.`
@@ -382,7 +382,7 @@ const Products = () => {
               {productFeatures.map((feature, index) => (
                 <div key={index} className="flex items-center gap-2 text-sm">
                   <feature.icon className={`w-4 h-4 ${feature.color}`} />
-                  <span className="text-gray-600">{feature.label}</span>
+                  <span className="text-slate-300">{feature.label}</span>
                 </div>
               ))}
             </div>
@@ -407,7 +407,7 @@ const Products = () => {
       </section>
 
       {/* Category Tabs */}
-      <section className="pb-8 sticky top-20 z-30 bg-white border-b border-gray-200">
+      <section className="pb-8 sticky top-20 z-30 bg-blue-300/15 border-b border-blue-200/25">
         <div className="container mx-auto px-6">
           <div className="flex items-center gap-2 overflow-x-auto py-4 scrollbar-hide">
             {mainCategoryTabs.map((tab) => {
@@ -422,7 +422,7 @@ const Products = () => {
                   className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm whitespace-nowrap transition-all duration-300 ${
                     isActive
                       ? 'bg-yellow-600 text-white shadow-md'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800'
+                      : 'bg-blue-300/15 text-slate-300 hover:bg-gray-200 hover:text-white'
                   }`}
                 >
                   <TabIcon className="w-4 h-4" />
@@ -442,13 +442,13 @@ const Products = () => {
             <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
               {/* Search */}
               <div className="relative w-full lg:w-96">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <input
                   type="text"
                   placeholder="Search products by name or description..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-gray-100 border border-gray-200 rounded-xl pl-12 pr-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-yellow-500 transition-colors"
+                  className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl pl-12 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-500 transition-colors"
                 />
               </div>
               
@@ -477,7 +477,7 @@ const Products = () => {
                         (category === 'All' && categoryParam === 'all') ||
                         (mappedCategory?.filter?.includes(category))
                           ? 'bg-yellow-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-blue-300/15 text-slate-200 hover:bg-gray-200'
                       }`}
                     >
                       {category}
@@ -488,7 +488,7 @@ const Products = () => {
                 {/* Filter Toggle */}
                 <button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors xl:hidden"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-300/15 text-slate-200 hover:bg-gray-200 transition-colors xl:hidden"
                 >
                   <Filter className="w-4 h-4" />
                   Filters
@@ -498,24 +498,24 @@ const Products = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-gray-100 border border-gray-200 rounded-xl px-4 py-2 text-gray-800 text-sm focus:outline-none focus:border-yellow-500 appearance-none cursor-pointer"
+                  className="bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-2 text-white text-sm focus:outline-none focus:border-yellow-500 appearance-none cursor-pointer"
                 >
-                  <option value="featured" className="bg-white">Featured</option>
-                  <option value="name" className="bg-white">Name: A-Z</option>
-                  <option value="category" className="bg-white">By Category</option>
+                  <option value="featured" className="bg-blue-300/15">Featured</option>
+                  <option value="name" className="bg-blue-300/15">Name: A-Z</option>
+                  <option value="category" className="bg-blue-300/15">By Category</option>
                 </select>
                 
                 {/* View Toggle */}
-                <div className="flex rounded-xl border border-gray-200 overflow-hidden">
+                <div className="flex rounded-xl border border-blue-200/25 overflow-hidden">
                   <button
                     onClick={() => setViewMode('grid')}
-                    className={`p-2 ${viewMode === 'grid' ? 'bg-yellow-600 text-white' : 'bg-gray-100 text-gray-700'}`}
+                    className={`p-2 ${viewMode === 'grid' ? 'bg-yellow-600 text-white' : 'bg-blue-300/15 text-slate-200'}`}
                   >
                     <Grid className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`p-2 ${viewMode === 'list' ? 'bg-yellow-600 text-white' : 'bg-gray-100 text-gray-700'}`}
+                    className={`p-2 ${viewMode === 'list' ? 'bg-yellow-600 text-white' : 'bg-blue-300/15 text-slate-200'}`}
                   >
                     <List className="w-5 h-5" />
                   </button>
@@ -526,7 +526,7 @@ const Products = () => {
 
           {/* Results Info */}
           <div className="flex items-center justify-between mb-6">
-            <p className="text-gray-600">
+            <p className="text-slate-300">
               Showing <span className="text-gold font-medium">{filteredProducts.length}</span> products
               {categoryParam !== 'all' && (
                 <span> in <span className="text-gold">{activeCategoryName}</span></span>
@@ -561,11 +561,11 @@ const Products = () => {
             </div>
           ) : (
             <div className="text-center py-24 glass-card">
-              <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
-                <Search className="w-10 h-10 text-gray-400" />
+              <div className="w-20 h-20 rounded-full bg-blue-300/15 flex items-center justify-center mx-auto mb-6">
+                <Search className="w-10 h-10 text-slate-300" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">No products found</h3>
-              <p className="text-gray-600 mb-6">Try adjusting your search or category filter</p>
+              <h3 className="text-xl font-bold text-white mb-2">No products found</h3>
+              <p className="text-slate-300 mb-6">Try adjusting your search or category filter</p>
               <Button 
                 variant="outline" 
                 onClick={() => {
@@ -581,14 +581,14 @@ const Products = () => {
       </section>
 
       {/* B2B CTA Section */}
-      <section className="py-16 border-t border-white/5">
+      <section className="py-16 border-t border-blue-200/20">
         <div className="container mx-auto px-6">
           <GlassCard className="p-12 text-center">
             <Award className="w-12 h-12 text-yellow-600 mx-auto mb-6" />
             <H2 className="mb-4 font-heading">
               Need Custom <span className="text-yellow-600">Specifications?</span>
             </H2>
-            <Body className="text-gray-700 max-w-2xl mx-auto mb-8">
+            <Body className="text-slate-200 max-w-2xl mx-auto mb-8">
               We offer custom panel solutions for large-scale commercial projects. 
               Our team can work with you on bulk orders, custom dimensions, and specialized finishes.
             </Body>
@@ -627,13 +627,13 @@ const Products = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25 }}
-              className="absolute right-0 top-0 bottom-0 w-80 bg-white border-l border-black/10 p-6 overflow-y-auto"
+              className="absolute right-0 top-0 bottom-0 w-80 bg-blue-300/15 border-l border-blue-200/25 p-6 overflow-y-auto"
             >
-              <h3 className="text-xl font-bold text-gray-800 mb-6">Filter Products</h3>
+              <h3 className="text-xl font-bold text-white mb-6">Filter Products</h3>
               
               {/* Category Tabs */}
               <div className="space-y-2 mb-6">
-                <h4 className="text-sm font-medium text-gray-700 mb-3">Product Type</h4>
+                <h4 className="text-sm font-medium text-slate-200 mb-3">Product Type</h4>
                 {mainCategoryTabs.map(tab => {
                   const TabIcon = tab.icon;
                   const isActive = (tab.id === 'all' && categoryParam === 'all') || categoryParam === tab.id;
@@ -648,7 +648,7 @@ const Products = () => {
                       className={`w-full text-left px-4 py-3 rounded-xl transition-all flex items-center gap-3 ${
                         isActive
                           ? 'bg-gold text-white font-medium'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-blue-300/15 text-slate-200 hover:bg-gray-200'
                       }`}
                     >
                       <TabIcon className="w-4 h-4" />
@@ -660,7 +660,7 @@ const Products = () => {
               
               {/* Series Filter */}
               <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700 mb-3">Series</h4>
+                <h4 className="text-sm font-medium text-slate-200 mb-3">Series</h4>
                 {seriesCategories.map(category => (
                   <button
                     key={category}
@@ -683,7 +683,7 @@ const Products = () => {
                       (category === 'All' && categoryParam === 'all') ||
                       (mappedCategory?.filter?.includes(category))
                         ? 'bg-gold text-white font-medium'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        : 'bg-blue-300/15 text-slate-200 hover:bg-gray-200'
                     }`}
                   >
                     {category}
@@ -699,4 +699,5 @@ const Products = () => {
 };
 
 export default Products;
+
 

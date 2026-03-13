@@ -27,8 +27,8 @@ const FormField = ({ label, id, type = 'text', icon: Icon, placeholder, required
         required={required}
         value={value}
         onChange={onChange}
-        className={`w-full ${Icon ? 'pl-12' : 'pl-4'} pr-4 py-3.5 bg-white/5 border ${
-          error ? 'border-red-500' : 'border-white/10 focus:border-gold/50'
+        className={`w-full ${Icon ? 'pl-12' : 'pl-4'} pr-4 py-3.5 bg-blue-300/15 border ${
+          error ? 'border-red-500' : 'border-blue-200/25 focus:border-gold/50'
         } rounded-xl text-ivory placeholder:text-ivory/30 focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all`}
       />
     </div>
@@ -54,7 +54,7 @@ const SelectField = ({ label, id, icon: Icon, options, required, value, onChange
         required={required}
         value={value}
         onChange={onChange}
-        className={`w-full ${Icon ? 'pl-12' : 'pl-4'} pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-ivory focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all appearance-none cursor-pointer`}
+        className={`w-full ${Icon ? 'pl-12' : 'pl-4'} pr-4 py-3.5 bg-blue-300/15 border border-blue-200/25 rounded-xl text-ivory focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all appearance-none cursor-pointer`}
       >
         <option value="" className="bg-charcoal">Select an option</option>
         {options.map((option) => (
@@ -93,7 +93,7 @@ const TextareaField = ({ label, id, icon: Icon, placeholder, required, rows = 4,
         rows={rows}
         value={value}
         onChange={onChange}
-        className={`w-full ${Icon ? 'pl-12' : 'pl-4'} pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-ivory placeholder:text-ivory/30 focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all resize-none`}
+        className={`w-full ${Icon ? 'pl-12' : 'pl-4'} pr-4 py-3.5 bg-blue-300/15 border border-blue-200/25 rounded-xl text-ivory placeholder:text-ivory/30 focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all resize-none`}
       />
     </div>
   </div>
@@ -402,4 +402,5 @@ export const QuoteRequestForm = ({
 };
 
 export default QuoteRequestForm;
+
 

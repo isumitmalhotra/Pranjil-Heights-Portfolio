@@ -41,7 +41,7 @@ const AnimatedValue = ({ value, suffix = '', prefix = '' }) => {
 // Input Field Component
 const InputField = ({ label, value, onChange, placeholder, unit, icon: Icon }) => (
   <div className="space-y-2">
-    <label className="text-sm text-gray-400 flex items-center gap-2">
+    <label className="text-sm text-slate-300 flex items-center gap-2">
       {Icon && <Icon className="w-4 h-4 text-teal" />}
       {label}
     </label>
@@ -51,10 +51,10 @@ const InputField = ({ label, value, onChange, placeholder, unit, icon: Icon }) =
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white text-lg font-medium placeholder-gray-600 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all"
+        className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-4 text-white text-lg font-medium placeholder-gray-600 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all"
       />
       {unit && (
-        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
+        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
           {unit}
         </span>
       )}
@@ -65,7 +65,7 @@ const InputField = ({ label, value, onChange, placeholder, unit, icon: Icon }) =
 // Select Field Component
 const SelectField = ({ label, value, onChange, options, icon: Icon }) => (
   <div className="space-y-2">
-    <label className="text-sm text-gray-400 flex items-center gap-2">
+    <label className="text-sm text-slate-300 flex items-center gap-2">
       {Icon && <Icon className="w-4 h-4 text-teal" />}
       {label}
     </label>
@@ -73,16 +73,16 @@ const SelectField = ({ label, value, onChange, options, icon: Icon }) => (
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white text-lg font-medium focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all appearance-none cursor-pointer"
+        className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-4 text-white text-lg font-medium focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20 transition-all appearance-none cursor-pointer"
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value} className="bg-white">
+          <option key={opt.value} value={opt.value} className="bg-blue-300/15">
             {opt.label}
           </option>
         ))}
       </select>
       <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </div>
@@ -98,22 +98,22 @@ const ResultCard = ({ icon: IconComponent, label, value, subValue, highlight = f
     className={`p-6 rounded-2xl border ${
       highlight 
         ? 'bg-linear-to-br from-teal/20 to-teal/5 border-teal/30' 
-        : 'bg-white/5 border-white/10'
+        : 'bg-blue-300/15 border-blue-200/25'
     }`}
   >
     <div className="flex items-center gap-3 mb-3">
       <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-        highlight ? 'bg-teal/20 text-teal' : 'bg-white/10 text-gray-400'
+        highlight ? 'bg-teal/20 text-teal' : 'bg-blue-300/10 text-slate-300'
       }`}>
         <IconComponent className="w-5 h-5" />
       </div>
-      <span className="text-gray-400 text-sm">{label}</span>
+      <span className="text-slate-300 text-sm">{label}</span>
     </div>
     <div className={`text-3xl font-bold ${highlight ? 'gradient-text' : 'text-white'}`}>
       {value}
     </div>
     {subValue && (
-      <div className="text-gray-500 text-sm mt-1">{subValue}</div>
+      <div className="text-slate-400 text-sm mt-1">{subValue}</div>
     )}
   </motion.div>
 );
@@ -197,7 +197,7 @@ export const MaterialCalculator = () => {
           Material <span className="gradient-text">Calculator</span>
         </H2>
         
-        <Body className="max-w-2xl mx-auto text-gray-400">
+        <Body className="max-w-2xl mx-auto text-slate-300">
           Calculate exactly how much material you need for your project. 
           Get instant estimates for area, cost, and number of panels required.
         </Body>
@@ -218,7 +218,7 @@ export const MaterialCalculator = () => {
                 </div>
                 <div>
                   <H3>Enter Dimensions</H3>
-                  <p className="text-gray-500 text-sm">Measure your wall or ceiling area</p>
+                  <p className="text-slate-400 text-sm">Measure your wall or ceiling area</p>
                 </div>
               </div>
 
@@ -254,7 +254,7 @@ export const MaterialCalculator = () => {
 
                 {/* Waste Factor */}
                 <div className="space-y-3">
-                  <label className="text-sm text-gray-400 flex items-center justify-between">
+                  <label className="text-sm text-slate-300 flex items-center justify-between">
                     <span className="flex items-center gap-2">
                       <Info className="w-4 h-4 text-teal" />
                       Waste Factor
@@ -269,14 +269,14 @@ export const MaterialCalculator = () => {
                         className={`flex-1 py-3 rounded-xl text-sm font-medium transition-all ${
                           wasteFactor === factor
                             ? 'bg-teal text-white'
-                            : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                            : 'bg-blue-300/15 text-slate-300 hover:bg-blue-300/10'
                         }`}
                       >
                         +{factor}%
                       </button>
                     ))}
                   </div>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-slate-400">
                     {wasteFactor === 10 ? '(Recommended)' : wasteFactor === 0 ? '(Exact fit)' : wasteFactor === 15 ? '(Complex patterns)' : ''}
                   </p>
                 </div>
@@ -288,10 +288,10 @@ export const MaterialCalculator = () => {
                     value={pricePerSqFt}
                     onChange={(v) => setPricePerSqFt(Number(v))}
                     placeholder="125"
-                    unit="₹"
+                    unit="Rs."
                     icon={DollarSign}
                   />
-                  <p className="text-xs text-gray-500 flex items-center gap-1">
+                  <p className="text-xs text-slate-400 flex items-center gap-1">
                     <Info className="w-3 h-3" />
                     Enter your dealer price for accurate estimates
                   </p>
@@ -336,7 +336,7 @@ export const MaterialCalculator = () => {
                 </div>
                 <div>
                   <H3>Your Estimate</H3>
-                  <p className="text-gray-500 text-sm">Calculated material requirements</p>
+                  <p className="text-slate-400 text-sm">Calculated material requirements</p>
                 </div>
               </div>
 
@@ -369,13 +369,13 @@ export const MaterialCalculator = () => {
                       icon={Package}
                       label="Panels Needed"
                       value={<AnimatedValue value={results.panelsNeeded} suffix=" panels" />}
-                      subValue="Standard size (10ft × 10in)"
+                      subValue="Standard size (10ft x 10in)"
                     />
 
                     <ResultCard
                       icon={DollarSign}
                       label="Estimated Cost"
-                      value={<AnimatedValue value={results.totalCost} prefix="₹" />}
+                      value={<AnimatedValue value={results.totalCost} prefix="Rs." />}
                       subValue="Contact dealer for final pricing"
                       highlight
                     />
@@ -386,7 +386,7 @@ export const MaterialCalculator = () => {
                         <Check className="w-5 h-5 text-teal shrink-0 mt-0.5" />
                         <div className="text-sm">
                           <p className="text-white font-medium mb-1">Ready to proceed?</p>
-                          <p className="text-gray-400">
+                          <p className="text-slate-300">
                             Get a detailed quote with installation options from our team.
                           </p>
                         </div>
@@ -411,11 +411,11 @@ export const MaterialCalculator = () => {
                     exit={{ opacity: 0 }}
                     className="flex flex-col items-center justify-center h-80 text-center"
                   >
-                    <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-6">
-                      <Calculator className="w-10 h-10 text-gray-400" />
+                    <div className="w-20 h-20 rounded-full bg-blue-300/15 flex items-center justify-center mb-6">
+                      <Calculator className="w-10 h-10 text-slate-300" />
                     </div>
-                    <p className="text-gray-500 mb-2">Enter dimensions to see results</p>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-slate-400 mb-2">Enter dimensions to see results</p>
+                    <p className="text-slate-300 text-sm">
                       Your calculated estimate will appear here
                     </p>
                   </motion.div>
@@ -428,5 +428,6 @@ export const MaterialCalculator = () => {
     </div>
   );
 };
+
 
 

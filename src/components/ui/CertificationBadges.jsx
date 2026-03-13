@@ -98,7 +98,7 @@ const CertBadge = ({ title, subtitle, icon: Icon, color = 'gold', delay = 0, var
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
-      className={`group flex items-center gap-4 p-4 rounded-xl border bg-white/5 border-white/10 hover:border-yellow-600/20 hover:bg-white/10 transition-all duration-300`}
+      className={`group flex items-center gap-4 p-4 rounded-xl border bg-blue-300/12 border-blue-200/25 hover:border-yellow-600/20 hover:bg-blue-300/16 transition-all duration-300`}
     >
       {/* Icon */}
       <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${colorClasses[color]} transition-all duration-300 shrink-0`}>

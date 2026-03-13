@@ -96,7 +96,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gray-50 border-t border-black/5 overflow-hidden">
+    <footer className="site-footer relative bg-[#1B2A4A] border-t border-slate-300/20 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 mesh-gradient opacity-20" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-yellow-600/5 rounded-full filter blur-[100px]" />
@@ -305,7 +305,7 @@ export const Footer = () => {
                   </div>
                   <div>
                     <p className="text-gray-800 font-medium text-sm">Download Catalogue</p>
-                    <p className="text-gray-500 text-xs">2024 Collection • PDF 15MB</p>
+                    <p className="text-gray-500 text-xs">2024 Collection - PDF 15MB</p>
                   </div>
                 </div>
               </motion.div>
@@ -317,7 +317,7 @@ export const Footer = () => {
         <div className="border-t border-black/5 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Pranjil Heights India. All rights reserved. Crafted with ❤️ in India.
+              (c) {currentYear} Pranjil Heights India. All rights reserved. Crafted in India.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
               <a href="#" className="hover:text-gray-800 transition-colors">Privacy Policy</a>

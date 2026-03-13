@@ -54,7 +54,7 @@ export const AnimatedText = ({ children, className, ...props }) => {
 export const H1 = ({ children, className, gradient = false, animated = false, ...props }) => {
   const baseClasses = cn(
     "text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] font-heading",
-    gradient ? "text-yellow-600" : "text-gray-800",
+    gradient ? "text-orange-400" : "text-white",
     className
   );
 
@@ -89,7 +89,7 @@ export const H2 = ({ children, className, gradient = false, ...props }) => {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
       className={cn(
         "text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight font-heading",
-        gradient ? "text-yellow-600" : "text-gray-800",
+        gradient ? "text-orange-400" : "text-white",
         className
       )}
       {...props}
@@ -106,7 +106,7 @@ export const H3 = ({ children, className, ...props }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-      className={cn("text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight text-gray-800", className)}
+      className={cn("text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight text-white", className)}
       {...props}
     >
       {children}
@@ -121,7 +121,7 @@ export const H4 = ({ children, className, ...props }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className={cn("text-lg md:text-xl font-semibold text-gray-800", className)}
+      className={cn("text-lg md:text-xl font-semibold text-white", className)}
       {...props}
     >
       {children}
@@ -143,7 +143,7 @@ export const Body = ({ children, className, size = 'base', ...props }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "text-gray-600 leading-relaxed",
+        "text-slate-200 leading-relaxed",
         sizes[size],
         className
       )}
@@ -163,7 +163,7 @@ export const Label = ({ children, className, ...props }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "text-xs md:text-sm font-medium uppercase tracking-widest text-yellow-600",
+        "text-xs md:text-sm font-medium uppercase tracking-widest text-orange-300",
         className
       )}
       {...props}
@@ -183,13 +183,13 @@ export const SectionBadge = ({ children, className, ...props }) => {
       transition={{ duration: 0.5 }}
       className={cn(
         "inline-flex items-center gap-2 px-4 py-2 rounded-full",
-        "bg-yellow-50 border border-yellow-600/20",
-        "text-yellow-600 text-sm font-medium tracking-wide",
+        "bg-blue-300/16 border border-blue-200/30",
+        "text-orange-300 text-sm font-medium tracking-wide",
         className
       )}
       {...props}
     >
-      <span className="w-2 h-2 rounded-full bg-yellow-600 animate-pulse" />
+      <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
       {children}
     </motion.div>
   );
@@ -206,8 +206,8 @@ export const Divider = ({ className, gold = false, ...props }) => {
       className={cn(
         "h-px",
         gold 
-          ? "bg-linear-to-r from-transparent via-yellow-600/40 to-transparent"
-          : "bg-linear-to-r from-transparent via-black/10 to-transparent",
+          ? "bg-linear-to-r from-transparent via-orange-400/40 to-transparent"
+          : "bg-linear-to-r from-transparent via-blue-200/25 to-transparent",
         className
       )}
       {...props}

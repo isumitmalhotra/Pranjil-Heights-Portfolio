@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranij Heights - Color Palette Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#f5f5f5; color:#333; }
+  
+  .palette-section { margin:0 auto; max-width:1200px; padding:40px 20px; }
+  .palette-section h1 { text-align:center; font-family:'Poppins',sans-serif; font-size:32px; font-weight:700; margin-bottom:10px; }
+  .palette-section .subtitle { text-align:center; color:#777; font-size:16px; margin-bottom:50px; }
+  
+  .current-scheme { background:#fff3cd; border:2px dashed #c9a962; border-radius:12px; padding:20px; text-align:center; margin-bottom:50px; }
+  .current-scheme h3 { color:#8B6914; margin-bottom:8px; }
+  .current-scheme .colors { display:flex; justify-content:center; gap:10px; margin-top:12px; }
+  .current-scheme .swatch { width:50px; height:50px; border-radius:8px; border:2px solid rgba(0,0,0,0.1); }
+  
+  .option { margin-bottom:60px; border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
+  .option-header { padding:24px 30px; display:flex; align-items:center; justify-content:space-between; }
+  .option-header h2 { font-family:'Poppins',sans-serif; font-size:24px; font-weight:700; }
+  .option-header .tag { padding:4px 14px; border-radius:20px; font-size:12px; font-weight:600; text-transform:uppercase; }
+  .swatches { display:flex; gap:12px; padding:0 30px 20px; }
+  .swatch-item { text-align:center; }
+  .swatch-item .color { width:60px; height:60px; border-radius:10px; border:2px solid rgba(0,0,0,0.08); margin-bottom:6px; }
+  .swatch-item .label { font-size:10px; color:#888; }
+  .swatch-item .hex { font-size:11px; font-weight:600; color:#555; }
+
+  /* ====== MINI WEBSITE PREVIEWS ====== */
+  .preview { border-top:1px solid rgba(0,0,0,0.1); }
+  
+  /* Navbar */
+  .preview-nav { display:flex; align-items:center; justify-content:space-between; padding:16px 30px; }
+  .preview-nav .logo { font-family:'Poppins',sans-serif; font-weight:700; font-size:20px; }
+  .preview-nav .links { display:flex; gap:20px; font-size:13px; font-weight:500; }
+  .preview-nav .links a { text-decoration:none; opacity:0.8; }
+  .preview-nav .links a:hover { opacity:1; }
+  .preview-nav .cta-btn { padding:8px 20px; border-radius:6px; font-size:13px; font-weight:600; border:none; cursor:pointer; }
+  
+  /* Hero */
+  .preview-hero { padding:60px 30px; text-align:center; position:relative; }
+  .preview-hero h1 { font-family:'Poppins',sans-serif; font-size:36px; font-weight:800; margin-bottom:12px; line-height:1.2; }
+  .preview-hero p { font-size:16px; opacity:0.8; max-width:500px; margin:0 auto 24px; }
+  .preview-hero .buttons { display:flex; gap:12px; justify-content:center; }
+  .preview-hero .btn-primary { padding:12px 28px; border-radius:8px; font-weight:600; font-size:14px; border:none; cursor:pointer; }
+  .preview-hero .btn-outline { padding:12px 28px; border-radius:8px; font-weight:600; font-size:14px; background:transparent; border:2px solid; cursor:pointer; }
+  
+  /* Stats */
+  .preview-stats { display:flex; justify-content:center; gap:40px; padding:30px; }
+  .preview-stats .stat { text-align:center; }
+  .preview-stats .stat .number { font-family:'Poppins',sans-serif; font-size:28px; font-weight:800; }
+  .preview-stats .stat .label { font-size:12px; opacity:0.6; text-transform:uppercase; letter-spacing:1px; }
+  
+  /* Cards Section */
+  .preview-cards { padding:30px; }
+  .preview-cards h2 { font-family:'Poppins',sans-serif; text-align:center; font-size:24px; font-weight:700; margin-bottom:20px; }
+  .cards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .card { border-radius:10px; overflow:hidden; }
+  .card .card-img { height:120px; display:flex; align-items:flex-end; padding:12px; }
+  .card .card-img span { font-weight:600; font-size:14px; }
+  .card .card-body { padding:12px; }
+  .card .card-body p { font-size:12px; opacity:0.7; }
+  
+  /* Footer */
+  .preview-footer { padding:20px 30px; font-size:12px; display:flex; justify-content:space-between; opacity:0.6; }
+
+  /* ====== PALETTE 1: DEEP NAVY + TEAL ====== */
+  .p1 .option-header { background:#0F2A44; color:#fff; }
+  .p1 .option-header .tag { background:#0EA5E9; color:#fff; }
+  .p1 .preview-nav { background:#0F2A44; color:#fff; }
+  .p1 .preview-nav .logo span { color:#0EA5E9; }
+  .p1 .preview-nav .links a { color:#fff; }
+  .p1 .preview-nav .cta-btn { background:#0EA5E9; color:#fff; }
+  .p1 .preview-hero { background:linear-gradient(135deg, #0F2A44 0%, #1a3f5c 50%, #0F2A44 100%); color:#fff; }
+  .p1 .preview-hero .btn-primary { background:#0EA5E9; color:#fff; }
+  .p1 .preview-hero .btn-outline { color:#0EA5E9; border-color:#0EA5E9; }
+  .p1 .preview-stats { background:#f8fafc; }
+  .p1 .preview-stats .stat .number { color:#0F2A44; }
+  .p1 .preview-cards { background:#fff; }
+  .p1 .preview-cards h2 { color:#0F2A44; }
+  .p1 .card { background:#f1f5f9; }
+  .p1 .card .card-img { background:linear-gradient(135deg, #0EA5E9, #0284C7); color:#fff; }
+  .p1 .card .card-body { color:#334155; }
+  .p1 .preview-footer { background:#0F2A44; color:#fff; }
+
+  /* ====== PALETTE 2: CHARCOAL + EMERALD ====== */
+  .p2 .option-header { background:#1E293B; color:#fff; }
+  .p2 .option-header .tag { background:#10B981; color:#fff; }
+  .p2 .preview-nav { background:#1E293B; color:#fff; }
+  .p2 .preview-nav .logo span { color:#10B981; }
+  .p2 .preview-nav .links a { color:#fff; }
+  .p2 .preview-nav .cta-btn { background:#10B981; color:#fff; }
+  .p2 .preview-hero { background:linear-gradient(135deg, #1E293B 0%, #334155 50%, #1E293B 100%); color:#fff; }
+  .p2 .preview-hero .btn-primary { background:#10B981; color:#fff; }
+  .p2 .preview-hero .btn-outline { color:#10B981; border-color:#10B981; }
+  .p2 .preview-stats { background:#f0fdf4; }
+  .p2 .preview-stats .stat .number { color:#1E293B; }
+  .p2 .preview-cards { background:#fff; }
+  .p2 .preview-cards h2 { color:#1E293B; }
+  .p2 .card { background:#f8fafc; }
+  .p2 .card .card-img { background:linear-gradient(135deg, #10B981, #059669); color:#fff; }
+  .p2 .card .card-body { color:#334155; }
+  .p2 .preview-footer { background:#1E293B; color:#fff; }
+
+  /* ====== PALETTE 3: DEEP BLUE + ORANGE ====== */
+  .p3 .option-header { background:#1B2A4A; color:#fff; }
+  .p3 .option-header .tag { background:#F97316; color:#fff; }
+  .p3 .preview-nav { background:#1B2A4A; color:#fff; }
+  .p3 .preview-nav .logo span { color:#F97316; }
+  .p3 .preview-nav .links a { color:#fff; }
+  .p3 .preview-nav .cta-btn { background:#F97316; color:#fff; }
+  .p3 .preview-hero { background:linear-gradient(135deg, #1B2A4A 0%, #2d3f66 50%, #1B2A4A 100%); color:#fff; }
+  .p3 .preview-hero .btn-primary { background:#F97316; color:#fff; }
+  .p3 .preview-hero .btn-outline { color:#FB923C; border-color:#FB923C; }
+  .p3 .preview-stats { background:#fff7ed; }
+  .p3 .preview-stats .stat .number { color:#1B2A4A; }
+  .p3 .preview-cards { background:#fff; }
+  .p3 .preview-cards h2 { color:#1B2A4A; }
+  .p3 .card { background:#f8fafc; }
+  .p3 .card .card-img { background:linear-gradient(135deg, #F97316, #EA580C); color:#fff; }
+  .p3 .card .card-body { color:#334155; }
+  .p3 .preview-footer { background:#1B2A4A; color:#fff; }
+
+  /* ====== PALETTE 4: BLACK + RED (BOLD INDUSTRIAL) ====== */
+  .p4 .option-header { background:#111827; color:#fff; }
+  .p4 .option-header .tag { background:#DC2626; color:#fff; }
+  .p4 .preview-nav { background:#111827; color:#fff; }
+  .p4 .preview-nav .logo span { color:#EF4444; }
+  .p4 .preview-nav .links a { color:#fff; }
+  .p4 .preview-nav .cta-btn { background:#DC2626; color:#fff; }
+  .p4 .preview-hero { background:linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%); color:#fff; }
+  .p4 .preview-hero .btn-primary { background:#DC2626; color:#fff; }
+  .p4 .preview-hero .btn-outline { color:#EF4444; border-color:#EF4444; }
+  .p4 .preview-stats { background:#fef2f2; }
+  .p4 .preview-stats .stat .number { color:#111827; }
+  .p4 .preview-cards { background:#fff; }
+  .p4 .preview-cards h2 { color:#111827; }
+  .p4 .card { background:#f9fafb; }
+  .p4 .card .card-img { background:linear-gradient(135deg, #DC2626, #B91C1C); color:#fff; }
+  .p4 .card .card-body { color:#374151; }
+  .p4 .preview-footer { background:#111827; color:#fff; }
+
+  /* ====== PALETTE 5: DARK SLATE + GOLD (REFINED) ====== */
+  .p5 .option-header { background:#1a1a2e; color:#fff; }
+  .p5 .option-header .tag { background:#D4A843; color:#1a1a2e; }
+  .p5 .preview-nav { background:#1a1a2e; color:#fff; }
+  .p5 .preview-nav .logo span { color:#D4A843; }
+  .p5 .preview-nav .links a { color:#fff; }
+  .p5 .preview-nav .cta-btn { background:#D4A843; color:#1a1a2e; }
+  .p5 .preview-hero { background:linear-gradient(135deg, #1a1a2e 0%, #2a2a40 50%, #1a1a2e 100%); color:#fff; }
+  .p5 .preview-hero .btn-primary { background:#D4A843; color:#1a1a2e; }
+  .p5 .preview-hero .btn-outline { color:#D4A843; border-color:#D4A843; }
+  .p5 .preview-stats { background:#fdf8ee; }
+  .p5 .preview-stats .stat .number { color:#1a1a2e; }
+  .p5 .preview-cards { background:#fff; }
+  .p5 .preview-cards h2 { color:#1a1a2e; }
+  .p5 .card { background:#fafaf8; }
+  .p5 .card .card-img { background:linear-gradient(135deg, #D4A843, #B8922E); color:#1a1a2e; }
+  .p5 .card .card-body { color:#374151; }
+  .p5 .preview-footer { background:#1a1a2e; color:#fff; }
+</style>
+</head>
+<body>
+
+<div class="palette-section">
+  <h1>Pranij Heights — Color Palette Options</h1>
+  <p class="subtitle">5 professional color schemes for the website redesign. Open this file in your browser to see live previews.</p>
+
+  <!-- Current Scheme -->
+  <div class="current-scheme">
+    <h3>❌ CURRENT SCHEME (What Client Doesn't Like)</h3>
+    <p>Gold (#C9A962) on White — feels washed out, generic, "AI-generated"</p>
+    <div class="colors">
+      <div class="swatch" style="background:#C9A962"></div>
+      <div class="swatch" style="background:#D4AF37"></div>
+      <div class="swatch" style="background:#B8860B"></div>
+      <div class="swatch" style="background:#FFFFFF; border:2px solid #ddd"></div>
+      <div class="swatch" style="background:#F8F9FA"></div>
+      <div class="swatch" style="background:#1a1a1a"></div>
+    </div>
+  </div>
+
+  <!-- ========== OPTION 1: DEEP NAVY + TEAL ========== -->
+  <div class="option p1">
+    <div class="option-header">
+      <div>
+        <h2>Option 1: Deep Navy + Sky Blue</h2>
+        <p style="opacity:0.7;font-size:14px;margin-top:4px;">Professional, trustworthy, modern — like top construction/manufacturing brands</p>
+      </div>
+      <span class="tag">RECOMMENDED</span>
+    </div>
+    <div class="swatches">
+      <div class="swatch-item"><div class="color" style="background:#0F2A44"></div><div class="label">Primary Dark</div><div class="hex">#0F2A44</div></div>
+      <div class="swatch-item"><div class="color" style="background:#1a3f5c"></div><div class="label">Navy Mid</div><div class="hex">#1A3F5C</div></div>
+      <div class="swatch-item"><div class="color" style="background:#0EA5E9"></div><div class="label">Accent Blue</div><div class="hex">#0EA5E9</div></div>
+      <div class="swatch-item"><div class="color" style="background:#0284C7"></div><div class="label">Accent Dark</div><div class="hex">#0284C7</div></div>
+      <div class="swatch-item"><div class="color" style="background:#f8fafc"></div><div class="label">Light BG</div><div class="hex">#F8FAFC</div></div>
+      <div class="swatch-item"><div class="color" style="background:#f1f5f9"></div><div class="label">Card BG</div><div class="hex">#F1F5F9</div></div>
+      <div class="swatch-item"><div class="color" style="background:#FFFFFF;border-color:#ddd"></div><div class="label">White</div><div class="hex">#FFFFFF</div></div>
+      <div class="swatch-item"><div class="color" style="background:#334155"></div><div class="label">Body Text</div><div class="hex">#334155</div></div>
+    </div>
+    <div class="preview">
+      <div class="preview-nav">
+        <div class="logo">Pranij <span>Heights</span></div>
+        <div class="links"><a href="#">Home</a><a href="#">Products</a><a href="#">About</a><a href="#">Contact</a></div>
+        <button class="cta-btn">Get Quote</button>
+      </div>
+      <div class="preview-hero">
+        <h1>Premium PVC Panels &<br>Interior Solutions</h1>
+        <p>Trusted by 500+ dealers across India. Waterproof, fire-retardant, and built to last.</p>
+        <div class="buttons">
+          <button class="btn-primary">Explore Products</button>
+          <button class="btn-outline">Download Catalogue</button>
+        </div>
+      </div>
+      <div class="preview-stats">
+        <div class="stat"><div class="number">15+</div><div class="label">Years Experience</div></div>
+        <div class="stat"><div class="number">500+</div><div class="label">Dealers Pan India</div></div>
+        <div class="stat"><div class="number">80+</div><div class="label">Vibrant Shades</div></div>
+        <div class="stat"><div class="number">8</div><div class="label">Offices Across India</div></div>
+      </div>
+      <div class="preview-cards">
+        <h2>Our Product Range</h2>
+        <div class="cards-grid">
+          <div class="card"><div class="card-img"><span>PVC Wall Panels</span></div><div class="card-body"><p>Waterproof panels for interior walls</p></div></div>
+          <div class="card"><div class="card-img"><span>WPC Louvers</span></div><div class="card-body"><p>Premium exterior cladding solutions</p></div></div>
+          <div class="card"><div class="card-img"><span>UV Sheets</span></div><div class="card-body"><p>High-gloss decorative sheets</p></div></div>
+        </div>
+      </div>
+      <div class="preview-footer"><span>© 2026 Pranij Heights India</span><span>Privacy | Terms | Contact</span></div>
+    </div>
+  </div>
+
+  <!-- ========== OPTION 2: CHARCOAL + EMERALD ========== -->
+  <div class="option p2">
+    <div class="option-header">
+      <div>
+        <h2>Option 2: Charcoal + Emerald Green</h2>
+        <p style="opacity:0.7;font-size:14px;margin-top:4px;">Sophisticated, eco-conscious, premium — great for building materials</p>
+      </div>
+      <span class="tag">POPULAR</span>
+    </div>
+    <div class="swatches">
+      <div class="swatch-item"><div class="color" style="background:#1E293B"></div><div class="label">Charcoal</div><div class="hex">#1E293B</div></div>
+      <div class="swatch-item"><div class="color" style="background:#334155"></div><div class="label">Slate</div><div class="hex">#334155</div></div>
+      <div class="swatch-item"><div class="color" style="background:#10B981"></div><div class="label">Emerald</div><div class="hex">#10B981</div></div>
+      <div class="swatch-item"><div class="color" style="background:#059669"></div><div class="label">Emerald Dark</div><div class="hex">#059669</div></div>
+      <div class="swatch-item"><div class="color" style="background:#f0fdf4"></div><div class="label">Mint BG</div><div class="hex">#F0FDF4</div></div>
+      <div class="swatch-item"><div class="color" style="background:#f8fafc"></div><div class="label">Light BG</div><div class="hex">#F8FAFC</div></div>
+      <div class="swatch-item"><div class="color" style="background:#FFFFFF;border-color:#ddd"></div><div class="label">White</div><div class="hex">#FFFFFF</div></div>
+      <div class="swatch-item"><div class="color" style="background:#334155"></div><div class="label">Body Text</div><div class="hex">#334155</div></div>
+    </div>
+    <div class="preview">
+      <div class="preview-nav">
+        <div class="logo">Pranij <span>Heights</span></div>
+        <div class="links"><a href="#">Home</a><a href="#">Products</a><a href="#">About</a><a href="#">Contact</a></div>
+        <button class="cta-btn">Get Quote</button>
+      </div>
+      <div class="preview-hero">
+        <h1>Premium PVC Panels &<br>Interior Solutions</h1>
+        <p>Trusted by 500+ dealers across India. Waterproof, fire-retardant, and built to last.</p>
+        <div class="buttons">
+          <button class="btn-primary">Explore Products</button>
+          <button class="btn-outline">Download Catalogue</button>
+        </div>
+      </div>
+      <div class="preview-stats">
+        <div class="stat"><div class="number">15+</div><div class="label">Years Experience</div></div>
+        <div class="stat"><div class="number">500+</div><div class="label">Dealers Pan India</div></div>
+        <div class="stat"><div class="number">80+</div><div class="label">Vibrant Shades</div></div>
+        <div class="stat"><div class="number">8</div><div class="label">Offices Across India</div></div>
+      </div>
+      <div class="preview-cards">
+        <h2>Our Product Range</h2>
+        <div class="cards-grid">
+          <div class="card"><div class="card-img"><span>PVC Wall Panels</span></div><div class="card-body"><p>Waterproof panels for interior walls</p></div></div>
+          <div class="card"><div class="card-img"><span>WPC Louvers</span></div><div class="card-body"><p>Premium exterior cladding solutions</p></div></div>
+          <div class="card"><div class="card-img"><span>UV Sheets</span></div><div class="card-body"><p>High-gloss decorative sheets</p></div></div>
+        </div>
+      </div>
+      <div class="preview-footer"><span>© 2026 Pranij Heights India</span><span>Privacy | Terms | Contact</span></div>
+    </div>
+  </div>
+
+  <!-- ========== OPTION 3: DEEP BLUE + ORANGE ========== -->
+  <div class="option p3">
+    <div class="option-header">
+      <div>
+        <h2>Option 3: Deep Blue + Vibrant Orange</h2>
+        <p style="opacity:0.7;font-size:14px;margin-top:4px;">Bold, energetic, high-contrast — stands out from competitors</p>
+      </div>
+      <span class="tag">BOLD</span>
+    </div>
+    <div class="swatches">
+      <div class="swatch-item"><div class="color" style="background:#1B2A4A"></div><div class="label">Deep Blue</div><div class="hex">#1B2A4A</div></div>
+      <div class="swatch-item"><div class="color" style="background:#2d3f66"></div><div class="label">Blue Mid</div><div class="hex">#2D3F66</div></div>
+      <div class="swatch-item"><div class="color" style="background:#F97316"></div><div class="label">Orange</div><div class="hex">#F97316</div></div>
+      <div class="swatch-item"><div class="color" style="background:#EA580C"></div><div class="label">Orange Dark</div><div class="hex">#EA580C</div></div>
+      <div class="swatch-item"><div class="color" style="background:#fff7ed"></div><div class="label">Warm BG</div><div class="hex">#FFF7ED</div></div>
+      <div class="swatch-item"><div class="color" style="background:#f8fafc"></div><div class="label">Light BG</div><div class="hex">#F8FAFC</div></div>
+      <div class="swatch-item"><div class="color" style="background:#FFFFFF;border-color:#ddd"></div><div class="label">White</div><div class="hex">#FFFFFF</div></div>
+      <div class="swatch-item"><div class="color" style="background:#334155"></div><div class="label">Body Text</div><div class="hex">#334155</div></div>
+    </div>
+    <div class="preview">
+      <div class="preview-nav">
+        <div class="logo">Pranij <span>Heights</span></div>
+        <div class="links"><a href="#">Home</a><a href="#">Products</a><a href="#">About</a><a href="#">Contact</a></div>
+        <button class="cta-btn">Get Quote</button>
+      </div>
+      <div class="preview-hero">
+        <h1>Premium PVC Panels &<br>Interior Solutions</h1>
+        <p>Trusted by 500+ dealers across India. Waterproof, fire-retardant, and built to last.</p>
+        <div class="buttons">
+          <button class="btn-primary">Explore Products</button>
+          <button class="btn-outline">Download Catalogue</button>
+        </div>
+      </div>
+      <div class="preview-stats">
+        <div class="stat"><div class="number">15+</div><div class="label">Years Experience</div></div>
+        <div class="stat"><div class="number">500+</div><div class="label">Dealers Pan India</div></div>
+        <div class="stat"><div class="number">80+</div><div class="label">Vibrant Shades</div></div>
+        <div class="stat"><div class="number">8</div><div class="label">Offices Across India</div></div>
+      </div>
+      <div class="preview-cards">
+        <h2>Our Product Range</h2>
+        <div class="cards-grid">
+          <div class="card"><div class="card-img"><span>PVC Wall Panels</span></div><div class="card-body"><p>Waterproof panels for interior walls</p></div></div>
+          <div class="card"><div class="card-img"><span>WPC Louvers</span></div><div class="card-body"><p>Premium exterior cladding solutions</p></div></div>
+          <div class="card"><div class="card-img"><span>UV Sheets</span></div><div class="card-body"><p>High-gloss decorative sheets</p></div></div>
+        </div>
+      </div>
+      <div class="preview-footer"><span>© 2026 Pranij Heights India</span><span>Privacy | Terms | Contact</span></div>
+    </div>
+  </div>
+
+  <!-- ========== OPTION 4: BLACK + RED ========== -->
+  <div class="option p4">
+    <div class="option-header">
+      <div>
+        <h2>Option 4: Black + Red (Industrial Bold)</h2>
+        <p style="opacity:0.7;font-size:14px;margin-top:4px;">Powerful, aggressive, industrial — like construction/heavy industry brands</p>
+      </div>
+      <span class="tag">POWERFUL</span>
+    </div>
+    <div class="swatches">
+      <div class="swatch-item"><div class="color" style="background:#111827"></div><div class="label">Near Black</div><div class="hex">#111827</div></div>
+      <div class="swatch-item"><div class="color" style="background:#1f2937"></div><div class="label">Dark Gray</div><div class="hex">#1F2937</div></div>
+      <div class="swatch-item"><div class="color" style="background:#DC2626"></div><div class="label">Red</div><div class="hex">#DC2626</div></div>
+      <div class="swatch-item"><div class="color" style="background:#B91C1C"></div><div class="label">Deep Red</div><div class="hex">#B91C1C</div></div>
+      <div class="swatch-item"><div class="color" style="background:#fef2f2"></div><div class="label">Warm BG</div><div class="hex">#FEF2F2</div></div>
+      <div class="swatch-item"><div class="color" style="background:#f9fafb"></div><div class="label">Light BG</div><div class="hex">#F9FAFB</div></div>
+      <div class="swatch-item"><div class="color" style="background:#FFFFFF;border-color:#ddd"></div><div class="label">White</div><div class="hex">#FFFFFF</div></div>
+      <div class="swatch-item"><div class="color" style="background:#374151"></div><div class="label">Body Text</div><div class="hex">#374151</div></div>
+    </div>
+    <div class="preview">
+      <div class="preview-nav">
+        <div class="logo">Pranij <span>Heights</span></div>
+        <div class="links"><a href="#">Home</a><a href="#">Products</a><a href="#">About</a><a href="#">Contact</a></div>
+        <button class="cta-btn">Get Quote</button>
+      </div>
+      <div class="preview-hero">
+        <h1>Premium PVC Panels &<br>Interior Solutions</h1>
+        <p>Trusted by 500+ dealers across India. Waterproof, fire-retardant, and built to last.</p>
+        <div class="buttons">
+          <button class="btn-primary">Explore Products</button>
+          <button class="btn-outline">Download Catalogue</button>
+        </div>
+      </div>
+      <div class="preview-stats">
+        <div class="stat"><div class="number">15+</div><div class="label">Years Experience</div></div>
+        <div class="stat"><div class="number">500+</div><div class="label">Dealers Pan India</div></div>
+        <div class="stat"><div class="number">80+</div><div class="label">Vibrant Shades</div></div>
+        <div class="stat"><div class="number">8</div><div class="label">Offices Across India</div></div>
+      </div>
+      <div class="preview-cards">
+        <h2>Our Product Range</h2>
+        <div class="cards-grid">
+          <div class="card"><div class="card-img"><span>PVC Wall Panels</span></div><div class="card-body"><p>Waterproof panels for interior walls</p></div></div>
+          <div class="card"><div class="card-img"><span>WPC Louvers</span></div><div class="card-body"><p>Premium exterior cladding solutions</p></div></div>
+          <div class="card"><div class="card-img"><span>UV Sheets</span></div><div class="card-body"><p>High-gloss decorative sheets</p></div></div>
+        </div>
+      </div>
+      <div class="preview-footer"><span>© 2026 Pranij Heights India</span><span>Privacy | Terms | Contact</span></div>
+    </div>
+  </div>
+
+  <!-- ========== OPTION 5: DARK SLATE + GOLD (REFINED) ========== -->
+  <div class="option p5">
+    <div class="option-header">
+      <div>
+        <h2>Option 5: Dark Slate + Gold (Refined Luxury)</h2>
+        <p style="opacity:0.7;font-size:14px;margin-top:4px;">Keeps gold but adds dark backgrounds — fixes the "washed out" problem of current scheme</p>
+      </div>
+      <span class="tag">REFINED</span>
+    </div>
+    <div class="swatches">
+      <div class="swatch-item"><div class="color" style="background:#1a1a2e"></div><div class="label">Dark Slate</div><div class="hex">#1A1A2E</div></div>
+      <div class="swatch-item"><div class="color" style="background:#2a2a40"></div><div class="label">Slate Mid</div><div class="hex">#2A2A40</div></div>
+      <div class="swatch-item"><div class="color" style="background:#D4A843"></div><div class="label">Gold</div><div class="hex">#D4A843</div></div>
+      <div class="swatch-item"><div class="color" style="background:#B8922E"></div><div class="label">Gold Dark</div><div class="hex">#B8922E</div></div>
+      <div class="swatch-item"><div class="color" style="background:#fdf8ee"></div><div class="label">Warm BG</div><div class="hex">#FDF8EE</div></div>
+      <div class="swatch-item"><div class="color" style="background:#fafaf8"></div><div class="label">Cream BG</div><div class="hex">#FAFAF8</div></div>
+      <div class="swatch-item"><div class="color" style="background:#FFFFFF;border-color:#ddd"></div><div class="label">White</div><div class="hex">#FFFFFF</div></div>
+      <div class="swatch-item"><div class="color" style="background:#374151"></div><div class="label">Body Text</div><div class="hex">#374151</div></div>
+    </div>
+    <div class="preview">
+      <div class="preview-nav">
+        <div class="logo">Pranij <span>Heights</span></div>
+        <div class="links"><a href="#">Home</a><a href="#">Products</a><a href="#">About</a><a href="#">Contact</a></div>
+        <button class="cta-btn">Get Quote</button>
+      </div>
+      <div class="preview-hero">
+        <h1>Premium PVC Panels &<br>Interior Solutions</h1>
+        <p>Trusted by 500+ dealers across India. Waterproof, fire-retardant, and built to last.</p>
+        <div class="buttons">
+          <button class="btn-primary">Explore Products</button>
+          <button class="btn-outline">Download Catalogue</button>
+        </div>
+      </div>
+      <div class="preview-stats">
+        <div class="stat"><div class="number">15+</div><div class="label">Years Experience</div></div>
+        <div class="stat"><div class="number">500+</div><div class="label">Dealers Pan India</div></div>
+        <div class="stat"><div class="number">80+</div><div class="label">Vibrant Shades</div></div>
+        <div class="stat"><div class="number">8</div><div class="label">Offices Across India</div></div>
+      </div>
+      <div class="preview-cards">
+        <h2>Our Product Range</h2>
+        <div class="cards-grid">
+          <div class="card"><div class="card-img"><span>PVC Wall Panels</span></div><div class="card-body"><p>Waterproof panels for interior walls</p></div></div>
+          <div class="card"><div class="card-img"><span>WPC Louvers</span></div><div class="card-body"><p>Premium exterior cladding solutions</p></div></div>
+          <div class="card"><div class="card-img"><span>UV Sheets</span></div><div class="card-body"><p>High-gloss decorative sheets</p></div></div>
+        </div>
+      </div>
+      <div class="preview-footer"><span>© 2026 Pranij Heights India</span><span>Privacy | Terms | Contact</span></div>
+    </div>
+  </div>
+
+  <!-- Comparison Table -->
+  <div style="background:#fff;border-radius:12px;padding:30px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-top:40px;">
+    <h2 style="font-family:'Poppins',sans-serif;font-size:22px;margin-bottom:20px;text-align:center;">Quick Comparison</h2>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      <thead>
+        <tr style="border-bottom:2px solid #e5e7eb;">
+          <th style="text-align:left;padding:12px;">Option</th>
+          <th style="text-align:left;padding:12px;">Vibe</th>
+          <th style="text-align:left;padding:12px;">Best For</th>
+          <th style="text-align:left;padding:12px;">Industry Match</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #f3f4f6;">
+          <td style="padding:12px;font-weight:600;">1. Navy + Sky Blue</td>
+          <td style="padding:12px;">Professional, trustworthy</td>
+          <td style="padding:12px;">B2B confidence, corporate clients</td>
+          <td style="padding:12px;">⭐⭐⭐⭐⭐ Top construction brands use this</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f3f4f6;">
+          <td style="padding:12px;font-weight:600;">2. Charcoal + Emerald</td>
+          <td style="padding:12px;">Sophisticated, eco-friendly</td>
+          <td style="padding:12px;">Eco-positioning, modern appeal</td>
+          <td style="padding:12px;">⭐⭐⭐⭐ Growing trend in materials</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f3f4f6;">
+          <td style="padding:12px;font-weight:600;">3. Deep Blue + Orange</td>
+          <td style="padding:12px;">Bold, energetic, eye-catching</td>
+          <td style="padding:12px;">Standing out from competitors</td>
+          <td style="padding:12px;">⭐⭐⭐⭐ Used by hardware/tools brands</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f3f4f6;">
+          <td style="padding:12px;font-weight:600;">4. Black + Red</td>
+          <td style="padding:12px;">Powerful, aggressive</td>
+          <td style="padding:12px;">Heavy industrial, premium feel</td>
+          <td style="padding:12px;">⭐⭐⭐ More automotive/tech</td>
+        </tr>
+        <tr>
+          <td style="padding:12px;font-weight:600;">5. Dark Slate + Gold</td>
+          <td style="padding:12px;">Refined luxury</td>
+          <td style="padding:12px;">If client wants to keep gold</td>
+          <td style="padding:12px;">⭐⭐⭐⭐ Luxury building materials</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

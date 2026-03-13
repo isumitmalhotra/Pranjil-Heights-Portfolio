@@ -32,11 +32,11 @@ const ContactCard = ({ icon: IconComponent, title, details, action, link, index 
           <IconComponent className="w-6 h-6 text-gold" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-gold transition-all font-heading">
+          <h3 className="text-lg font-bold text-white mb-2 group-hover:text-gold transition-all font-heading">
             {title}
           </h3>
           {details.map((line, i) => (
-            <p key={i} className="text-gray-600 text-sm leading-relaxed">{line}</p>
+            <p key={i} className="text-slate-300 text-sm leading-relaxed">{line}</p>
           ))}
           {action && (
             <a 
@@ -60,15 +60,15 @@ const RegionalOfficeCard = ({ city, address, phone, email }) => (
       <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center">
         <MapPin className="w-5 h-5 text-gold" />
       </div>
-      <h4 className="text-gray-800 font-bold font-heading">{city}</h4>
+      <h4 className="text-white font-bold font-heading">{city}</h4>
     </div>
-    <p className="text-gray-600 text-sm mb-3">{address}</p>
+    <p className="text-slate-300 text-sm mb-3">{address}</p>
     <div className="space-y-2">
-      <a href={`tel:${phone}`} className="flex items-center gap-2 text-gray-700 text-sm hover:text-gold transition-colors">
+      <a href={`tel:${phone}`} className="flex items-center gap-2 text-slate-200 text-sm hover:text-gold transition-colors">
         <Phone className="w-4 h-4" />
         {phone}
       </a>
-      <a href={`mailto:${email}`} className="flex items-center gap-2 text-gray-700 text-sm hover:text-gold transition-colors">
+      <a href={`mailto:${email}`} className="flex items-center gap-2 text-slate-200 text-sm hover:text-gold transition-colors">
         <Mail className="w-4 h-4" />
         {email}
       </a>
@@ -158,13 +158,13 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
 
   return (
     <GlassCard className="p-8 border-gold/20">
-      <div className="flex gap-2 mb-8 p-1 bg-gray-100 rounded-xl">
+      <div className="flex gap-2 mb-8 p-1 bg-blue-300/15 rounded-xl">
         <button
           onClick={() => setEnquiryType('general')}
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
             enquiryType === 'general' 
               ? 'bg-gold text-white' 
-              : 'text-gray-700 hover:text-gray-900'
+              : 'text-slate-200 hover:text-white'
           }`}
         >
           <MessageCircle className="w-4 h-4 inline mr-2" />
@@ -175,7 +175,7 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
             enquiryType === 'quotation' 
               ? 'bg-gold text-white' 
-              : 'text-gray-700 hover:text-gray-900'
+              : 'text-slate-200 hover:text-white'
           }`}
         >
           <Briefcase className="w-4 h-4 inline mr-2" />
@@ -186,7 +186,7 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
           className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
             enquiryType === 'dealer' 
               ? 'bg-gold text-white' 
-              : 'text-gray-700 hover:text-gray-900'
+              : 'text-slate-200 hover:text-white'
           }`}
         >
           <Building className="w-4 h-4 inline mr-2" />
@@ -197,24 +197,24 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-gray-700 text-sm mb-2">Full Name *</label>
+            <label className="block text-slate-200 text-sm mb-2">Full Name *</label>
             <input
               type="text"
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+              className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
               placeholder="Your name"
             />
           </div>
           <div>
-            <label className="block text-gray-700 text-sm mb-2">Company Name *</label>
+            <label className="block text-slate-200 text-sm mb-2">Company Name *</label>
             <input
               type="text"
               required
               value={formData.company}
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+              className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
               placeholder="Your company"
             />
           </div>
@@ -222,24 +222,24 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-gray-700 text-sm mb-2">Email Address *</label>
+            <label className="block text-slate-200 text-sm mb-2">Email Address *</label>
             <input
               type="email"
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+              className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
               placeholder="your@email.com"
             />
           </div>
           <div>
-            <label className="block text-gray-700 text-sm mb-2">Phone Number *</label>
+            <label className="block text-slate-200 text-sm mb-2">Phone Number *</label>
             <input
               type="tel"
               required
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+              className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
               placeholder="+91 98765 43210"
             />
           </div>
@@ -247,40 +247,40 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-gray-700 text-sm mb-2">City *</label>
+            <label className="block text-slate-200 text-sm mb-2">City *</label>
             <input
               type="text"
               required
               value={formData.city}
               onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-              className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+              className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
               placeholder="Your city"
             />
           </div>
           <div>
-            <label className="block text-gray-700 text-sm mb-2">
+            <label className="block text-slate-200 text-sm mb-2">
               {enquiryType === 'dealer' ? 'Business Type *' : 'Requirement Type *'}
             </label>
             <select
               required
               value={formData.requirement}
               onChange={(e) => setFormData({ ...formData, requirement: e.target.value })}
-              className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
+              className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
             >
-              <option value="" className="bg-white">Select...</option>
+              <option value="" className="bg-blue-300/15">Select...</option>
               {enquiryType === 'dealer' ? (
                 <>
-                  <option value="retailer" className="bg-white">Retailer</option>
-                  <option value="distributor" className="bg-white">Distributor</option>
-                  <option value="contractor" className="bg-white">Contractor</option>
-                  <option value="architect" className="bg-white">Architect/Designer</option>
+                  <option value="retailer" className="bg-blue-300/15">Retailer</option>
+                  <option value="distributor" className="bg-blue-300/15">Distributor</option>
+                  <option value="contractor" className="bg-blue-300/15">Contractor</option>
+                  <option value="architect" className="bg-blue-300/15">Architect/Designer</option>
                 </>
               ) : (
                 <>
-                  <option value="residential" className="bg-white">Residential Project</option>
-                  <option value="commercial" className="bg-white">Commercial Project</option>
-                  <option value="institutional" className="bg-white">Institutional Project</option>
-                  <option value="bulk" className="bg-white">Bulk Order</option>
+                  <option value="residential" className="bg-blue-300/15">Residential Project</option>
+                  <option value="commercial" className="bg-blue-300/15">Commercial Project</option>
+                  <option value="institutional" className="bg-blue-300/15">Institutional Project</option>
+                  <option value="bulk" className="bg-blue-300/15">Bulk Order</option>
                 </>
               )}
             </select>
@@ -288,14 +288,14 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
         </div>
 
         <div>
-          <label className="block text-gray-700 text-sm mb-2">
+          <label className="block text-slate-200 text-sm mb-2">
             {enquiryType === 'dealer' ? 'Tell us about your business' : 'Project Details / Message'}
           </label>
           <textarea
             rows={4}
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            className="w-full bg-gray-100 border border-black/10 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors resize-none"
+            className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors resize-none"
             placeholder={enquiryType === 'dealer' 
               ? "Tell us about your business, current product lines, and why you want to partner with us..."
               : "Describe your project requirements, estimated quantity, timeline..."
@@ -331,7 +331,7 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
 const StatCard = ({ value, label }) => (
   <div className="text-center p-6">
     <div className="text-4xl font-bold text-gold mb-2 font-heading">{value}</div>
-    <div className="text-gray-600 text-sm">{label}</div>
+    <div className="text-slate-300 text-sm">{label}</div>
   </div>
 );
 
@@ -391,16 +391,16 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <MessageCircle className="w-4 h-4" />
               Contact Us
             </SectionBadge>
             
-            <H1 className="mb-6 font-heading text-gray-800">
+            <H1 className="mb-6 font-heading text-white">
               Let's Discuss Your <span className="text-gold">Project</span>
             </H1>
             
-            <Body className="text-gray-700 text-lg">
+            <Body className="text-slate-200 text-lg">
               Whether you need a quotation for a project, want to become a dealer, or have 
               technical questions, our team is here to help.
             </Body>
@@ -499,16 +499,16 @@ const Contact = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Globe className="w-4 h-4" />
               Regional Presence
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               Our <span className="text-gold">Offices</span> Across India
             </H2>
             
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               With regional offices in major cities, we ensure prompt support and 
               efficient delivery to our dealers and customers.
             </p>
@@ -539,16 +539,16 @@ const Contact = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <CheckCircle className="w-4 h-4" />
               FAQ
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               Frequently Asked <span className="text-gold">Questions</span>
             </H2>
             
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               Find quick answers to common questions about our products, ordering, and dealer partnerships.
             </p>
           </motion.div>
@@ -576,11 +576,11 @@ const Contact = () => {
                   <Users className="w-8 h-8 text-gold" />
                 </div>
                 
-                <H2 className="mb-4 font-heading text-gray-800">
+                <H2 className="mb-4 font-heading text-white">
                   Ready to <span className="text-gold">Partner</span> With Us?
                 </H2>
                 
-                <p className="text-gray-700 mb-8">
+                <p className="text-slate-200 mb-8">
                   Join our network of 500+ dealers across India. Get access to competitive pricing, 
                   marketing support, and dedicated account management.
                 </p>
@@ -609,4 +609,5 @@ const Contact = () => {
 };
 
 export default Contact;
+
 

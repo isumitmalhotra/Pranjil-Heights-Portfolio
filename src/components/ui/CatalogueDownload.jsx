@@ -47,7 +47,7 @@ const CatalogueCard = ({ title, description, pages, size, type, featured, delay 
     <div className={`h-full p-6 rounded-2xl border transition-all duration-300 ${
       featured 
         ? 'bg-yellow-50 border-yellow-600/30 hover:border-yellow-600/50' 
-        : 'bg-white/5 border-white/10 hover:border-yellow-600/30 hover:bg-white/10'
+        : 'bg-blue-300/12 border-blue-200/25 hover:border-yellow-600/30 hover:bg-blue-300/16'
     }`}>
       {/* Featured Badge */}
       {featured && (
@@ -61,7 +61,7 @@ const CatalogueCard = ({ title, description, pages, size, type, featured, delay 
       
       {/* Icon */}
       <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${
-        featured ? 'bg-yellow-600/20' : 'bg-white/5'
+        featured ? 'bg-yellow-600/20' : 'bg-blue-300/12'
       }`}>
         <BookOpen className={`w-7 h-7 ${featured ? 'text-yellow-600' : 'text-ivory/60'}`} />
       </div>
@@ -78,9 +78,9 @@ const CatalogueCard = ({ title, description, pages, size, type, featured, delay 
           <FileText className="w-3.5 h-3.5" />
           {pages}
         </span>
-        <span>•</span>
+        <span>-</span>
         <span>{size}</span>
-        <span>•</span>
+        <span>-</span>
         <span className="uppercase">{type}</span>
       </div>
       
@@ -136,7 +136,7 @@ export const CatalogueDownloadCTA = ({ onDownload }) => (
         <Button variant="primary" size="lg" icon={Download} onClick={onDownload}>
           Download PDF
         </Button>
-        <p className="text-ivory/40 text-xs mt-2 text-center">48 pages • 15 MB</p>
+        <p className="text-ivory/40 text-xs mt-2 text-center">48 pages - 15 MB</p>
       </div>
     </div>
   </motion.div>

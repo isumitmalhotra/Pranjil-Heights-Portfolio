@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 
 export const Layout = ({ children }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-900 overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#08172E] text-slate-100 overflow-x-hidden">
       <Navbar />
       <motion.main 
         initial={{ opacity: 0, y: 20 }}

@@ -16,7 +16,7 @@ const CategoryCard = ({ image, title, features, slug, delay }) => (
     transition={{ duration: 0.6, delay }}
     className="group relative"
   >
-    <div className="glass-card overflow-hidden hover:border-gold/30 transition-all duration-500">
+    <div className="glass-card overflow-hidden hover:border-orange-400/40 transition-all duration-500">
       {/* Image */}
       <div className="relative aspect-4/3 overflow-hidden">
         <img 
@@ -25,11 +25,11 @@ const CategoryCard = ({ image, title, features, slug, delay }) => (
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-linear-to-t from-charcoal via-charcoal/50 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#0F2A44]/85 via-[#1B2A4A]/45 to-transparent" />
         
         {/* Category Badge */}
         <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 text-xs font-medium bg-gold/90 text-charcoal rounded-full">
+          <span className="px-3 py-1 text-xs font-medium bg-orange-500/90 text-white rounded-full">
             Premium Range
           </span>
         </div>
@@ -37,14 +37,14 @@ const CategoryCard = ({ image, title, features, slug, delay }) => (
       
       {/* Content */}
       <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-gold transition-colors">
+        <h3 className="text-xl font-bold text-white mb-4 group-hover:text-gold transition-colors">
           {title}
         </h3>
         
         {/* Features List */}
         <ul className="space-y-2 mb-6">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-2 text-gray-600 text-sm">
+            <li key={index} className="flex items-start gap-2 text-slate-300 text-sm">
               <Check className="w-4 h-4 text-gold shrink-0 mt-0.5" />
               <span>{feature}</span>
             </li>
@@ -167,8 +167,8 @@ export const ProductCategories = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gray-50" />
-      <div className="absolute inset-0 mesh-gradient opacity-10" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#0F2A44] via-[#1B2A4A] to-[#243B63]" />
+      <div className="absolute inset-0 mesh-gradient opacity-20" />
       
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
@@ -179,16 +179,16 @@ export const ProductCategories = () => {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20 mb-6">
-            <span className="text-gold text-sm font-medium">Our Product Range</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-300/16 border border-blue-200/30 mb-6">
+            <span className="text-orange-300 text-sm font-medium">Our Product Range</span>
           </div>
           
-          <H2 className="mb-6">
+          <H2 className="mb-6 text-white">
             Complete Solutions for{' '}
-            <span className="gradient-text">Every Space</span>
+            <span className="text-orange-400">Every Space</span>
           </H2>
           
-          <p className="text-gray-600 text-lg">
+          <p className="text-slate-200 text-lg">
             From modern offices to luxury homes, our comprehensive range of PVC panels 
             offers the perfect solution for walls, ceilings, and exterior applications.
           </p>
@@ -209,7 +209,7 @@ export const ProductCategories = () => {
           className="text-center mt-12"
         >
           <Link to="/products">
-            <Button variant="primary" size="lg" icon={ChevronRight}>
+            <Button variant="premium" size="lg" icon={ChevronRight}>
               View All Products
             </Button>
           </Link>

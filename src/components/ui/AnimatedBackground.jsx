@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 export const FloatingOrbs = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Primary Teal Orb */}
+      {/* Primary Blue Orb */}
       <motion.div
         animate={{
           x: [0, 100, -50, 0],
@@ -20,12 +20,12 @@ export const FloatingOrbs = () => {
         }}
         className="absolute top-1/4 left-1/4 w-125 h-125 rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%)',
           filter: 'blur(60px)',
         }}
       />
       
-      {/* Secondary Gold Orb */}
+      {/* Secondary Orange Orb */}
       <motion.div
         animate={{
           x: [0, -80, 60, 0],
@@ -39,12 +39,12 @@ export const FloatingOrbs = () => {
         }}
         className="absolute bottom-1/4 right-1/4 w-100 h-100 rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(196,165,116,0.1) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(249,115,22,0.16) 0%, transparent 70%)',
           filter: 'blur(60px)',
         }}
       />
       
-      {/* Tertiary Purple Orb */}
+      {/* Tertiary Blue Orb */}
       <motion.div
         animate={{
           x: [0, 50, -70, 0],
@@ -58,7 +58,7 @@ export const FloatingOrbs = () => {
         }}
         className="absolute top-1/2 right-1/3 w-75 h-75 rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(138,43,226,0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(96,165,250,0.14) 0%, transparent 70%)',
           filter: 'blur(60px)',
         }}
       />
@@ -120,8 +120,8 @@ export const GridLines = () => {
         className="absolute inset-0"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0,212,255,0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,212,255,0.3) 1px, transparent 1px)
+            linear-gradient(rgba(96,165,250,0.24) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(96,165,250,0.24) 1px, transparent 1px)
           `,
           backgroundSize: '100px 100px',
         }}
@@ -130,7 +130,7 @@ export const GridLines = () => {
       <motion.div
         animate={{ y: ['0%', '100%'] }}
         transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        className="absolute left-0 right-0 h-px bg-linear-to-r from-transparent via-teal/50 to-transparent"
+        className="absolute left-0 right-0 h-px bg-linear-to-r from-transparent via-blue-400/50 to-transparent"
       />
     </div>
   );
@@ -155,7 +155,7 @@ export const SpotlightEffect = () => {
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (spotlightRef.current) {
-        spotlightRef.current.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(0,212,255,0.06), transparent 40%)`;
+        spotlightRef.current.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(59,130,246,0.12), transparent 40%)`;
       }
     };
 

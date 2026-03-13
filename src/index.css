@@ -3,61 +3,73 @@
 
 @theme {
   /* ========================================
-     PREMIUM B2B CORPORATE COLOR SYSTEM
-     Light Theme with Gold Accents
+    PREMIUM B2B CORPORATE COLOR SYSTEM
+    Blue + Orange Theme
      ======================================== */
   
-  /* Primary Background Colors - Clean Light */
-  --color-charcoal: #FFFFFF;
-  --color-charcoal-light: #F8F9FA;
-  --color-charcoal-dark: #FFFFFF;
-  --color-charcoal-medium: #F0F2F5;
+  /* Primary Background Colors - Blue-led Theme */
+  --color-charcoal: #08172E;
+  --color-charcoal-light: #0F2A44;
+  --color-charcoal-dark: #061223;
+  --color-charcoal-medium: #1B3B66;
   
-  /* Secondary Background - Warm Light */
-  --color-surface: #FAFAFA;
-  --color-surface-light: #F5F5F5;
-  --color-surface-elevated: #FFFFFF;
+  /* Secondary Background */
+  --color-surface: #102B4C;
+  --color-surface-light: #173A64;
+  --color-surface-elevated: #1C4778;
   
-  /* Primary Accent - Elegant Gold */
-  --color-gold: #D4AF37;
-  --color-gold-light: #E5C158;
-  --color-gold-dark: #B8960F;
-  --color-gold-muted: #C9A227;
-  --color-gold-glow: rgba(212, 175, 55, 0.3);
+  /* Accent - Bold Orange */
+  --color-gold: #F97316;
+  --color-gold-light: #FB923C;
+  --color-gold-dark: #EA580C;
+  --color-gold-muted: #C2410C;
+  --color-gold-glow: rgba(249, 115, 22, 0.3);
   
-  /* Secondary Accent - Warm Gold */
-  --color-gold-warm: #CDA000;
-  --color-gold-bright: #E5B800;
-  --color-gold-pale: #FEF9E7;
+  /* Secondary Accent - Deep Blue */
+  --color-gold-warm: #1B2A4A;
+  --color-gold-bright: #2563EB;
+  --color-gold-pale: #FFF7ED;
   
-  /* Text Colors - Dark for Light Theme */
-  --color-ivory: #1a1a1a;
-  --color-ivory-muted: #333333;
-  --color-gray-light: #666666;
-  --color-gray: #888888;
-  --color-gray-dark: #999999;
+  /* Text Colors */
+  --color-ivory: #F8FAFC;
+  --color-ivory-muted: #CBD5E1;
+  --color-gray-light: #94A3B8;
+  --color-gray: #64748B;
+  --color-gray-dark: #334155;
   
-  /* Legacy Support (maps old teal to gold) */
-  --color-teal: #B8860B;
-  --color-teal-light: #D4AF37;
-  --color-teal-dark: #8B6914;
-  --color-teal-glow: rgba(184, 134, 11, 0.3);
+  /* Legacy Support (maps old teal to brand blue) */
+  --color-teal: #1B2A4A;
+  --color-teal-light: #2563EB;
+  --color-teal-dark: #0F2A44;
+  --color-teal-glow: rgba(27, 42, 74, 0.3);
   
   /* Accent Colors for variety */
-  --color-bronze: #CD7F32;
-  --color-copper: #B87333;
+  --color-bronze: #F97316;
+  --color-copper: #EA580C;
   --color-silver: #6B7280;
   
-  /* Card Effects - Solid White with Shadows */
-  --color-glass-white: rgba(255, 255, 255, 1);
-  --color-glass-border: rgba(0, 0, 0, 0.08);
-  --color-glass-highlight: rgba(255, 255, 255, 1);
-  --color-glass-gold: rgba(184, 134, 11, 0.05);
+  /* Card Effects - Light Blue Glass */
+  --color-glass-white: rgba(120, 176, 240, 0.16);
+  --color-glass-border: rgba(147, 197, 253, 0.28);
+  --color-glass-highlight: rgba(191, 219, 254, 0.24);
+  --color-glass-gold: rgba(249, 115, 22, 0.14);
   
   /* Gradient Colors */
-  --color-gradient-start: #FFFFFF;
-  --color-gradient-mid: #F8F9FA;
-  --color-gradient-end: #F0F2F5;
+  --color-gradient-start: #08172E;
+  --color-gradient-mid: #102B4C;
+  --color-gradient-end: #0F2A44;
+
+  /* Remap yellow utility classes to orange shades across existing components */
+  --color-yellow-50: #FFF7ED;
+  --color-yellow-100: #FFEDD5;
+  --color-yellow-200: #FED7AA;
+  --color-yellow-300: #FDBA74;
+  --color-yellow-400: #FB923C;
+  --color-yellow-500: #F97316;
+  --color-yellow-600: #EA580C;
+  --color-yellow-700: #C2410C;
+  --color-yellow-800: #9A3412;
+  --color-yellow-900: #7C2D12;
   
   /* Typography */
   --font-sans: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -68,10 +80,10 @@
   --shadow-glass: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
   --shadow-3d: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-float: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-glow: 0 0 0 3px rgba(184, 134, 11, 0.1);
-  --shadow-glow-intense: 0 0 0 4px rgba(184, 134, 11, 0.15);
+  --shadow-glow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+  --shadow-glow-intense: 0 0 0 4px rgba(249, 115, 22, 0.15);
   --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  --shadow-gold: 0 4px 14px rgba(184, 134, 11, 0.15);
+  --shadow-gold: 0 4px 14px rgba(249, 115, 22, 0.18);
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
   --shadow-card-hover: 0 10px 25px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0, 0, 0, 0.08);
   
@@ -99,7 +111,7 @@
   
   body {
     @apply bg-charcoal text-ivory font-sans antialiased overflow-x-hidden;
-    background: #FFFFFF;
+    background: radial-gradient(circle at 10% 10%, #1B3B66 0%, #08172E 42%, #061223 100%);
   }
   
   /* Premium Headlines with Serif Font */
@@ -118,37 +130,40 @@
   }
   
   /* Improved text rendering */
-  p, span, li, a {
+  p, li {
     @apply text-ivory-muted;
   }
 }
 
 @layer components {
   /* ========================================
-     CARD STYLES - White with Box Shadow
+     CARD STYLES - Blue Glass Morphism
      ======================================== */
   .glass-card {
-    @apply relative overflow-hidden rounded-xl bg-white;
-    border: 1px solid #E5E7EB;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    @apply relative overflow-hidden rounded-xl;
+    background: linear-gradient(135deg, rgba(147, 197, 253, 0.18) 0%, rgba(96, 165, 250, 0.12) 100%);
+    border: 1px solid rgba(147, 197, 253, 0.34);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(6, 18, 35, 0.35), inset 0 1px 0 rgba(191, 219, 254, 0.2);
     transition: all 0.2s ease;
   }
   
   .glass-card:hover {
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0, 0, 0, 0.08);
-    border-color: #D1D5DB;
+    box-shadow: 0 14px 34px rgba(6, 18, 35, 0.42), 0 0 0 1px rgba(251, 146, 60, 0.24);
+    border-color: rgba(147, 197, 253, 0.5);
   }
   
   .glass-card::before {
     display: none;
   }
   
-  /* Card with Blue Accent Border */
+  /* Card with Orange Accent Border */
   .glass-card-gold {
-    @apply relative overflow-hidden rounded-xl bg-white;
-    border: 1px solid #E5E7EB;
-    border-left: 4px solid #1E40AF;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    @apply relative overflow-hidden rounded-xl;
+    background: linear-gradient(135deg, rgba(147, 197, 253, 0.2) 0%, rgba(96, 165, 250, 0.14) 100%);
+    border: 1px solid rgba(147, 197, 253, 0.34);
+    border-left: 4px solid #F97316;
+    box-shadow: 0 10px 30px rgba(6, 18, 35, 0.35);
   }
   
   .glass-card-gold:hover {
@@ -200,11 +215,11 @@
   .section-divider-ornament::after {
     content: '';
     @apply flex-1 h-px;
-    background: linear-gradient(90deg, transparent, rgba(201,169,98,0.4));
+    background: linear-gradient(90deg, transparent, rgba(249,115,22,0.4));
   }
   
   .section-divider-ornament::after {
-    background: linear-gradient(90deg, rgba(201,169,98,0.4), transparent);
+    background: linear-gradient(90deg, rgba(249,115,22,0.4), transparent);
   }
   
   .section-divider-wave {
@@ -215,32 +230,64 @@
   .section-divider-wave::before {
     content: '';
     @apply absolute inset-0;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath fill='%23C9A962' fill-opacity='0.15' d='M0,30 Q300,0 600,30 T1200,30 L1200,60 L0,60 Z'/%3E%3C/svg%3E") center/cover no-repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath fill='%23F97316' fill-opacity='0.15' d='M0,30 Q300,0 600,30 T1200,30 L1200,60 L0,60 Z'/%3E%3C/svg%3E") center/cover no-repeat;
   }
   
-  /* Animated Gradient Background - Light Theme */
+  /* Animated Gradient Background */
   .gradient-animate {
-    background: linear-gradient(-45deg, #FFFFFF, #F8F9FA, #F0F2F5, #FFFFFF);
+    background: linear-gradient(-45deg, #08172E, #0F2A44, #102B4C, #08172E);
     background-size: 400% 400%;
     animation: gradient-shift 15s ease infinite;
   }
   
-  /* Mesh Gradient - Gold Accents on Light */
+  /* Mesh Gradient */
   .mesh-gradient {
     background: 
-      radial-gradient(at 40% 20%, rgba(201,169,98,0.12) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, rgba(212,175,55,0.08) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, rgba(201,169,98,0.1) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, rgba(184,148,77,0.06) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(201,169,98,0.12) 0px, transparent 50%);
+      radial-gradient(at 40% 20%, rgba(37,99,235,0.26) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgba(56,189,248,0.2) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(249,115,22,0.16) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, rgba(29,78,216,0.18) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(249,115,22,0.2) 0px, transparent 50%);
   }
   
-  /* Corporate Background Pattern - Light */
+  /* Corporate Background Pattern */
   .corporate-bg {
     background: 
-      radial-gradient(ellipse at 20% 0%, rgba(201,169,98,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 100%, rgba(201,169,98,0.05) 0%, transparent 50%),
-      linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
+      radial-gradient(ellipse at 20% 0%, rgba(37,99,235,0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(249,115,22,0.14) 0%, transparent 50%),
+      linear-gradient(180deg, #08172E 0%, #0F2A44 100%);
+  }
+
+  /* Footer Theme Overrides - blue primary with orange accents */
+  .site-footer {
+    background: linear-gradient(135deg, #1B2A4A 0%, #0F2A44 100%);
+  }
+
+  .site-footer .mesh-gradient {
+    background:
+      radial-gradient(at 20% 20%, rgba(37, 99, 235, 0.18) 0px, transparent 50%),
+      radial-gradient(at 80% 80%, rgba(249, 115, 22, 0.14) 0px, transparent 50%);
+    opacity: 0.9 !important;
+  }
+
+  .site-footer .text-gray-800,
+  .site-footer .text-gray-900 {
+    color: #F8FAFC !important;
+  }
+
+  .site-footer .text-gray-500,
+  .site-footer .text-gray-400,
+  .site-footer .text-gray-600 {
+    color: #CBD5E1 !important;
+  }
+
+  .site-footer .bg-gray-100 {
+    background-color: rgba(148, 163, 184, 0.18) !important;
+  }
+
+  .site-footer .border-black\/5,
+  .site-footer .border-black\/10 {
+    border-color: rgba(148, 163, 184, 0.22) !important;
   }
   
   /* 3D Transform Utilities */

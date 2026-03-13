@@ -25,12 +25,12 @@ const ResourceCard = ({ icon: IconComponent, title, description, fileType, fileS
           <IconComponent className="w-7 h-7 text-gold" />
         </div>
         <div className="flex-1">
-          <h3 className="text-gray-800 font-bold mb-2 group-hover:text-gold transition-colors font-heading">
+          <h3 className="text-white font-bold mb-2 group-hover:text-gold transition-colors font-heading">
             {title}
           </h3>
-          <p className="text-gray-600 text-sm mb-4">{description}</p>
+          <p className="text-slate-300 text-sm mb-4">{description}</p>
           <div className="flex items-center justify-between">
-            <span className="text-gray-500 text-xs">{fileType} • {fileSize}</span>
+            <span className="text-slate-400 text-xs">{fileType} - {fileSize}</span>
             <a 
               href={downloadLink}
               className="flex items-center gap-2 text-gold text-sm font-medium hover:gap-3 transition-all"
@@ -53,8 +53,8 @@ const ResourceCategory = ({ title, description, icon: IconComponent, resources }
         <IconComponent className="w-6 h-6 text-gold" />
       </div>
       <div>
-        <h3 className="text-xl font-bold text-gray-800 font-heading">{title}</h3>
-        <p className="text-gray-600 text-sm">{description}</p>
+        <h3 className="text-xl font-bold text-white font-heading">{title}</h3>
+        <p className="text-slate-300 text-sm">{description}</p>
       </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -83,8 +83,8 @@ const QuickLinkCard = ({ icon: IconComponent, title, description, link, linkText
       <div className="w-16 h-16 rounded-2xl bg-gold/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
         <IconComponent className="w-8 h-8 text-gold" />
       </div>
-      <h4 className="text-gray-800 font-bold mb-2 font-heading">{title}</h4>
-      <p className="text-gray-600 text-sm mb-4">{description}</p>
+      <h4 className="text-white font-bold mb-2 font-heading">{title}</h4>
+      <p className="text-slate-300 text-sm mb-4">{description}</p>
       <Link to={link} className="inline-flex items-center gap-2 text-gold text-sm font-medium hover:gap-3 transition-all">
         {linkText}
         <ArrowRight className="w-4 h-4" />
@@ -223,16 +223,16 @@ const Resources = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <BookOpen className="w-4 h-4" />
               Resources
             </SectionBadge>
             
-            <H1 className="mb-6 font-heading text-gray-800">
+            <H1 className="mb-6 font-heading text-white">
               Downloads & <span className="text-gold">Technical Resources</span>
             </H1>
             
-            <Body className="text-gray-600 text-lg">
+            <Body className="text-slate-300 text-lg">
               Access product catalogues, technical documentation, installation guides, 
               and marketing materials. Everything you need for your projects.
             </Body>
@@ -268,16 +268,16 @@ const Resources = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Calculator className="w-4 h-4" />
               Planning Tool
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               Material <span className="text-gold">Calculator</span>
             </H2>
             
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               Calculate exact panel requirements for your project. Get accurate quantity estimates in seconds.
             </p>
           </motion.div>
@@ -287,7 +287,7 @@ const Resources = () => {
       </section>
       
       {/* Resources Sections */}
-      <section className="relative py-16 bg-gray-50">
+      <section className="relative py-16 bg-blue-400/10">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -295,16 +295,16 @@ const Resources = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <Download className="w-4 h-4" />
               Downloads
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               Product <span className="text-gold">Catalogues</span> & Documentation
             </H2>
             
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               Download our comprehensive catalogues, technical specifications, and marketing materials.
             </p>
           </motion.div>
@@ -349,8 +349,8 @@ const Resources = () => {
                   <FileText className="w-8 h-8 text-gold" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800 font-heading">Looking for Dealer Resources?</h3>
-                  <p className="text-gray-600">Access exclusive pricing, dealer-specific catalogues, and marketing support materials.</p>
+                  <h3 className="text-xl font-bold text-white font-heading">Looking for Dealer Resources?</h3>
+                  <p className="text-slate-300">Access exclusive pricing, dealer-specific catalogues, and marketing support materials.</p>
                 </div>
               </div>
               <Link to="/dealer">
@@ -365,7 +365,7 @@ const Resources = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="relative py-24 bg-gray-50" id="faq">
+      <section className="relative py-24 bg-blue-400/10" id="faq">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -373,16 +373,16 @@ const Resources = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <SectionBadge className="mb-6 bg-gold/20 text-gold border-gold/30">
+            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
               <HelpCircle className="w-4 h-4" />
               FAQ
             </SectionBadge>
             
-            <H2 className="mb-4 font-heading text-gray-800">
+            <H2 className="mb-4 font-heading text-white">
               Frequently Asked <span className="text-gold">Questions</span>
             </H2>
             
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               Find answers to common questions about our products, installation, warranty, and ordering process.
             </p>
           </motion.div>
@@ -407,11 +407,11 @@ const Resources = () => {
                   <Ruler className="w-8 h-8 text-gold" />
                 </div>
                 
-                <H2 className="mb-4 font-heading text-gray-800">
+                <H2 className="mb-4 font-heading text-white">
                   Need <span className="text-gold">Technical Assistance?</span>
                 </H2>
                 
-                <p className="text-gray-600 mb-8">
+                <p className="text-slate-300 mb-8">
                   Our technical team is available to help with specifications, installation guidance, 
                   and custom requirements. Get expert support for your projects.
                 </p>
@@ -440,4 +440,5 @@ const Resources = () => {
 };
 
 export default Resources;
+
 

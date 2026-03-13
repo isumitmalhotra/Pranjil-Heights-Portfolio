@@ -84,26 +84,26 @@ export const Testimonials = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gray-100" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#102746] via-[#1B2A4A] to-[#243B63]" />
       
       {/* Large Quote Mark */}
-      <div className="absolute top-20 left-10 text-yellow-600/5 text-[400px] font-serif leading-none pointer-events-none">
+      <div className="absolute top-20 left-10 text-orange-400/10 text-[400px] font-serif leading-none pointer-events-none">
         "
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-50 border border-yellow-600/20 mb-6">
-            <Building2 className="w-4 h-4 text-yellow-600" />
-            <span className="text-yellow-600 text-sm font-medium">Partner Testimonials</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-300/16 border border-blue-200/30 mb-6">
+            <Building2 className="w-4 h-4 text-orange-300" />
+            <span className="text-orange-300 text-sm font-medium">Partner Testimonials</span>
           </div>
           
-          <H2 className="mb-6">
-            Trusted by <span className="text-yellow-600">Industry Leaders</span>
+          <H2 className="mb-6 text-white">
+            Trusted by <span className="text-orange-400">Industry Leaders</span>
           </H2>
           
-          <p className="text-gray-600 text-lg">
+          <p className="text-slate-200 text-lg">
             Hear from our valued dealers, distributors, and business partners 
             who have grown their businesses with PVCPro.
           </p>
@@ -119,39 +119,39 @@ export const Testimonials = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="glass-card p-8 md:p-12"
+              className="p-8 md:p-12 rounded-2xl bg-blue-300/16 border border-blue-200/30 backdrop-blur-sm"
             >
               {/* Quote Icon */}
-              <div className="w-12 h-12 rounded-full bg-yellow-50 flex items-center justify-center mb-6">
-                <Quote className="w-6 h-6 text-yellow-600" />
+              <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center mb-6">
+                <Quote className="w-6 h-6 text-orange-300" />
               </div>
               
               {/* Rating */}
               <div className="flex gap-1 mb-6">
                 {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-600 fill-yellow-600" />
+                  <Star key={i} className="w-5 h-5 text-orange-400 fill-orange-400" />
                 ))}
               </div>
               
               {/* Quote Text */}
-              <p className="text-xl md:text-2xl text-gray-800 leading-relaxed mb-8 font-light">
+              <p className="text-xl md:text-2xl text-white leading-relaxed mb-8 font-light">
                 "{testimonials[currentIndex].text}"
               </p>
               
               {/* Author */}
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-yellow-600 flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-14 h-14 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-lg">
                   {testimonials[currentIndex].avatar}
                 </div>
                 <div>
-                  <div className="text-gray-800 font-semibold text-lg">
+                  <div className="text-white font-semibold text-lg">
                     {testimonials[currentIndex].name}
                   </div>
-                  <div className="text-gray-500 text-sm">
+                  <div className="text-slate-200 text-sm">
                     {testimonials[currentIndex].role}
                     {testimonials[currentIndex].company && `, ${testimonials[currentIndex].company}`}
                   </div>
-                  <div className="text-yellow-600 text-sm mt-1">
+                  <div className="text-orange-300 text-sm mt-1">
                     {testimonials[currentIndex].stats}
                   </div>
                 </div>
@@ -162,7 +162,7 @@ export const Testimonials = () => {
             <div className="flex justify-center gap-4 mt-8">
               <button
                 onClick={prevTestimonial}
-                className="p-3 rounded-full bg-gray-100 border border-black/5 text-gray-800 hover:bg-gold/10 hover:border-gold/30 transition-all"
+                className="p-3 rounded-full bg-blue-300/16 border border-blue-200/30 text-white hover:bg-orange-500/20 hover:border-orange-400/40 transition-all"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -175,8 +175,8 @@ export const Testimonials = () => {
                     onClick={() => setCurrentIndex(index)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
                       index === currentIndex 
-                        ? 'w-8 bg-yellow-600' 
-                        : 'bg-white/20 hover:bg-white/40'
+                        ? 'w-8 bg-orange-500' 
+                        : 'bg-white/25 hover:bg-white/40'
                     }`}
                   />
                 ))}
@@ -184,13 +184,14 @@ export const Testimonials = () => {
               
               <button
                 onClick={nextTestimonial}
-                className="p-3 rounded-full bg-gray-100 border border-black/5 text-gray-800 hover:bg-yellow-50 hover:border-yellow-600/30 transition-all"
+                className="p-3 rounded-full bg-blue-300/16 border border-blue-200/30 text-white hover:bg-orange-500/20 hover:border-orange-400/40 transition-all"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           </div>
-        </div>      </div>
+        </div>
+      </div>
     </section>
   );
 };

@@ -22,17 +22,17 @@ const MenuIcon = ({ isOpen, onClick }) => {
       <div className="relative w-5 h-4">
         <motion.span
           animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-          className="absolute top-0 left-0 w-full h-0.5 bg-gray-900 rounded-full origin-center"
+          className="absolute top-0 left-0 w-full h-0.5 bg-slate-100 rounded-full origin-center"
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         />
         <motion.span
           animate={isOpen ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }}
-          className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-900 rounded-full -translate-y-1/2"
+          className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 rounded-full -translate-y-1/2"
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         />
         <motion.span
           animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-          className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 rounded-full origin-center"
+          className="absolute bottom-0 left-0 w-full h-0.5 bg-slate-100 rounded-full origin-center"
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
@@ -50,15 +50,15 @@ const NavLink = ({ to, children, onClick }) => {
       to={to}
       onClick={onClick}
       className={cn(
-        "relative px-2.5 py-1.5 text-[11px] font-medium transition-colors duration-300 flex items-center gap-1.5 group whitespace-nowrap",
-        isActive ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
+        "relative px-3 py-2 text-[13px] font-semibold transition-colors duration-300 flex items-center gap-1.5 group whitespace-nowrap",
+        isActive ? "text-white" : "text-slate-200 hover:text-white"
       )}
     >
-      <span className="relative whitespace-nowrap">
+      <span className="relative whitespace-nowrap text-inherit">
         {children}
         {/* Hover underline effect */}
         <motion.span
-          className="absolute -bottom-0.5 left-0 h-0.5 bg-yellow-600 rounded-full"
+          className="absolute -bottom-0.5 left-0 h-0.5 bg-orange-500 rounded-full"
           initial={{ width: 0 }}
           animate={{ width: isActive ? '100%' : 0 }}
           whileHover={{ width: '100%' }}
@@ -97,14 +97,14 @@ const DropdownMenu = ({ label, items, isActive }) => {
     >
       <button
         className={cn(
-          "relative px-2.5 py-1.5 text-[11px] font-medium transition-colors duration-300 flex items-center gap-1 group whitespace-nowrap",
-          isActive ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
+          "relative px-3 py-2 text-[13px] font-semibold transition-colors duration-300 flex items-center gap-1 group whitespace-nowrap",
+          isActive ? "text-white" : "text-slate-200 hover:text-white"
         )}
       >
-        <span className="relative whitespace-nowrap">
+        <span className="relative whitespace-nowrap text-inherit">
           {label}
           <motion.span
-            className="absolute -bottom-0.5 left-0 h-0.5 bg-yellow-600 rounded-full"
+            className="absolute -bottom-0.5 left-0 h-0.5 bg-orange-500 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: isActive ? '100%' : 0 }}
             whileHover={{ width: '100%' }}
@@ -160,18 +160,18 @@ const DropdownMenu = ({ label, items, isActive }) => {
 };
 
 // Mobile Accordion Menu Item
-const MobileAccordion = ({ label, items, icon: Icon, onLinkClick }) => {
+const MobileAccordion = ({ label, items, icon: Icon = Layers, onLinkClick }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const location = useLocation();
 
   return (
-    <div className="border-b border-black/5 last:border-0">
+    <div className="border-b border-blue-200/25 last:border-0">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center gap-4 p-4 text-gray-600 hover:text-gray-900 transition-colors"
+        className="w-full flex items-center gap-4 p-4 text-slate-100 hover:text-white transition-colors"
       >
-        <div className="w-10 h-10 rounded-lg bg-yellow-50 flex items-center justify-center">
-          <Icon className="w-5 h-5 text-yellow-600" />
+        <div className="w-10 h-10 rounded-lg bg-blue-300/16 flex items-center justify-center">
+          <Icon className="w-5 h-5 text-orange-400" />
         </div>
         <span className="flex-1 text-left text-lg font-medium">{label}</span>
         <ChevronDown className={cn(
@@ -187,7 +187,7 @@ const MobileAccordion = ({ label, items, icon: Icon, onLinkClick }) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden bg-yellow-50/50"
+            className="overflow-hidden bg-blue-300/12"
           >
             <div className="py-2 px-4">
               {items.map((item) => (
@@ -198,8 +198,8 @@ const MobileAccordion = ({ label, items, icon: Icon, onLinkClick }) => {
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
                     location.pathname === item.path
-                      ? "bg-yellow-100 text-yellow-700"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-yellow-50"
+                      ? "bg-orange-500/20 text-orange-300"
+                      : "text-slate-200 hover:text-white hover:bg-blue-300/16"
                   )}
                 >
                   {item.icon && <item.icon className="w-4 h-4" />}
@@ -224,17 +224,17 @@ const Logo = () => {
         className="relative w-7 h-7"
       >
         {/* Outer ring */}
-        <div className="absolute inset-0 rounded-lg bg-yellow-600 rotate-45 group-hover:shadow-lg group-hover:shadow-yellow-600/30 transition-shadow duration-300" />
+        <div className="absolute inset-0 rounded-lg bg-orange-500 rotate-45 group-hover:shadow-lg group-hover:shadow-orange-500/30 transition-shadow duration-300" />
         {/* Inner shape */}
-        <div className="absolute inset-1.5 rounded-md bg-white rotate-45 flex items-center justify-center">
-          <div className="w-2 h-2 bg-yellow-600 -rotate-45 rounded-sm" />
+        <div className="absolute inset-1.5 rounded-md bg-slate-100 rotate-45 flex items-center justify-center">
+          <div className="w-2 h-2 bg-orange-500 -rotate-45 rounded-sm" />
         </div>
       </motion.div>
       <div className="flex flex-col">
-        <span className="text-sm font-bold text-gray-900 tracking-tight">
-          Pranjil<span className="text-yellow-600"> Heights</span>
+        <span className="text-sm font-bold text-white tracking-tight">
+          Pranjil<span className="text-orange-400"> Heights</span>
         </span>
-        <span className="text-[8px] text-gray-500 tracking-widest uppercase -mt-0.5">India</span>
+        <span className="text-[8px] text-slate-300 tracking-widest uppercase -mt-0.5">India</span>
       </div>
     </Link>
   );
@@ -312,28 +312,28 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* Dynamic Island Navbar */}
+      {/* Full Width Navbar */}
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: hidden ? -100 : 0, opacity: hidden ? 0 : 1 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-auto"
+        className="fixed top-0 left-0 right-0 z-50"
       >
         <nav
           className={cn(
-            "relative rounded-full transition-all duration-500",
+            "relative w-full transition-all duration-500 border-b",
             scrolled 
-              ? "bg-white/90 backdrop-blur-xl shadow-xl shadow-gray-900/10 border border-gray-200/50" 
-              : "bg-white/70 backdrop-blur-md shadow-lg shadow-gray-900/5 border border-gray-200/30"
+              ? "bg-[#1B2A4A]/95 backdrop-blur-xl shadow-xl shadow-[#1B2A4A]/35 border-slate-300/20" 
+              : "bg-[#1B2A4A]/90 backdrop-blur-md shadow-lg shadow-[#1B2A4A]/25 border-slate-300/15"
           )}
         >
-          <div className="px-4 py-2">
-            <div className="flex items-center gap-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div className="flex items-center justify-between gap-6">
               {/* Logo */}
               <Logo />
 
               {/* Desktop Navigation */}
-              <div className="hidden lg:flex items-center gap-0.5">
+              <div className="hidden lg:flex items-center gap-1">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/about">About Us</NavLink>
                 <DropdownMenu 
@@ -353,7 +353,7 @@ export const Navbar = () => {
               {/* CTA & Mobile Menu */}
               <div className="flex items-center gap-3">
                 <Link to="/contact" className="hidden lg:block">
-                  <Button variant="primary" size="sm" icon={ChevronRight} className="bg-yellow-600 hover:bg-yellow-700 shadow-md rounded-full text-xs px-4 py-1.5">
+                  <Button variant="premium" size="sm" icon={ChevronRight} className="rounded-lg text-xs px-4 py-2">
                     Get Quote
                   </Button>
                 </Link>
@@ -387,8 +387,8 @@ export const Navbar = () => {
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className="fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 lg:hidden overflow-y-auto"
             >
-              {/* Glass Background */}
-              <div className="absolute inset-0 bg-white/95 backdrop-blur-2xl border-l border-black/10 shadow-2xl" />
+              {/* Mobile Menu Background */}
+              <div className="absolute inset-0 bg-[#0F2A44]/98 backdrop-blur-2xl border-l border-blue-200/25 shadow-2xl" />
               
               {/* Content */}
               <div className="relative h-full flex flex-col p-6 pt-24">
@@ -406,8 +406,8 @@ export const Navbar = () => {
                       className={cn(
                         "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300",
                         location.pathname === '/'
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "text-gray-600 hover:bg-yellow-50 hover:text-gray-900"
+                          ? "bg-orange-500/20 text-orange-300"
+                          : "text-slate-200 hover:bg-blue-300/16 hover:text-white"
                       )}
                     >
                       <Home className="w-5 h-5" />
@@ -427,8 +427,8 @@ export const Navbar = () => {
                       className={cn(
                         "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300",
                         location.pathname === '/about'
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "text-gray-600 hover:bg-yellow-50 hover:text-gray-900"
+                          ? "bg-orange-500/20 text-orange-300"
+                          : "text-slate-200 hover:bg-blue-300/16 hover:text-white"
                       )}
                     >
                       <Building2 className="w-5 h-5" />
@@ -445,6 +445,7 @@ export const Navbar = () => {
                     <MobileAccordion 
                       label="Product Range" 
                       items={productItems}
+                      icon={LayoutGrid}
                       isActive={isProductsActive}
                       onItemClick={closeMobileMenu}
                     />
@@ -462,8 +463,8 @@ export const Navbar = () => {
                       className={cn(
                         "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300",
                         location.pathname === '/dealer'
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "text-gray-600 hover:bg-yellow-50 hover:text-gray-900"
+                          ? "bg-orange-500/20 text-orange-300"
+                          : "text-slate-200 hover:bg-blue-300/16 hover:text-white"
                       )}
                     >
                       <Users className="w-5 h-5" />
@@ -480,6 +481,7 @@ export const Navbar = () => {
                     <MobileAccordion 
                       label="Resources" 
                       items={resourceItems}
+                      icon={FileText}
                       isActive={isResourcesActive}
                       onItemClick={closeMobileMenu}
                     />
@@ -497,8 +499,8 @@ export const Navbar = () => {
                       className={cn(
                         "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300",
                         location.pathname === '/contact'
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "text-gray-600 hover:bg-yellow-50 hover:text-gray-900"
+                          ? "bg-orange-500/20 text-orange-300"
+                          : "text-slate-200 hover:bg-blue-300/16 hover:text-white"
                       )}
                     >
                       <Phone className="w-5 h-5" />
@@ -512,7 +514,7 @@ export const Navbar = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="space-y-4 pt-6 border-t border-black/10 mt-6"
+                  className="space-y-4 pt-6 border-t border-blue-200/25 mt-6"
                 >
                   <Link to="/contact" onClick={closeMobileMenu} className="block">
                     <Button variant="primary" size="lg" className="w-full" icon={ChevronRight}>

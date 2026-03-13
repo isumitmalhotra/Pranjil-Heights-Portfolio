@@ -18,19 +18,19 @@ const FeatureItem = ({ icon: Icon, title, description, delay }) => (
   >
     <div className="relative mb-4">
       {/* Icon Container */}
-      <div className="w-16 h-16 mx-auto rounded-2xl bg-white border border-black/5 flex items-center justify-center group-hover:border-gold/30 group-hover:bg-gold/5 transition-all duration-300">
-        <Icon className="w-8 h-8 text-gold" />
+      <div className="w-16 h-16 mx-auto rounded-2xl bg-blue-300/16 border border-blue-200/30 flex items-center justify-center group-hover:border-orange-400/50 group-hover:bg-orange-500/20 transition-all duration-300">
+        <Icon className="w-8 h-8 text-orange-400" />
       </div>
       
       {/* Glow Effect on Hover */}
-      <div className="absolute inset-0 w-16 h-16 mx-auto rounded-2xl bg-gold/20 filter blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+      <div className="absolute inset-0 w-16 h-16 mx-auto rounded-2xl bg-orange-500/20 filter blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
     </div>
     
-    <h3 className="text-gray-800 font-semibold mb-2 group-hover:text-gold transition-colors">
+    <h3 className="text-white font-semibold mb-2 group-hover:text-orange-300 transition-colors">
       {title}
     </h3>
     
-    <p className="text-gray-500 text-sm leading-relaxed">
+    <p className="text-slate-200 text-sm leading-relaxed">
       {description}
     </p>
   </motion.div>
@@ -93,18 +93,18 @@ export const FeaturesGrid = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gray-100" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#102746] via-[#1B2A4A] to-[#22365A]" />
       
       {/* Decorative Pattern */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(201,169,98,0.5) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(96,165,250,0.35) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }} />
       </div>
       
-      {/* Gold Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-gold/5 rounded-full filter blur-[150px]" />
+      {/* Accent Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-orange-500/10 rounded-full filter blur-[150px]" />
       
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
@@ -115,15 +115,15 @@ export const FeaturesGrid = () => {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20 mb-6">
-            <span className="text-gold text-sm font-medium">Why Choose PVCPro</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-300/16 border border-blue-200/30 mb-6">
+            <span className="text-orange-300 text-sm font-medium">Why Choose PVCPro</span>
           </div>
           
-          <H2 className="mb-6">
-            Built for <span className="gradient-text">Performance</span> & <span className="gradient-text">Longevity</span>
+          <H2 className="mb-6 text-white">
+            Built for <span className="text-orange-400">Performance</span> & <span className="text-orange-400">Longevity</span>
           </H2>
           
-          <p className="text-gray-600 text-lg">
+          <p className="text-slate-200 text-lg">
             Our panels are engineered with advanced technology to deliver exceptional 
             durability, safety, and aesthetic appeal for decades.
           </p>
@@ -141,9 +141,9 @@ export const FeaturesGrid = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-16 pt-12 border-t border-white/5"
+            className="text-center mt-16 pt-12 border-t border-blue-200/25"
         >
-          <p className="text-gray-400 text-sm uppercase tracking-widest">
+          <p className="text-slate-300 text-sm uppercase tracking-widest">
             All products tested & certified to international quality standards
           </p>
         </motion.div>
