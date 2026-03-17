@@ -67,8 +67,8 @@ const StatCard = ({ icon: Icon, value, suffix, label, delay }) => (
 
 export const CompanyIntro = () => {
   const stats = [
-    { icon: Calendar, value: 25, suffix: '+', label: 'Years Experience' },
-    { icon: Users, value: 500, suffix: '+', label: 'Dealer Network' },
+    { icon: Calendar, value: 2017, suffix: '', label: 'Manufacturing Since' },
+    { icon: Users, value: 5000, suffix: '+', label: 'Dealer Network' },
     { icon: MapPin, value: 28, suffix: '', label: 'States Covered' },
     { icon: Building2, value: 10000, suffix: '+', label: 'Projects Completed' },
   ];
@@ -95,7 +95,7 @@ export const CompanyIntro = () => {
           >
             {/* Section Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-300/16 border border-blue-200/30">
-              <span className="text-orange-300 text-sm font-medium">About PVCPro</span>
+              <span className="text-orange-300 text-sm font-medium">About Pranij Heights</span>
             </div>
             
             <H2 className="text-white">
@@ -104,22 +104,22 @@ export const CompanyIntro = () => {
             </H2>
             
             <Body className="text-slate-200" size="lg">
-              Since 1998, we have been at the forefront of revolutionizing interior spaces 
-              across India. Our commitment to innovation, quality, and customer satisfaction 
-              has made us the preferred choice for architects, builders, and interior designers.
+              Since 2017, we have been one of the pioneers in India's PVC wall panel industry. 
+              With decades of expertise, we continue to deliver innovative, durable and 
+              aesthetically superior wall solutions trusted by dealers, architects and interior 
+              designers across the country, and we also export internationally.
             </Body>
             
             <Body className="text-slate-200">
-              With state-of-the-art manufacturing facilities and a nationwide distribution network, 
-              we deliver premium PVC wall and ceiling panels that combine aesthetic excellence 
-              with unmatched durability. Our products are designed to meet the diverse needs of 
-              commercial, residential, and industrial applications.
+              Backed by advanced manufacturing and a strong nationwide distribution network, 
+              our premium PVC panels are designed to elevate modern interiors while ensuring 
+              long-lasting performance and effortless installation.
             </Body>
             
             <div className="flex flex-wrap gap-4 pt-4">
               <Link to="/about">
                 <Button variant="outline" icon={ArrowRight} className="border-white text-white hover:bg-blue-300/16 hover:border-white">
-                  Learn Our Story
+                  Explore our Legacy
                 </Button>
               </Link>
               <Link to="/contact">

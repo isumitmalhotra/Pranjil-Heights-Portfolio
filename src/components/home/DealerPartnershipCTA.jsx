@@ -34,7 +34,7 @@ export const DealerPartnershipCTA = () => {
     {
       icon: Package,
       title: "Complete Product Range",
-      description: "Access to 500+ designs across all PVC panel categories."
+      description: "Access to a wide range of premium designs across all PVC panel categories."
     },
     {
       icon: HeadphonesIcon,
@@ -102,7 +102,7 @@ export const DealerPartnershipCTA = () => {
               <H2 className="mb-6 text-white">
                 Become a
                 <br />
-                <span className="text-orange-400">PVCPro Dealer</span>
+                <span className="text-orange-400">Pranij Heights Dealer</span>
               </H2>
               
               <Body className="text-slate-200 text-lg leading-relaxed">
@@ -128,7 +128,7 @@ export const DealerPartnershipCTA = () => {
             {/* Quick Stats */}
             <div className="flex flex-wrap gap-8 pt-6 border-t border-blue-200/30">
               {[
-                { value: "500+", label: "Active Dealers" },
+                { value: "5000+", label: "Active Dealers" },
                 { value: "28", label: "States" },
                 { value: "15%+", label: "Avg. Growth" },
               ].map((stat) => (
@@ -173,15 +173,15 @@ export const DealerPartnershipCTA = () => {
             Ready to Partner with India's Leading PVC Brand?
           </h3>
           <p className="text-slate-200 mb-6">
-            Contact our dealer development team today and start your journey with PVCPro.
+            Contact our dealer development team today and start your journey with Pranij Heights India.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="tel:+919876543210" className="text-orange-300 font-semibold hover:underline">
               Call: +91 98765 43210
             </a>
             <span className="text-slate-300 hidden sm:inline">|</span>
-            <a href="mailto:dealers@pvcpro.com" className="text-orange-300 font-semibold hover:underline">
-              Email: dealers@pvcpro.com
+            <a href="mailto:dealers@pranijheightsindia.com" className="text-orange-300 font-semibold hover:underline">
+              Email: dealers@pranijheightsindia.com
             </a>
           </div>
         </motion.div>

@@ -65,8 +65,8 @@ export const FeaturesGrid = () => {
     },
     {
       icon: Clock,
-      title: "25 Year Warranty",
-      description: "Industry-leading warranty on all premium products"
+      title: "Long-Lasting Performance",
+      description: "Built for dependable quality and durability in daily use"
     },
     {
       icon: Sparkles,
@@ -116,7 +116,7 @@ export const FeaturesGrid = () => {
         >
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-300/16 border border-blue-200/30 mb-6">
-            <span className="text-orange-300 text-sm font-medium">Why Choose PVCPro</span>
+            <span className="text-orange-300 text-sm font-medium">Why Choose Pranij Heights</span>
           </div>
           
           <H2 className="mb-6 text-white">

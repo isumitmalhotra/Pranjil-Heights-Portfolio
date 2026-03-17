@@ -148,14 +148,14 @@ export const Footer = () => {
           <div className="lg:col-span-3 space-y-6">
             <Logo />
             <p className="text-gray-500 leading-relaxed">
-              India's leading manufacturer of premium PVC panels. Transforming interiors 
-              with innovative designs since 1998.
+              Pranij Heights India Private Limited is a trusted manufacturer, supplier,
+              importer, and exporter of premium PVC wall and ceiling solutions.
             </p>
             
             {/* Trust Badges */}
             <div className="flex flex-wrap gap-4">
               {[
-                { icon: Shield, text: '25 Year Warranty' },
+                { icon: Shield, text: 'Long-Lasting Quality' },
                 { icon: Award, text: 'ISO Certified' },
                 { icon: Clock, text: 'Fast Delivery' },
               ].map((badge, index) => (
@@ -233,20 +233,20 @@ export const Footer = () => {
             <ul className="space-y-4 mb-6">
               <FooterLink to="/dealer">Become a Dealer</FooterLink>
               <FooterLink to="/dealer">Dealer Benefits</FooterLink>
-              <FooterLink to="/dealer">Dealer Login</FooterLink>
+              <FooterLink to="/dealer">Apply for Dealership</FooterLink>
               <FooterLink to="/contact">Request Sample</FooterLink>
             </ul>
             {/* Dealer CTA */}
             <Link to="/dealer">
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="bg-yellow-50 border border-yellow-600/20 rounded-xl p-4 cursor-pointer hover:bg-yellow-100 transition-colors"
+                className="bg-blue-300/12 border border-blue-200/30 rounded-xl p-4 cursor-pointer hover:bg-blue-300/18 hover:border-yellow-600/30 transition-colors"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <Users className="w-5 h-5 text-yellow-600" />
-                  <span className="text-gray-800 font-medium text-sm">Partner With Us</span>
+                  <span className="text-slate-100 font-medium text-sm">Partner With Us</span>
                 </div>
-                <p className="text-gray-500 text-xs">Join 500+ dealers across India</p>
+                <p className="text-slate-300 text-xs">Join 5000+ dealers across India</p>
               </motion.div>
             </Link>
           </div>
@@ -265,7 +265,7 @@ export const Footer = () => {
                   </div>
                   <div>
                     <p className="text-gray-800 text-sm font-medium">Head Office</p>
-                    <p className="text-gray-500 text-xs">123 Business Park, Industrial Area,<br />New Delhi, India 110020</p>
+                    <p className="text-gray-500 text-xs">8 KM Stone, Agroha Road,<br />Mandi Adampur, Hisar, Haryana - 125052, India</p>
                   </div>
                 </a>
               </li>
@@ -281,13 +281,13 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@pvcpro.com" className="flex items-start gap-3 group">
+                <a href="mailto:info@pranijheightsindia.com" className="flex items-start gap-3 group">
                   <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-yellow-600 shrink-0 group-hover:bg-yellow-50 transition-colors">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
                     <p className="text-gray-800 text-sm font-medium">Email Us</p>
-                    <p className="text-gray-500 text-xs">info@pvcpro.com</p>
+                    <p className="text-gray-500 text-xs">info@pranijheightsindia.com</p>
                   </div>
                 </a>
               </li>
@@ -297,15 +297,15 @@ export const Footer = () => {
             <Link to="/resources">
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="bg-yellow-50 border border-yellow-600/30 rounded-xl p-4 cursor-pointer hover:bg-yellow-100 transition-all"
+                className="bg-blue-300/12 border border-blue-200/30 rounded-xl p-4 cursor-pointer hover:bg-blue-300/18 hover:border-yellow-600/30 transition-all"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-yellow-600/20 flex items-center justify-center">
                     <Download className="w-5 h-5 text-yellow-600" />
                   </div>
                   <div>
-                    <p className="text-gray-800 font-medium text-sm">Download Catalogue</p>
-                    <p className="text-gray-500 text-xs">2024 Collection - PDF 15MB</p>
+                    <p className="text-slate-100 font-medium text-sm">Download Catalogue</p>
+                    <p className="text-slate-300 text-xs">2024 Collection - PDF 15MB</p>
                   </div>
                 </div>
               </motion.div>
@@ -317,7 +317,7 @@ export const Footer = () => {
         <div className="border-t border-black/5 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              (c) {currentYear} Pranjil Heights India. All rights reserved. Crafted in India.
+              (c) {currentYear} Pranij Heights India Private Limited (CIN: U36100HR2017PTC071811). All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
               <a href="#" className="hover:text-gray-800 transition-colors">Privacy Policy</a>

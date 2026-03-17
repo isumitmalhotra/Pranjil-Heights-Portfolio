@@ -8,8 +8,8 @@ import { FeatureCard } from '../ui/GlassCard';
 const features = [
   {
     icon: Shield,
-    title: "25 Year Warranty",
-    description: "Industry-leading warranty coverage ensuring your investment is protected for decades.",
+    title: "Long-Lasting Durability",
+    description: "Engineered for dependable performance and lasting interior beauty.",
     color: "teal"
   },
   {
@@ -132,7 +132,7 @@ export const WhyChooseUs = () => {
             {[
               { value: "10K+", label: "Sqft Daily Production" },
               { value: "500+", label: "Premium Designs" },
-              { value: "25+", label: "Years of Excellence" },
+              { value: "Since 2017", label: "Manufacturing" },
               { value: "50K+", label: "Happy Customers" },
             ].map((stat, index) => (
               <div key={index} className="space-y-2">

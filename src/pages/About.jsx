@@ -130,8 +130,8 @@ const About = () => {
 
   const stats = [
     { icon: Factory, value: "50,000+", label: "Sqft/Day Capacity" },
-    { icon: TrendingUp, value: "25+", label: "Years Experience" },
-    { icon: Users, value: "500+", label: "Dealers Nationwide" },
+    { icon: TrendingUp, value: "2017", label: "Manufacturing Since" },
+    { icon: Users, value: "5000+", label: "Dealers Nationwide" },
     { icon: Award, value: "ISO", label: "9001:2015 Certified" },
   ];
 
@@ -154,17 +154,15 @@ const About = () => {
   ];
 
   const leadership = [
-    { name: "Rajesh Kumar", role: "Managing Director", experience: "30+ years in manufacturing" },
-    { name: "Priya Sharma", role: "Head of Operations", experience: "20+ years in supply chain" },
-    { name: "Vikram Singh", role: "Technical Director", experience: "25+ years in product development" },
-    { name: "Anita Patel", role: "Sales Director", experience: "18+ years in B2B sales" },
+    { name: "Anup Jain", role: "Director", experience: "Board Director" },
+    { name: "Brij Bhushan Singhal", role: "Director", experience: "Board Director" },
   ];
 
   const timeline = [
-    { year: "1998", title: "Company Founded", description: "Started manufacturing operations in New Delhi with a vision to transform interior solutions in India." },
-    { year: "2005", title: "Capacity Expansion", description: "Expanded production capacity to 20,000 sqft per day with automated German machinery." },
-    { year: "2012", title: "ISO Certification", description: "Achieved ISO 9001:2015 certification for quality management systems." },
-    { year: "2018", title: "Pan-India Network", description: "Established dealer network across 500+ cities with regional distribution centers." },
+    { year: "2017", title: "Company Founded", description: "Started manufacturing operations with a vision to transform interior solutions across India." },
+    { year: "2019", title: "Capacity Expansion", description: "Scaled production with advanced automated machinery for faster and consistent output." },
+    { year: "2021", title: "ISO Certification", description: "Achieved ISO 9001:2015 certification for quality management systems." },
+    { year: "2023", title: "Pan-India Network", description: "Expanded to a 5000+ dealer network with regional distribution support." },
     { year: "2024", title: "Sustainability Focus", description: "Launched 100% recyclable product line and achieved carbon-neutral manufacturing." },
   ];
 
@@ -205,12 +203,12 @@ const About = () => {
             </SectionBadge>
             
             <H1 className="mb-6 max-w-4xl mx-auto font-heading text-white">
-              India's Leading Manufacturer of <span className="text-yellow-600">Premium PVC Panels</span>
+              Pranij Heights India Private Limited
             </H1>
             
             <Body className="max-w-3xl mx-auto text-xl text-slate-200 mb-8">
-              For over 25 years, we have been at the forefront of PVC panel manufacturing, 
-              delivering quality products to architects, contractors, and dealers across India.
+              Incorporated on 12 December 2017, we are a private limited company manufacturing,
+              supplying, importing, and exporting premium PVC interior and decorative panel systems.
             </Body>
             
             <div className="flex flex-wrap justify-center gap-4">
@@ -281,17 +279,17 @@ const About = () => {
               </H2>
               
               <Body className="text-slate-200 mb-6 leading-relaxed">
-                Established in 1998, PVCPro has grown from a small manufacturing unit to become 
-                one of India's most trusted names in PVC wall and ceiling panels. Our commitment 
+                Established as Pranij Heights India Private Limited, we have grown into one of
+                India's trusted names in wall and ceiling solutions. Our commitment 
                 to quality, innovation, and customer service has made us the preferred choice for 
                 architects, interior designers, and contractors nationwide.
               </Body>
               
               <Body className="text-slate-200 mb-8 leading-relaxed">
-                With a production capacity of 50,000+ square feet per day and a network of 500+ 
+                With a production capacity of 50,000+ square feet per day and a network of 5000+ 
                 authorized dealers, we ensure reliable supply and consistent quality across the country. 
-                Our products are specified in premium residential projects, commercial spaces, 
-                hospitals, hotels, and institutional buildings.
+                Our key product categories include PVC Wall Panels, PVC Ceiling Panels, UV Marble Sheets,
+                Decorative Wall Panels, and 3D High Glossy Sheets.
               </Body>
               
               <div className="flex gap-4">
@@ -326,7 +324,7 @@ const About = () => {
                   {/* Overlay Text */}
                   <div className="absolute bottom-6 left-6 right-6">
                     <p className="text-yellow-400 font-medium text-sm mb-1">Manufacturing Facility</p>
-                    <p className="text-white text-lg font-heading">New Delhi, India</p>
+                    <p className="text-white text-lg font-heading">Mandi Adampur, Hisar, Haryana</p>
                   </div>
                 </motion.div>
                 
@@ -373,6 +371,18 @@ const About = () => {
                 <LeadershipCard {...leader} />
               </motion.div>
             ))}
+          </div>
+
+          <div className="mt-10 max-w-4xl mx-auto">
+            <GlassCard className="p-6 border-yellow-100">
+              <h3 className="text-white font-heading text-xl mb-4">Corporate Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-200 text-sm">
+                <p><span className="text-yellow-600 font-medium">Company Type:</span> Private Limited Company</p>
+                <p><span className="text-yellow-600 font-medium">CIN:</span> U36100HR2017PTC071811</p>
+                <p><span className="text-yellow-600 font-medium">Incorporation Date:</span> 12 December 2017</p>
+                <p><span className="text-yellow-600 font-medium">Registered Office:</span> 8 KM Stone, Agroha Road, Mandi Adampur, Hisar, Haryana - 125052, India</p>
+              </div>
+            </GlassCard>
           </div>
         </div>
       </section>
@@ -489,7 +499,7 @@ const About = () => {
             </SectionBadge>
             
             <H2 className="mb-4 font-heading text-white">
-              25+ Years of <span className="text-yellow-600">Excellence</span>
+              Our <span className="text-yellow-600">Journey of Excellence</span>
             </H2>
           </motion.div>
 
@@ -611,7 +621,7 @@ const About = () => {
                 </H2>
                 
                 <p className="text-slate-200 mb-8 text-lg">
-                  Join our network of 500+ dealers and contractors. Experience reliable supply, 
+                  Join our network of 5000+ dealers and contractors. Experience reliable supply, 
                   competitive pricing, and dedicated support.
                 </p>
                 

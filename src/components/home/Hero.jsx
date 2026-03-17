@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { ChevronRight, Download, Building2, Award, Factory, Users, Sparkles, Shield, Droplets, Flame, Clock } from 'lucide-react';
+import { ChevronRight, Download, Building2, Award, Factory, Users, Sparkles, Shield, Droplets, Flame } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { H1 } from '../ui/Typography';
 import { Link } from 'react-router-dom';
@@ -33,8 +33,8 @@ const FeaturePill = ({ icon: Icon, text }) => (
 
 export const Hero = () => {
   const trustBadges = [
-    { icon: Factory, label: "Manufacturing", value: "Since 1998" },
-    { icon: Users, label: "Dealers Network", value: "500+" },
+    { icon: Factory, label: "Manufacturing", value: "Since 2017" },
+    { icon: Users, label: "Across India", value: "5000+" },
     { icon: Building2, label: "Projects", value: "10,000+" },
     { icon: Award, label: "Certified", value: "ISO 9001" },
   ];
@@ -256,21 +256,11 @@ export const Hero = () => {
             className="space-y-6 mb-8"
           >
             <H1 className="leading-tight text-white">
-              Premium PVC Panels for{' '}
-              <span className="relative inline-block">
-                <span className="text-orange-400">Modern Interiors</span>
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 1, duration: 0.8 }}
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-orange-500 rounded-full origin-left"
-                />
-              </span>
+              India's Oldest & Most Trusted PVC Wall Panel Brand
             </H1>
             
             <p className="text-xl md:text-2xl text-slate-200 font-light max-w-2xl leading-relaxed">
-              Transforming commercial and residential spaces with innovative, 
-              durable, and aesthetically superior wall & ceiling solutions.
+              Delivering timeless designs, unmatched durability and premium wall solutions trusted by dealers across India.
             </p>
           </motion.div>
 
@@ -283,7 +273,6 @@ export const Hero = () => {
           >
             <FeaturePill icon={Droplets} text="Termite & Water Resistant" />
             <FeaturePill icon={Flame} text="Fire Retardant" />
-            <FeaturePill icon={Clock} text="25 Year Warranty" />
             <FeaturePill icon={Shield} text="Easy Installation" />
           </motion.div>
 

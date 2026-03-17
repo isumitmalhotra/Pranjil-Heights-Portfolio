@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { 
   Building, Users, TrendingUp, Award, CheckCircle, ArrowRight, 
-  Lock, Mail, Phone, MapPin, Briefcase, Shield, Truck, Percent,
+  Mail, Phone, MapPin, Briefcase, Shield, Truck, Percent,
   HeadphonesIcon, Package, FileText, Globe, Star, Loader2
 } from 'lucide-react';
 import { H1, H2, H3, Body, SectionBadge } from '../components/ui/Typography';
@@ -37,67 +37,6 @@ const StatCard = ({ value, label }) => (
     <div className="text-slate-300 text-sm">{label}</div>
   </div>
 );
-
-// Dealer Login Section
-const DealerLogin = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-
-  return (
-    <GlassCard className="p-8 border-gold/20">
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 rounded-2xl bg-gold/20 flex items-center justify-center mx-auto mb-4">
-          <Lock className="w-8 h-8 text-gold" />
-        </div>
-        <h3 className="text-xl font-bold text-white font-heading mb-2">Dealer Login</h3>
-        <p className="text-slate-300 text-sm">Access your dealer dashboard</p>
-      </div>
-
-      <form className="space-y-4">
-        <div>
-          <label className="block text-slate-200 text-sm mb-2">Email Address</label>
-          <input
-            type="email"
-            value={credentials.email}
-            onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
-            className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
-            placeholder="dealer@company.com"
-          />
-        </div>
-        <div>
-          <label className="block text-slate-200 text-sm mb-2">Password</label>
-          <input
-            type="password"
-            value={credentials.password}
-            onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-            className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
-            placeholder="********"
-          />
-        </div>
-        <div className="flex items-center justify-between text-sm">
-          <label className="flex items-center gap-2 text-slate-300">
-            <input type="checkbox" className="rounded border-black/20" />
-            Remember me
-          </label>
-          <a href="#" className="text-gold hover:underline">Forgot password?</a>
-        </div>
-        <Button 
-          type="submit" 
-          variant="primary" 
-          className="w-full bg-gold hover:bg-gold/90 text-white"
-        >
-          Sign In
-        </Button>
-      </form>
-
-      <div className="mt-6 pt-6 border-t border-blue-200/25 text-center">
-        <p className="text-slate-300 text-sm">
-          Not a dealer yet?{' '}
-          <a href="#apply" className="text-gold hover:underline">Apply now</a>
-        </p>
-      </div>
-    </GlassCard>
-  );
-};
 
 // Dealer Application Form
 const DealerApplicationForm = () => {
@@ -407,7 +346,7 @@ const DealerPortal = () => {
   ];
 
   const testimonials = [
-    { name: "Rajesh Traders", location: "Mumbai", quote: "Partnering with PVCPro transformed our business. Their quality products and support helped us grow 3x in two years." },
+    { name: "Rajesh Traders", location: "Mumbai", quote: "Partnering with Pranij Heights transformed our business. Their quality products and support helped us grow 3x in two years." },
     { name: "Krishna Interiors", location: "Bangalore", quote: "The dealer program offers the best margins in the industry. Excellent product quality and consistent supply." },
   ];
 
@@ -436,15 +375,15 @@ const DealerPortal = () => {
               </H1>
               
               <Body className="text-slate-200 text-lg mb-8">
-                Join our network of 500+ successful dealers across India. Get access to premium products, 
+                Join our network of 5000+ successful dealers across India. Get access to premium products, 
                 competitive pricing, and comprehensive business support.
               </Body>
 
               {/* Stats */}
               <div className="grid grid-cols-3 gap-6 mb-8">
-                <StatCard value="500+" label="Dealers" />
+                <StatCard value="5000+" label="Dealers" />
                 <StatCard value="200+" label="SKUs" />
-                <StatCard value="25+" label="Years" />
+                <StatCard value="Since 2017" label="Manufacturing" />
               </div>
 
               <div className="flex flex-wrap gap-4">
@@ -463,13 +402,42 @@ const DealerPortal = () => {
               </div>
             </motion.div>
 
-            {/* Dealer Login */}
+            {/* Dealer onboarding info */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <DealerLogin />
+              <GlassCard className="p-8 border-gold/20">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 rounded-2xl bg-gold/20 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="w-8 h-8 text-gold" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white font-heading mb-2">Simple Dealer Onboarding</h3>
+                  <p className="text-slate-300 text-sm">Submit the form and our team will contact you directly.</p>
+                </div>
+
+                <div className="space-y-4 text-sm text-slate-200">
+                  <div className="p-4 rounded-xl bg-blue-300/12 border border-blue-200/25">
+                    <p className="font-medium text-white">Step 1</p>
+                    <p>Fill the dealer application form with your business details.</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-blue-300/12 border border-blue-200/25">
+                    <p className="font-medium text-white">Step 2</p>
+                    <p>Admin team reviews your request and verifies eligibility.</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-blue-300/12 border border-blue-200/25">
+                    <p className="font-medium text-white">Step 3</p>
+                    <p>Our partnership manager contacts you for onboarding.</p>
+                  </div>
+                </div>
+
+                <a href="#apply" className="block mt-6">
+                  <Button variant="primary" className="w-full bg-gold hover:bg-gold/90 text-charcoal" icon={ArrowRight}>
+                    Apply for Dealership
+                  </Button>
+                </a>
+              </GlassCard>
             </motion.div>
           </div>
         </div>
@@ -490,7 +458,7 @@ const DealerPortal = () => {
             </SectionBadge>
             
             <H2 className="mb-4 font-heading text-white">
-              Why Partner With <span className="text-gold">PVCPro</span>
+              Why Partner With <span className="text-gold">Pranij Heights</span>
             </H2>
             
             <p className="text-slate-300 max-w-2xl mx-auto">
@@ -625,10 +593,10 @@ const DealerPortal = () => {
                       Call: +91 98765 43210
                     </Button>
                   </a>
-                  <a href="mailto:dealers@pvcpro.com">
+                  <a href="mailto:dealers@pranijheightsindia.com">
                     <Button variant="outline" size="lg" className="border-gold/50 text-gold hover:bg-gold/10">
                       <Mail className="w-5 h-5 mr-2" />
-                      dealers@pvcpro.com
+                      dealers@pranijheightsindia.com
                     </Button>
                   </a>
                 </div>

@@ -109,7 +109,7 @@ export const ProductCategories = () => {
         "Weather resistant formulation",
         "UV protected surface",
         "Low maintenance exterior",
-        "25-year outdoor warranty"
+        "Long-life outdoor performance"
       ]
     },
     {

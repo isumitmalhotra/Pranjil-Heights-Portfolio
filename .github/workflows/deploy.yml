@@ -3,10 +3,51 @@ name: Deploy to VPS
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  ci:
+    name: Build Validation
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm ci
+
+      - name: Generate Prisma client
+        run: |
+          cd backend
+          npx prisma generate
+
+  deploy:
+    name: Deploy to Production
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     
     steps:
       - name: Install SSH client utilities
@@ -20,15 +61,20 @@ jobs:
           VPS_USER: ${{ secrets.VPS_USER }}
           VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
           VPS_PORT: ${{ secrets.VPS_PORT }}
+          VPS_APP_DIR: ${{ secrets.VPS_APP_DIR }}
+          VPS_HEALTH_URL: ${{ secrets.VPS_HEALTH_URL }}
         run: |
           set -euo pipefail
 
-          if [ -z "${VPS_HOST}" ] || [ -z "${VPS_USER}" ] || [ -z "${VPS_PASSWORD}" ]; then
-            echo "Missing required secrets: VPS_HOST, VPS_USER, or VPS_PASSWORD"
+          if [ -z "${VPS_HOST}" ] || [ -z "${VPS_PASSWORD}" ]; then
+            echo "Missing required secrets: VPS_HOST or VPS_PASSWORD"
             exit 1
           fi
 
+          USER_NAME="${VPS_USER:-root}"
           PORT="${VPS_PORT:-22}"
+          APP_DIR="${VPS_APP_DIR:-/var/www/pranjil-heights}"
+          HEALTH_URL="${VPS_HEALTH_URL:-http://localhost:5000/health}"
 
           sshpass -p "${VPS_PASSWORD}" ssh \
             -p "${PORT}" \
@@ -36,19 +82,25 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -o PreferredAuthentications=password,keyboard-interactive \
             -o PubkeyAuthentication=no \
+            -o HostKeyAlgorithms=+ssh-rsa \
+            -o PubkeyAcceptedAlgorithms=+ssh-rsa \
             -o NumberOfPasswordPrompts=1 \
-            "${VPS_USER}@${VPS_HOST}" << 'EOF'
+            "${USER_NAME}@${VPS_HOST}" APP_DIR="${APP_DIR}" HEALTH_URL="${HEALTH_URL}" 'bash -s' << 'EOF'
               set -e
-              cd /var/www/pranjil-heights
+              APP_DIR="${APP_DIR:-/var/www/pranjil-heights}"
+              HEALTH_URL="${HEALTH_URL:-http://localhost:5000/health}"
+
+              cd "$APP_DIR"
 
               echo "📥 Pulling latest code..."
-              git pull origin main
+              git fetch origin main
+              git reset --hard origin/main
 
               echo "📦 Installing backend dependencies..."
               cd backend
               npm install --production
               npx prisma generate
-              npx prisma db push --accept-data-loss
+              npx prisma db push
               cd ..
 
               echo "🏗️ Building frontend..."
@@ -56,7 +108,19 @@ jobs:
               npm run build
 
               echo "🔄 Restarting backend..."
-              pm2 restart pranjil-api
+              if pm2 describe pranjil-api > /dev/null; then
+                pm2 restart pranjil-api
+              else
+                cd backend
+                pm2 start src/server.js --name pranjil-api
+                cd ..
+              fi
+
+              pm2 save
+
+              echo "🩺 Running health check..."
+              sleep 3
+              curl -fsS "$HEALTH_URL" > /dev/null
 
               echo "✅ Deployment complete!"
               pm2 status

@@ -15,7 +15,7 @@ const fallbackTestimonials = [
     company: "Mehta Interiors, Mumbai",
     avatar: "VM",
     rating: 5,
-    text: "Partnering with PVCPro has transformed our business. The product quality is exceptional, and the dealer support is outstanding. Our sales have grown 40% year-over-year.",
+    text: "Partnering with Pranij Heights has transformed our business. The product quality is exceptional, and the dealer support is outstanding. Our sales have grown 40% year-over-year.",
     stats: "8 Years Partnership | 500+ Projects"
   },
   {
@@ -25,7 +25,7 @@ const fallbackTestimonials = [
     company: "SR Distributors, Hyderabad",
     avatar: "AR",
     rating: 5,
-    text: "The comprehensive product range and competitive margins make PVCPro our preferred supplier. Their training programs have helped us expand our dealer network significantly.",
+    text: "The comprehensive product range and competitive margins make Pranij Heights our preferred supplier. Their training programs have helped us expand our dealer network significantly.",
     stats: "12 Years Partnership | 50+ Sub-dealers"
   },
   {
@@ -35,7 +35,7 @@ const fallbackTestimonials = [
     company: "Sharma & Associates, Delhi",
     avatar: "PS",
     rating: 5,
-    text: "We specify PVCPro panels for all our commercial projects. The consistency in quality, timely delivery, and technical support make them a reliable partner for large-scale installations.",
+    text: "We specify Pranij Heights panels for all our commercial projects. The consistency in quality, timely delivery, and technical support make them a reliable partner for large-scale installations.",
     stats: "Leading Architecture Firm | 200+ Commercial Projects"
   },
   {
@@ -45,7 +45,7 @@ const fallbackTestimonials = [
     company: "Elite Interiors, Bangalore",
     avatar: "SP",
     rating: 5,
-    text: "The fire-retardant certification and waterproof properties are crucial for our hospitality clients. PVCPro's documentation and compliance support streamlines our project approvals.",
+    text: "The fire-retardant certification and waterproof properties are crucial for our hospitality clients. Pranij Heights' documentation and compliance support streamlines our project approvals.",
     stats: "6 Years Partnership | Hotel & Hospital Specialist"
   }
 ];
@@ -105,7 +105,7 @@ export const Testimonials = () => {
           
           <p className="text-slate-200 text-lg">
             Hear from our valued dealers, distributors, and business partners 
-            who have grown their businesses with PVCPro.
+            who have grown their businesses with Pranij Heights.
           </p>
         </div>
 

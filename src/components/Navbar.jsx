@@ -523,7 +523,7 @@ export const Navbar = () => {
                   </Link>
                   <Link to="/dealer" onClick={closeMobileMenu} className="block">
                     <Button variant="outline" size="lg" className="w-full" icon={Users}>
-                      Dealer Login
+                      Become a Dealer
                     </Button>
                   </Link>
                   <p className="text-center text-sm text-gray-400">

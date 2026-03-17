@@ -342,7 +342,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Head Office",
-      details: ["123 Industrial Area, Sector 5", "New Delhi, India 110020"],
+      details: ["8 KM Stone, Agroha Road", "Mandi Adampur, Hisar, Haryana - 125052, India"],
       action: "Get Directions",
       link: "#"
     },
@@ -356,9 +356,9 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email Us",
-      details: ["sales@pvcpro.com", "dealers@pvcpro.com"],
+      details: ["info@pranijheightsindia.com", "dealers@pranijheightsindia.com"],
       action: "Send Email",
-      link: "mailto:sales@pvcpro.com"
+      link: "mailto:info@pranijheightsindia.com"
     },
     {
       icon: Clock,
@@ -370,10 +370,10 @@ const Contact = () => {
   ];
 
   const regionalOffices = [
-    { city: "Mumbai", address: "Unit 45, Trade Center, Andheri East", phone: "+91 22 2345 6789", email: "mumbai@pvcpro.com" },
-    { city: "Bangalore", address: "12/A, Industrial Layout, Whitefield", phone: "+91 80 2345 6789", email: "bangalore@pvcpro.com" },
-    { city: "Chennai", address: "Plot 78, SIDCO Industrial Estate", phone: "+91 44 2345 6789", email: "chennai@pvcpro.com" },
-    { city: "Kolkata", address: "Block C, Salt Lake Sector V", phone: "+91 33 2345 6789", email: "kolkata@pvcpro.com" },
+    { city: "Mumbai", address: "Unit 45, Trade Center, Andheri East", phone: "+91 22 2345 6789", email: "mumbai@pranijheightsindia.com" },
+    { city: "Bangalore", address: "12/A, Industrial Layout, Whitefield", phone: "+91 80 2345 6789", email: "bangalore@pranijheightsindia.com" },
+    { city: "Chennai", address: "Plot 78, SIDCO Industrial Estate", phone: "+91 44 2345 6789", email: "chennai@pranijheightsindia.com" },
+    { city: "Kolkata", address: "Block C, Salt Lake Sector V", phone: "+91 33 2345 6789", email: "kolkata@pranijheightsindia.com" },
   ];
 
   return (
@@ -404,6 +404,10 @@ const Contact = () => {
               Whether you need a quotation for a project, want to become a dealer, or have 
               technical questions, our team is here to help.
             </Body>
+
+            <p className="text-slate-300 text-sm mt-4">
+              Pranij Heights India Private Limited | CIN: U36100HR2017PTC071811 | Incorporated: 12 December 2017
+            </p>
           </motion.div>
         </div>
       </section>
@@ -419,9 +423,9 @@ const Contact = () => {
             <GlassCard className="py-4 border-gold/20">
               <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
                 <StatCard value="24h" label="Response Time" />
-                <StatCard value="500+" label="Dealers Nationwide" />
+                <StatCard value="5000+" label="Dealers Nationwide" />
                 <StatCard value="98%" label="Client Satisfaction" />
-                <StatCard value="25+" label="Years Experience" />
+                <StatCard value="Since 2017" label="Manufacturing" />
               </div>
             </GlassCard>
           </motion.div>
@@ -581,7 +585,7 @@ const Contact = () => {
                 </H2>
                 
                 <p className="text-slate-200 mb-8">
-                  Join our network of 500+ dealers across India. Get access to competitive pricing, 
+                  Join our network of 5000+ dealers across India. Get access to competitive pricing, 
                   marketing support, and dedicated account management.
                 </p>
                 

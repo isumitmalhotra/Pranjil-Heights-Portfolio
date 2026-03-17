@@ -45,7 +45,7 @@ export const StatCard = ({ value, suffix = '', prefix = '', label, icon: Icon, d
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
   
-  // Parse numeric value (handle formats like "500+", "2M", "20+")
+  // Parse numeric value (handle formats like "5000+", "2M", "2017")
   const numericValue = parseInt(value.toString().replace(/[^0-9]/g, ''), 10);
   const animatedValue = useCounter(numericValue, 2500, true, isInView);
 
@@ -98,8 +98,8 @@ export const StatCounter = ({
   columns = 4
 }) => {
   const defaultStats = [
-    { value: 20, suffix: '+', label: 'Years Experience' },
-    { value: 500, suffix: '+', label: 'Active Dealers' },
+    { value: 2017, suffix: '', label: 'Manufacturing Since' },
+    { value: 5000, suffix: '+', label: 'Active Dealers' },
     { value: 5000, suffix: '+', label: 'Projects Completed' },
     { value: 50, suffix: '+', label: 'Cities Covered' }
   ];

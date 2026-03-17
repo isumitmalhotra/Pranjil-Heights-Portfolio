@@ -6,10 +6,13 @@ import { FeaturesGrid } from '../components/home/FeaturesGrid';
 import { DealerPartnershipCTA } from '../components/home/DealerPartnershipCTA';
 import { Testimonials } from '../components/home/Testimonials';
 import { CTASection } from '../components/home/CTASection';
+import { SpotlightEffect } from '../components/ui/AnimatedBackground';
 
 const Home = () => {
   return (
     <div className="relative bg-[#1B2A4A]">
+      <SpotlightEffect />
+
       {/* Hero Section - Corporate brand statement */}
       <Hero />
       
