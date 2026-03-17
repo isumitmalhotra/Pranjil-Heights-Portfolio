@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
+import { useQuery } from '@tanstack/react-query';
 import { 
   Download, FileText, BookOpen, Video, Image, Calculator, 
   ArrowRight, ExternalLink, Ruler, CheckCircle, Phone, HelpCircle
@@ -12,6 +13,7 @@ import { AnimatedBackground, SpotlightEffect } from '../components/ui/AnimatedBa
 import { GlassCard } from '../components/ui/GlassCard';
 import { H1, H2, Body, SectionBadge } from '../components/ui/Typography';
 import { Button } from '../components/ui/Button';
+import { catalogueAPI } from '../services/api';
 
 // Resource Card Component
 const ResourceCard = ({ icon: IconComponent, title, description, fileType, fileSize, downloadLink }) => (
@@ -106,59 +108,37 @@ const QuickLinkCard = ({ icon: IconComponent, title, description, link, linkText
 );
 
 const Resources = () => {
-  const catalogues = [
-    { 
-      icon: FileText, 
-      title: "Product Catalogue 2024", 
-      description: "Complete catalogue with all product ranges, specifications, and finishes.", 
-      fileType: "PDF", 
-      fileSize: "12.5 MB",
-      downloadLink: "#"
-    },
-    { 
-      icon: FileText, 
-      title: "Wood Series Brochure", 
-      description: "Detailed brochure featuring our premium wood finish panels.", 
-      fileType: "PDF", 
-      fileSize: "4.2 MB",
-      downloadLink: "#"
-    },
-    { 
-      icon: FileText, 
-      title: "Stone Series Brochure", 
-      description: "Explore our luxurious marble and stone effect panel collection.", 
-      fileType: "PDF", 
-      fileSize: "3.8 MB",
-      downloadLink: "#"
-    },
-  ];
+  const formatBytes = (bytes) => {
+    if (!bytes) return '—';
+    const units = ['B', 'KB', 'MB', 'GB'];
+    let size = bytes;
+    let unitIndex = 0;
 
-  const technicalDocs = [
-    { 
-      icon: BookOpen, 
-      title: "Technical Specifications", 
-      description: "Complete technical data sheets for all product categories.", 
-      fileType: "PDF", 
-      fileSize: "2.1 MB",
-      downloadLink: "#"
-    },
-    { 
-      icon: BookOpen, 
-      title: "Material Safety Data Sheet", 
-      description: "MSDS documentation for safety and compliance requirements.", 
-      fileType: "PDF", 
-      fileSize: "850 KB",
-      downloadLink: "#"
-    },
-    { 
-      icon: BookOpen, 
-      title: "Fire Safety Certificate", 
-      description: "Class A fire rating certification and test reports.", 
-      fileType: "PDF", 
-      fileSize: "1.2 MB",
-      downloadLink: "#"
-    },
-  ];
+    while (size >= 1024 && unitIndex < units.length - 1) {
+      size /= 1024;
+      unitIndex += 1;
+    }
+
+    return `${size.toFixed(size >= 100 ? 0 : 1)} ${units[unitIndex]}`;
+  };
+
+  const { data: catalogueResponse } = useQuery({
+    queryKey: ['public-catalogues'],
+    queryFn: () => catalogueAPI.getAll(),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const liveCatalogues = (catalogueResponse?.data || []).map((item) => ({
+    icon: item.category === 'technical' ? BookOpen : FileText,
+    title: item.name,
+    description: item.description || 'Downloadable business document',
+    fileType: 'PDF',
+    fileSize: formatBytes(item.fileSize),
+    downloadLink: catalogueAPI.getDownloadUrl(item.slug, 'resources'),
+  }));
+
+  const catalogues = liveCatalogues.filter((item) => item.title.toLowerCase().includes('catalogue') || item.title.toLowerCase().includes('brochure'));
+  const technicalDocs = liveCatalogues.filter((item) => item.title.toLowerCase().includes('technical') || item.title.toLowerCase().includes('installation'));
 
   const installationGuides = [
     { 
@@ -317,23 +297,27 @@ const Resources = () => {
             </H2>
             
             <p className="text-slate-300 max-w-2xl mx-auto">
-              Download our comprehensive catalogues, technical specifications, and marketing materials.
+              Download live catalogues and technical documents directly from our backend document library.
             </p>
           </motion.div>
 
-          <ResourceCategory 
-            title="Product Catalogues" 
-            description="Complete product range documentation"
-            icon={FileText}
-            resources={catalogues}
-          />
+          {catalogues.length > 0 && (
+            <ResourceCategory 
+              title="Product Catalogues" 
+              description="Complete product range documentation"
+              icon={FileText}
+              resources={catalogues}
+            />
+          )}
 
-          <ResourceCategory 
-            title="Technical Documentation" 
-            description="Specifications, certifications, and compliance documents"
-            icon={BookOpen}
-            resources={technicalDocs}
-          />
+          {technicalDocs.length > 0 && (
+            <ResourceCategory 
+              title="Technical Documentation" 
+              description="Specifications and installation documents"
+              icon={BookOpen}
+              resources={technicalDocs}
+            />
+          )}
 
           <ResourceCategory 
             title="Installation Guides" 
