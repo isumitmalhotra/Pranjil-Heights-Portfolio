@@ -1,6 +1,6 @@
 # Database Setup Guide
 
-This guide covers different ways to set up PostgreSQL for the Pranjil Heights backend.
+This guide covers different ways to set up PostgreSQL for the Pranijheightsindia backend.
 
 ## Option 1: Neon (Recommended - Free Cloud Database)
 
@@ -153,7 +153,7 @@ npm run dev
 
 You should see:
 ```
-🚀 Pranjil Heights API Server
+🚀 Pranijheightsindia API Server
 ✅ Database connected successfully
 Server running on port 5000
 ```

@@ -322,7 +322,7 @@ export const getSystemInfo = async (req, res) => {
   ]);
 
   const systemInfo = {
-    application: 'Pranjil Heights Admin',
+    application: 'Pranijheightsindia Admin',
     version: '1.0.0',
     backend: 'Node.js + Express',
     database: process.env.DATABASE_URL?.includes('postgresql') ? 'PostgreSQL + Prisma' : 'SQLite + Prisma',

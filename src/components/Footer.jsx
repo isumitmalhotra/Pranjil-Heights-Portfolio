@@ -16,19 +16,16 @@ import { newsletterAPI } from '../services/api';
 // Logo Component
 const Logo = () => (
   <Link to="/" className="flex items-center gap-3 group">
-    <motion.div 
-      whileHover={{ rotate: 180, scale: 1.1 }}
-      transition={{ duration: 0.5 }}
-      className="relative w-10 h-10"
-    >
-      <div className="absolute inset-0 rounded-xl bg-yellow-600 rotate-45" />
-      <div className="absolute inset-2 rounded-lg bg-white rotate-45 flex items-center justify-center">
-        <div className="w-3 h-3 bg-yellow-600 -rotate-45 rounded-sm" />
-      </div>
-    </motion.div>
+    <motion.img
+      src="/logo.png"
+      alt="Pranijheightsindia logo"
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+      className="h-10 w-auto object-contain"
+    />
     <div className="flex flex-col">
       <span className="text-xl font-bold text-gray-800">
-        Pranjil<span className="text-yellow-600"> Heights</span>
+        Pranij Heights
       </span>
       <span className="text-[10px] text-gray-400 tracking-widest uppercase -mt-1">India</span>
     </div>
@@ -330,5 +327,3 @@ export const Footer = () => {
     </footer>
   );
 };
-
-

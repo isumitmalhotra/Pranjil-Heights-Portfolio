@@ -275,7 +275,7 @@ export const dealerStatusUpdateTemplate = (data) => {
       title: 'Congratulations! Your Application is Approved',
       color: '#22c55e',
       bgColor: '#f0fdf4',
-      message: 'We are delighted to welcome you to the Pranjil Heights dealer family! Our team will contact you shortly with the partnership agreement and onboarding details.'
+      message: 'We are delighted to welcome you to the Pranijheightsindia dealer family! Our team will contact you shortly with the partnership agreement and onboarding details.'
     },
     REJECTED: {
       icon: '😔',

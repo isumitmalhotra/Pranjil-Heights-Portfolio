@@ -218,21 +218,16 @@ const MobileAccordion = ({ label, items, icon: Icon = Layers, onLinkClick }) => 
 const Logo = () => {
   return (
     <Link to="/" className="flex items-center gap-2 group">
-      <motion.div 
-        whileHover={{ rotate: 180, scale: 1.1 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-7 h-7"
-      >
-        {/* Outer ring */}
-        <div className="absolute inset-0 rounded-lg bg-orange-500 rotate-45 group-hover:shadow-lg group-hover:shadow-orange-500/30 transition-shadow duration-300" />
-        {/* Inner shape */}
-        <div className="absolute inset-1.5 rounded-md bg-slate-100 rotate-45 flex items-center justify-center">
-          <div className="w-2 h-2 bg-orange-500 -rotate-45 rounded-sm" />
-        </div>
-      </motion.div>
+      <motion.img
+        src="/logo.png"
+        alt="Pranijheightsindia logo"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        className="h-8 w-auto object-contain drop-shadow-sm"
+      />
       <div className="flex flex-col">
         <span className="text-sm font-bold text-white tracking-tight">
-          Pranjil<span className="text-orange-400"> Heights</span>
+          Pranij Heights
         </span>
         <span className="text-[8px] text-slate-300 tracking-widest uppercase -mt-0.5">India</span>
       </div>
@@ -538,4 +533,3 @@ export const Navbar = () => {
     </>
   );
 };
-

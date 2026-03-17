@@ -1,7 +1,7 @@
 # PVC Portfolio - Backend Development Task Tracker
 
 ## Project Overview
-**Company:** Pranjil Heights India  
+**Company:** Pranijheightsindia  
 **Website Type:** B2B Corporate PVC Panel Manufacturer  
 **Frontend:** React + Vite + Tailwind CSS ✅ COMPLETED  
 **Backend:** Node.js + Express + PostgreSQL + Prisma  
@@ -187,7 +187,7 @@
 **Estimated Time:** 2-3 days
 
 ### 4.1 Admin Authentication ✅ TESTED
-- [x] POST /api/auth/login - Admin login ✅ (tested with admin@pranjilheights.com)
+- [x] POST /api/auth/login - Admin login ✅ (tested with admin@pranijheightsindia.com)
 - [x] POST /api/auth/logout - Admin logout ✅
 - [x] POST /api/auth/forgot-password - Password reset request ✅
 - [x] POST /api/auth/reset-password - Reset password with token ✅
@@ -210,7 +210,7 @@
 - [x] Protect admin-only routes ✅
 
 **Admin Credentials (Seeded):**
-- Email: admin@pranjilheights.com
+- Email: admin@pranijheightsindia.com
 - Password: admin123
 - Role: SUPER_ADMIN
 

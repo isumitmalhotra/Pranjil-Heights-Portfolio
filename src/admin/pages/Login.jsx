@@ -42,10 +42,12 @@ const Login = () => {
       <div className="relative w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-amber-500 to-amber-600 mb-4">
-            <span className="text-2xl font-bold text-white">PH</span>
-          </div>
-          <h1 className="text-2xl font-bold text-white">Pranjil Heights</h1>
+          <img
+            src="/logo.png"
+            alt="Pranijheightsindia logo"
+            className="h-14 w-auto mx-auto mb-4 object-contain"
+          />
+          <h1 className="text-2xl font-bold text-white">Pranijheightsindia</h1>
           <p className="text-gray-400 mt-2">Admin Panel Login</p>
         </div>
 

@@ -1,6 +1,6 @@
-# Pranjil Heights - Backend API
+# Pranijheightsindia - Backend API
 
-Backend API server for Pranjil Heights PVC Panel B2B Portfolio website.
+Backend API server for Pranijheightsindia PVC Panel B2B Portfolio website.
 
 ## Tech Stack
 
@@ -208,11 +208,11 @@ backend/
 
 After running `npm run db:seed`:
 
-- **Email:** admin@pranjilheights.com
+- **Email:** admin@pranijheightsindia.com
 - **Password:** admin123
 
 ⚠️ **Important:** Change these credentials immediately in production!
 
 ## License
 
-ISC © Pranjil Heights India
+ISC © Pranijheightsindia

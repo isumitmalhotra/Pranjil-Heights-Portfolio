@@ -395,7 +395,7 @@ const Settings = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {[
-                        { label: 'Application', value: systemInfo?.application || 'Pranjil Heights Admin' },
+                        { label: 'Application', value: systemInfo?.application || 'Pranijheightsindia Admin' },
                         { label: 'Version', value: systemInfo?.version || '1.0.0' },
                         { label: 'Backend', value: systemInfo?.backend || 'Node.js + Express' },
                         { label: 'Database', value: systemInfo?.database || 'SQLite + Prisma' },

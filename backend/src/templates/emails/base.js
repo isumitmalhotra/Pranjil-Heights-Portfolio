@@ -21,7 +21,7 @@ const COLORS = {
 
 // Company info
 const COMPANY = {
-  name: 'Pranjil Heights India',
+  name: 'Pranijheightsindia',
   tagline: 'Premium PVC Panel Manufacturer',
   website: process.env.FRONTEND_URL || 'https://pranijheightsindia.com',
   email: 'info@pranijheightsindia.com',

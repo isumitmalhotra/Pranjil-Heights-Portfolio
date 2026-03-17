@@ -138,7 +138,7 @@ export const contactAdminNotificationTemplate = (data) => {
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
         <tr>
           <td style="padding-right: 12px;">
-            ${createButton('Reply to Customer', `mailto:${email}?subject=Re: ${encodeURIComponent(subject || 'Your Inquiry to Pranjil Heights')}`)}
+            ${createButton('Reply to Customer', `mailto:${email}?subject=Re: ${encodeURIComponent(subject || 'Your Inquiry to Pranijheightsindia')}`)}
           </td>
           <td>
             ${createButton('View in Admin', `${COMPANY.website}/admin/contacts/${id || ''}`, 'secondary')}

@@ -17,10 +17,10 @@ async function main() {
   const adminPassword = await bcrypt.hash(adminPwd, 12);
   
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@pranjilheights.com' },
+    where: { email: 'admin@pranijheightsindia.com' },
     update: {},
     create: {
-      email: 'admin@pranjilheights.com',
+      email: 'admin@pranijheightsindia.com',
       password: adminPassword,
       name: 'Super Admin',
       role: 'SUPER_ADMIN'
@@ -156,7 +156,7 @@ async function main() {
       designation: 'Managing Director',
       company: 'Kumar Interiors Pvt Ltd',
       location: 'Mumbai, Maharashtra',
-      content: 'We have been using Pranjil Heights panels for our commercial projects. The quality and finish are exceptional. Our clients love the results!',
+      content: 'We have been using Pranijheightsindia panels for our commercial projects. The quality and finish are exceptional. Our clients love the results!',
       rating: 5,
       projectType: 'Commercial',
       isFeatured: true
@@ -166,7 +166,7 @@ async function main() {
       designation: 'Interior Designer',
       company: 'Design Studio',
       location: 'Delhi NCR',
-      content: 'The marble finish panels from Pranjil Heights give a premium look at a fraction of the cost. Highly recommended for budget-conscious projects.',
+      content: 'The marble finish panels from Pranijheightsindia give a premium look at a fraction of the cost. Highly recommended for budget-conscious projects.',
       rating: 5,
       projectType: 'Residential',
       isFeatured: true
@@ -176,7 +176,7 @@ async function main() {
       designation: 'Project Manager',
       company: 'Al Faisal Constructions',
       location: 'Hyderabad, Telangana',
-      content: 'Quick delivery, easy installation, and excellent after-sales support. Pranjil Heights is now our preferred PVC panel supplier.',
+      content: 'Quick delivery, easy installation, and excellent after-sales support. Pranijheightsindia is now our preferred PVC panel supplier.',
       rating: 5,
       projectType: 'Commercial',
       isFeatured: true
@@ -233,11 +233,11 @@ async function main() {
 
   // Create site settings
   const settings = [
-    { key: 'company_name', value: 'Pranjil Heights India', group: 'general' },
-    { key: 'company_email', value: 'info@pranjilheights.com', group: 'contact' },
+    { key: 'company_name', value: 'Pranijheightsindia', group: 'general' },
+    { key: 'company_email', value: 'info@pranijheightsindia.com', group: 'contact' },
     { key: 'company_phone', value: '+91 98765 43210', group: 'contact' },
     { key: 'company_address', value: 'Industrial Area, Phase 2, New Delhi - 110020', group: 'contact' },
-    { key: 'meta_title', value: 'Pranjil Heights - Premium PVC Panel Manufacturer in India', group: 'seo' },
+    { key: 'meta_title', value: 'Pranijheightsindia - Premium PVC Panel Manufacturer in India', group: 'seo' },
     { key: 'meta_description', value: 'Leading manufacturer of premium quality PVC wall panels, ceiling panels, and WPC panels. Best quality at competitive prices.', group: 'seo' }
   ];
 
@@ -256,7 +256,7 @@ async function main() {
       name: 'Product Catalogue 2024',
       slug: 'product-catalogue-2024',
       description: 'Complete product range with specifications and applications',
-      fileUrl: '/catalogues/pranjil-heights-catalogue-2024.pdf',
+      fileUrl: '/catalogues/pranijheightsindia-catalogue-2024.pdf',
       fileSize: 15728640, // ~15MB
       thumbnail: '/images/catalogue-cover-2024.jpg',
       category: 'product',

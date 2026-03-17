@@ -1,7 +1,7 @@
 {
   "name": "pvc-portfolio-backend",
   "version": "1.0.0",
-  "description": "Backend API for Pranjil Heights PVC Panel Portfolio",
+  "description": "Backend API for Pranijheightsindia PVC Panel Portfolio",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -24,7 +24,7 @@
     "b2b",
     "api"
   ],
-  "author": "Pranjil Heights India",
+  "author": "Pranijheightsindia",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.22.0",

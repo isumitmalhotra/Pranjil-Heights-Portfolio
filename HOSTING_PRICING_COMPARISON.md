@@ -1,6 +1,6 @@
 # Cloud Hosting Pricing Comparison
 **Date:** January 28, 2026  
-**Project:** Pranjil Heights PVC Portfolio Website
+**Project:** Pranijheightsindia PVC Portfolio Website
 
 ---
 

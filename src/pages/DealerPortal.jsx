@@ -290,7 +290,7 @@ const DealerApplicationForm = () => {
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors resize-none"
-              placeholder="Describe your business, existing customer base, and why you want to partner with Pranjil Heights India..."
+              placeholder="Describe your business, existing customer base, and why you want to partner with Pranijheightsindia..."
             />
           </div>
         </div>
@@ -299,7 +299,7 @@ const DealerApplicationForm = () => {
           <input type="checkbox" required className="mt-1 rounded border-black/20" />
           <p className="text-slate-300 text-sm">
             I agree to the <a href="#" className="text-gold hover:underline">Terms & Conditions</a> and 
-            authorize Pranjil Heights India to contact me regarding the dealer partnership.
+            authorize Pranijheightsindia to contact me regarding the dealer partnership.
           </p>
         </div>
 

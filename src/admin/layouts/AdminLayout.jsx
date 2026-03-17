@@ -69,9 +69,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         {/* Logo */}
         <div className="h-16 flex items-center justify-between px-6 border-b border-gray-800">
           <Link to="/admin" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-amber-500 to-amber-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">PH</span>
-            </div>
+            <img
+              src="/logo.png"
+              alt="Pranijheightsindia logo"
+              className="h-8 w-auto object-contain"
+            />
             <span className="text-white font-semibold">Admin Panel</span>
           </Link>
           <button 

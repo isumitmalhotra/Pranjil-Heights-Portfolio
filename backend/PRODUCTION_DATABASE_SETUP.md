@@ -207,10 +207,10 @@ SMTP_USER=your-email@gmail.com
 SMTP_PASS=your-gmail-app-password
 
 # Admin Email (receives notifications)
-ADMIN_EMAIL=admin@pranjilheights.com
+ADMIN_EMAIL=admin@pranijheightsindia.com
 
 # Frontend URL (for CORS and email links)
-FRONTEND_URL=https://pranjilheights.com
+FRONTEND_URL=https://pranijheightsindia.com
 
 # Node Environment
 NODE_ENV=production

@@ -149,7 +149,7 @@ app.use('/api/upload', uploadRoutes);
 app.get('/', (req, res) => {
   res.json({
     success: true,
-    message: 'Pranjil Heights India - Backend API Server',
+    message: 'Pranijheightsindia - Backend API Server',
     version: '1.0.0',
     documentation: '/api',
     health: '/health'
@@ -160,7 +160,7 @@ app.get('/', (req, res) => {
 app.get('/api', (req, res) => {
   res.json({
     success: true,
-    message: 'Pranjil Heights API v1.0',
+    message: 'Pranijheightsindia API v1.0',
     version: '1.0.0',
     endpoints: {
       auth: '/api/auth',
@@ -194,7 +194,7 @@ app.listen(PORT, () => {
   console.log(`
   ╔════════════════════════════════════════════════════╗
   ║                                                    ║
-  ║   🚀 Pranjil Heights API Server                    ║
+  ║   🚀 Pranijheightsindia API Server                    ║
   ║                                                    ║
   ║   Environment: ${process.env.NODE_ENV || 'development'}                       ║
   ║   Port: ${PORT}                                        ║

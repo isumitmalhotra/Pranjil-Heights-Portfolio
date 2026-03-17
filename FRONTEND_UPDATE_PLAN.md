@@ -1,4 +1,4 @@
-# Frontend Redesign Plan — Pranjil Heights India
+# Frontend Redesign Plan — Pranijheightsindia
 ## Reference: [heightsacp.com](https://heightsacp.com)
 
 ---
@@ -65,7 +65,7 @@ The Heights ACP site is a **WordPress/Elementor** build that feels **authentic**
 - **File**: `src/components/home/Hero.jsx`
 - **Current**: 3 CSS-only panels with fake wood grain, woven textures, 3D perspective
 - **Change**: Replace with a **full-width hero image/video banner** with text overlay
-- **Reference Pattern**: Large background image of an interior/exterior using their panels, with bold text ("Welcome to Pranjil Heights / Strength Meets Style") and CTA buttons overlaid
+- **Reference Pattern**: Large background image of an interior/exterior using their panels, with bold text ("Welcome to Pranijheightsindia / Strength Meets Style") and CTA buttons overlaid
 - **Consider**: Image carousel/slider with 3-4 real product/project images
 
 #### 1.2 Remove All Gradient Orbs & Blur Backgrounds
@@ -125,7 +125,7 @@ The Heights ACP site is a **WordPress/Elementor** build that feels **authentic**
   ┌──────────────────────────────────────────────────┐
   │  Full-width background image (real product/project) │
   │                                                      │
-  │   WELCOME TO PRANJIL HEIGHTS                         │
+  │   WELCOME TO PRANIJHEIGHTSINDIA                         │
   │   Strength Meets Style                               │
   │   PVC Panels for Every Surface                       │
   │                                                      │
@@ -367,7 +367,7 @@ Hero (full-width image slider + text overlay + CTA buttons)
 Welcome Section (text + brand intro on white bg)
 Features (3-4 key items on dark navy bg)
 Product Categories (image grid with overlays on white bg)
-Why Pranjil Heights (stats bar on accent bg)
+Why Pranijheightsindia (stats bar on accent bg)
 Free Consulting (contact form on dark bg)
 Instagram Feed (image grid)
 Footer (multi-column, clean)

@@ -1,4 +1,4 @@
-# Production Launch Plan - Pranjil Heights India
+# Production Launch Plan - Pranijheightsindia
 ## Single VPS Deployment — All-in-One Server
 
 > **Architecture:** Everything runs on a single private VPS — Frontend, Backend, Database, and all uploaded files/images are stored directly on the server disk.
@@ -25,16 +25,16 @@ ssh root@YOUR_SERVER_IP
 sudo apt update && sudo apt upgrade -y
 
 # Create a non-root user
-adduser pranjil
-usermod -aG sudo pranjil
+adduser pranijheightsindia
+usermod -aG sudo pranijheightsindia
 
 # Switch to new user
-su - pranjil
+su - pranijheightsindia
 ```
 
 ### 1.3 Domain & DNS
-- [ ] Point `pranjilheights.com` A record → VPS IP address
-- [ ] Point `www.pranjilheights.com` CNAME → `pranjilheights.com`
+- [ ] Point `pranijheightsindia.com` A record → VPS IP address
+- [ ] Point `www.pranijheightsindia.com` CNAME → `pranijheightsindia.com`
 - [ ] (Optional) Use Cloudflare for DNS + CDN caching of static assets
 - [ ] Wait for DNS propagation (usually 5-30 mins with Cloudflare)
 
@@ -70,22 +70,22 @@ sudo systemctl enable postgresql
 sudo -u postgres psql
 ```
 ```sql
-CREATE USER pranjil_admin WITH PASSWORD 'YOUR_STRONG_DB_PASSWORD';
-CREATE DATABASE pranjil_heights OWNER pranjil_admin;
-GRANT ALL PRIVILEGES ON DATABASE pranjil_heights TO pranjil_admin;
+CREATE USER pranijheightsindia_admin WITH PASSWORD 'YOUR_STRONG_DB_PASSWORD';
+CREATE DATABASE pranijheightsindia OWNER pranijheightsindia_admin;
+GRANT ALL PRIVILEGES ON DATABASE pranijheightsindia TO pranijheightsindia_admin;
 \q
 ```
 
 ### 2.3 Verify Connection
 ```bash
-psql -U pranjil_admin -d pranjil_heights -h localhost
+psql -U pranijheightsindia_admin -d pranijheightsindia -h localhost
 # Enter password, should connect successfully
 \q
 ```
 
 **Database URL for .env:**
 ```
-DATABASE_URL="postgresql://pranjil_admin:YOUR_STRONG_DB_PASSWORD@localhost:5432/pranjil_heights?schema=public&connection_limit=10"
+DATABASE_URL="postgresql://pranijheightsindia_admin:YOUR_STRONG_DB_PASSWORD@localhost:5432/pranijheightsindia?schema=public&connection_limit=10"
 ```
 
 ---
@@ -105,10 +105,10 @@ sudo npm install -g pm2
 ### 3.2 Clone the Project
 ```bash
 sudo mkdir -p /var/www
-sudo chown pranjil:pranjil /var/www
+sudo chown pranijheightsindia:pranijheightsindia /var/www
 cd /var/www
-git clone <your-repo-url> pranjil-heights
-cd pranjil-heights
+git clone <your-repo-url> pranijheightsindia
+cd pranijheightsindia
 ```
 
 ### 3.3 Create Upload Directories (for images/files stored on VPS)
@@ -122,7 +122,7 @@ chmod -R 755 backend/uploads
 
 ### 3.4 Setup Backend
 ```bash
-cd /var/www/pranjil-heights/backend
+cd /var/www/pranijheightsindia/backend
 npm install --production
 ```
 
@@ -139,7 +139,7 @@ NODE_ENV=production
 PORT=5000
 
 # ===== DATABASE =====
-DATABASE_URL="postgresql://pranjil_admin:YOUR_STRONG_DB_PASSWORD@localhost:5432/pranjil_heights?schema=public&connection_limit=10"
+DATABASE_URL="postgresql://pranijheightsindia_admin:YOUR_STRONG_DB_PASSWORD@localhost:5432/pranijheightsindia?schema=public&connection_limit=10"
 
 # ===== JWT SECRETS (generate strong random strings) =====
 # Run: openssl rand -hex 64
@@ -149,10 +149,10 @@ JWT_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
 
 # ===== CORS — Frontend URL(s) =====
-FRONTEND_URL=https://pranjilheights.com,https://www.pranjilheights.com
+FRONTEND_URL=https://pranijheightsindia.com,https://www.pranijheightsindia.com
 
 # ===== FILE UPLOADS (stored on VPS disk) =====
-UPLOAD_DIR=/var/www/pranjil-heights/backend/uploads
+UPLOAD_DIR=/var/www/pranijheightsindia/backend/uploads
 
 # ===== EMAIL (Gmail App Password or SMTP service) =====
 SMTP_HOST=smtp.gmail.com
@@ -160,10 +160,10 @@ SMTP_PORT=587
 SMTP_SECURE=false
 SMTP_USER=your-email@gmail.com
 SMTP_PASS=your-gmail-app-password
-EMAIL_FROM="Pranjil Heights <noreply@pranjilheights.com>"
+EMAIL_FROM="Pranijheightsindia <noreply@pranijheightsindia.com>"
 
 # ===== ADMIN =====
-ADMIN_EMAIL=admin@pranjilheights.com
+ADMIN_EMAIL=admin@pranijheightsindia.com
 ADMIN_DEFAULT_PASSWORD=YourStrongAdminPassword123!
 
 # ===== RATE LIMITING =====
@@ -179,7 +179,7 @@ openssl rand -hex 64    # Copy output → JWT_REFRESH_SECRET
 
 ### 3.6 Run Prisma Migrations & Seed Database
 ```bash
-cd /var/www/pranjil-heights/backend
+cd /var/www/pranijheightsindia/backend
 npx prisma generate
 npx prisma db push
 npx prisma db seed
@@ -188,13 +188,13 @@ npx prisma db seed
 ### 3.7 Test Backend Locally
 ```bash
 node src/server.js
-# Should see: "Pranjil Heights API Server" on port 5000
+# Should see: "Pranijheightsindia API Server" on port 5000
 # Ctrl+C to stop
 ```
 
 ### 3.8 Start Backend with PM2
 ```bash
-pm2 start src/server.js --name "pranjil-api"
+pm2 start src/server.js --name "pranijheightsindia-api"
 pm2 save
 pm2 startup    # Follow the instructions it prints
 ```
@@ -211,16 +211,16 @@ curl http://localhost:5000/health
 
 ### 4.1 Create Frontend `.env.production`
 ```bash
-cd /var/www/pranjil-heights
+cd /var/www/pranijheightsindia
 nano .env.production
 ```
 ```env
-VITE_API_URL=https://pranjilheights.com/api
+VITE_API_URL=https://pranijheightsindia.com/api
 ```
 
 ### 4.2 Build Frontend
 ```bash
-cd /var/www/pranjil-heights
+cd /var/www/pranijheightsindia
 npm install
 npm run build
 # Creates dist/ folder with static files
@@ -234,7 +234,7 @@ sudo systemctl enable nginx
 ```
 
 ```bash
-sudo nano /etc/nginx/sites-available/pranjilheights
+sudo nano /etc/nginx/sites-available/pranijheightsindia
 ```
 
 **Paste this complete Nginx config:**
@@ -242,22 +242,22 @@ sudo nano /etc/nginx/sites-available/pranjilheights
 # Redirect HTTP → HTTPS
 server {
     listen 80;
-    server_name pranjilheights.com www.pranjilheights.com;
+    server_name pranijheightsindia.com www.pranijheightsindia.com;
     return 301 https://$server_name$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name pranjilheights.com www.pranjilheights.com;
+    server_name pranijheightsindia.com www.pranijheightsindia.com;
 
     # SSL (Certbot will auto-fill these after running certbot)
-    ssl_certificate /etc/letsencrypt/live/pranjilheights.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/pranjilheights.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/pranijheightsindia.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pranijheightsindia.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
     # ===== FRONTEND (React SPA static files) =====
-    root /var/www/pranjil-heights/dist;
+    root /var/www/pranijheightsindia/dist;
     index index.html;
 
     # SPA routing — serve index.html for all frontend routes
@@ -283,7 +283,7 @@ server {
 
     # ===== UPLOADED FILES (served directly by Nginx for performance) =====
     location /uploads {
-        alias /var/www/pranjil-heights/backend/uploads;
+        alias /var/www/pranijheightsindia/backend/uploads;
         expires 30d;
         add_header Cache-Control "public, immutable";
         add_header X-Content-Type-Options "nosniff" always;
@@ -309,7 +309,7 @@ server {
     add_header X-Content-Type-Options "nosniff" always;
     add_header X-XSS-Protection "1; mode=block" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://pranjilheights.com;" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://pranijheightsindia.com;" always;
 
     # ===== CACHE STATIC ASSETS (JS/CSS/images from build) =====
     location ~* \.(js|css|woff|woff2|ttf|eot)$ {
@@ -338,13 +338,13 @@ server {
 sudo rm -f /etc/nginx/sites-enabled/default
 
 # Enable our site
-sudo ln -s /etc/nginx/sites-available/pranjilheights /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/pranijheightsindia /etc/nginx/sites-enabled/
 
 # Test config (before SSL)
 sudo nginx -t
 
 # Get SSL certificate
-sudo certbot --nginx -d pranjilheights.com -d www.pranjilheights.com
+sudo certbot --nginx -d pranijheightsindia.com -d www.pranijheightsindia.com
 
 # Test auto-renewal
 sudo certbot renew --dry-run
@@ -362,11 +362,11 @@ All uploaded files are stored **directly on the VPS disk** — no external cloud
 
 | Upload Type | Stored At | Max Size | Served Via |
 |-------------|-----------|----------|------------|
-| Product Images | `/var/www/pranjil-heights/backend/uploads/products/` | 5 MB each | Nginx → `/uploads/products/` |
-| Category Images | `/var/www/pranjil-heights/backend/uploads/categories/` | 5 MB each | Nginx → `/uploads/categories/` |
-| Catalogue PDFs | `/var/www/pranjil-heights/backend/uploads/catalogues/` | 50 MB each | Nginx → `/uploads/catalogues/` |
-| Testimonial Avatars | `/var/www/pranjil-heights/backend/uploads/testimonials/` | 5 MB each | Nginx → `/uploads/testimonials/` |
-| General Files | `/var/www/pranjil-heights/backend/uploads/general/` | 50 MB each | Nginx → `/uploads/general/` |
+| Product Images | `/var/www/pranijheightsindia/backend/uploads/products/` | 5 MB each | Nginx → `/uploads/products/` |
+| Category Images | `/var/www/pranijheightsindia/backend/uploads/categories/` | 5 MB each | Nginx → `/uploads/categories/` |
+| Catalogue PDFs | `/var/www/pranijheightsindia/backend/uploads/catalogues/` | 50 MB each | Nginx → `/uploads/catalogues/` |
+| Testimonial Avatars | `/var/www/pranijheightsindia/backend/uploads/testimonials/` | 5 MB each | Nginx → `/uploads/testimonials/` |
+| General Files | `/var/www/pranijheightsindia/backend/uploads/general/` | 50 MB each | Nginx → `/uploads/general/` |
 
 ### 5.2 Upload API Endpoints
 All uploads go through the backend API (authentication required):
@@ -386,8 +386,8 @@ All uploads go through the backend API (authentication required):
 ### 5.3 Image URL Format
 Once uploaded, images are accessible at:
 ```
-https://pranjilheights.com/uploads/products/image-name-123456-abc.jpg
-https://pranjilheights.com/uploads/categories/category-123456-xyz.png
+https://pranijheightsindia.com/uploads/products/image-name-123456-abc.jpg
+https://pranijheightsindia.com/uploads/categories/category-123456-xyz.png
 ```
 These URLs are served **directly by Nginx** (fast, cached, no Node.js involved).
 
@@ -402,10 +402,10 @@ Every uploaded file is tracked in the `media` table:
 crontab -e
 
 # Daily backup at 2 AM
-0 2 * * * tar -czf /var/backups/pranjil-uploads-$(date +\%Y\%m\%d).tar.gz /var/www/pranjil-heights/backend/uploads
+0 2 * * * tar -czf /var/backups/pranijheightsindia-uploads-$(date +\%Y\%m\%d).tar.gz /var/www/pranijheightsindia/backend/uploads
 
 # Keep only last 7 days of backups
-0 3 * * * find /var/backups/pranjil-uploads-*.tar.gz -mtime +7 -delete
+0 3 * * * find /var/backups/pranijheightsindia-uploads-*.tar.gz -mtime +7 -delete
 ```
 
 ---
@@ -450,7 +450,7 @@ crontab -e
 
 ### 6.4 Security Verification
 - [ ] HTTPS working (green lock, no mixed content)
-- [ ] Health check: `curl https://pranjilheights.com/health`
+- [ ] Health check: `curl https://pranijheightsindia.com/health`
 - [ ] No demo credentials visible on login page
 - [ ] Rate limiting works (try 10+ rapid login attempts)
 - [ ] Upload directory has no directory listing (try `/uploads/` directly)
@@ -458,8 +458,8 @@ crontab -e
 
 ### 6.5 Performance Checks
 - [ ] Run Lighthouse audit in Chrome DevTools (target: 80+ score)
-- [ ] Verify gzip: `curl -H "Accept-Encoding: gzip" -I https://pranjilheights.com`
-- [ ] Verify static caching: `curl -I https://pranjilheights.com/assets/index-xxx.js` (should show `Cache-Control`)
+- [ ] Verify gzip: `curl -H "Accept-Encoding: gzip" -I https://pranijheightsindia.com`
+- [ ] Verify static caching: `curl -I https://pranijheightsindia.com/assets/index-xxx.js` (should show `Cache-Control`)
 
 ---
 
@@ -468,7 +468,7 @@ crontab -e
 ### 7.1 Change Default Admin Password (IMMEDIATELY)
 ```bash
 # Via API:
-curl -X PUT https://pranjilheights.com/api/auth/change-password \
+curl -X PUT https://pranijheightsindia.com/api/auth/change-password \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
   -d '{"currentPassword":"your-seed-password","newPassword":"NewStrongPassword!@#456"}'
@@ -496,28 +496,28 @@ crontab -e
 Add:
 ```cron
 # Database backup at 1 AM daily
-0 1 * * * pg_dump -U pranjil_admin pranjil_heights | gzip > /var/backups/pranjil-db-$(date +\%Y\%m\%d).sql.gz
+0 1 * * * pg_dump -U pranijheightsindia_admin pranijheightsindia | gzip > /var/backups/pranijheightsindia-db-$(date +\%Y\%m\%d).sql.gz
 
 # File uploads backup at 2 AM daily
-0 2 * * * tar -czf /var/backups/pranjil-uploads-$(date +\%Y\%m\%d).tar.gz /var/www/pranjil-heights/backend/uploads
+0 2 * * * tar -czf /var/backups/pranijheightsindia-uploads-$(date +\%Y\%m\%d).tar.gz /var/www/pranijheightsindia/backend/uploads
 
 # Clean backups older than 14 days
-0 3 * * * find /var/backups/pranjil-*.gz -mtime +14 -delete
+0 3 * * * find /var/backups/pranijheightsindia-*.gz -mtime +14 -delete
 ```
 
 ### 7.5 Monitor Disk Space
 ```bash
 # Check disk usage
 df -h
-du -sh /var/www/pranjil-heights/backend/uploads/
+du -sh /var/www/pranijheightsindia/backend/uploads/
 
 # Set up alert (add to crontab - alerts if >80% full)
-0 */6 * * * [ $(df / --output=pcent | tail -1 | tr -d ' %') -gt 80 ] && echo "Disk >80% full" | mail -s "VPS Disk Alert" admin@pranjilheights.com
+0 */6 * * * [ $(df / --output=pcent | tail -1 | tr -d ' %') -gt 80 ] && echo "Disk >80% full" | mail -s "VPS Disk Alert" admin@pranijheightsindia.com
 ```
 
 ### 7.6 Updating the Application
 ```bash
-cd /var/www/pranjil-heights
+cd /var/www/pranijheightsindia
 
 # Pull latest code
 git pull origin main
@@ -533,7 +533,7 @@ npx prisma generate
 npx prisma db push   # Apply any schema changes
 
 # Restart backend
-pm2 restart pranjil-api
+pm2 restart pranijheightsindia-api
 
 # Reload Nginx (if config changed)
 sudo nginx -t && sudo systemctl reload nginx
@@ -546,27 +546,27 @@ sudo nginx -t && sudo systemctl reload nginx
 ### Frontend (.env.production)
 | Variable | Value |
 |----------|-------|
-| `VITE_API_URL` | `https://pranjilheights.com/api` |
+| `VITE_API_URL` | `https://pranijheightsindia.com/api` |
 
 ### Backend (.env)
 | Variable | Required | Example |
 |----------|----------|---------|
 | `NODE_ENV` | **Yes** | `production` |
 | `PORT` | **Yes** | `5000` |
-| `DATABASE_URL` | **Yes** | `postgresql://pranjil_admin:PASS@localhost:5432/pranjil_heights?schema=public&connection_limit=10` |
+| `DATABASE_URL` | **Yes** | `postgresql://pranijheightsindia_admin:PASS@localhost:5432/pranijheightsindia?schema=public&connection_limit=10` |
 | `JWT_SECRET` | **CRITICAL** | `openssl rand -hex 64` |
 | `JWT_REFRESH_SECRET` | **CRITICAL** | `openssl rand -hex 64` |
 | `JWT_EXPIRES_IN` | Yes | `15m` |
 | `JWT_REFRESH_EXPIRES_IN` | Yes | `7d` |
-| `FRONTEND_URL` | **Yes** | `https://pranjilheights.com,https://www.pranjilheights.com` |
-| `UPLOAD_DIR` | Yes | `/var/www/pranjil-heights/backend/uploads` |
-| `ADMIN_EMAIL` | Yes | `admin@pranjilheights.com` |
+| `FRONTEND_URL` | **Yes** | `https://pranijheightsindia.com,https://www.pranijheightsindia.com` |
+| `UPLOAD_DIR` | Yes | `/var/www/pranijheightsindia/backend/uploads` |
+| `ADMIN_EMAIL` | Yes | `admin@pranijheightsindia.com` |
 | `ADMIN_DEFAULT_PASSWORD` | First seed | Strong password |
 | `SMTP_HOST` | Yes | `smtp.gmail.com` |
 | `SMTP_PORT` | Yes | `587` |
 | `SMTP_USER` | Yes | Your email |
 | `SMTP_PASS` | Yes | Gmail App Password |
-| `EMAIL_FROM` | Yes | `"Pranjil Heights <noreply@pranjilheights.com>"` |
+| `EMAIL_FROM` | Yes | `"Pranijheightsindia <noreply@pranijheightsindia.com>"` |
 
 ---
 
@@ -595,7 +595,7 @@ sudo nginx -t && sudo systemctl reload nginx
 │  ┌───────────┴───────┐  ┌─────┴─────────────────┐ │
 │  │  PostgreSQL DB    │  │  /uploads/ directory   │ │
 │  │  (Port 5432)      │  │  products/             │ │
-│  │  pranjil_heights  │  │  categories/           │ │
+│  │  pranijheightsindia  │  │  categories/           │ │
 │  │                   │  │  catalogues/           │ │
 │  │  Tables:          │  │  testimonials/         │ │
 │  │  - users          │  │  general/              │ │

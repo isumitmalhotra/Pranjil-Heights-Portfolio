@@ -90,7 +90,7 @@ Wait for DNS propagation (can take up to 24 hours, usually 10-30 minutes).
 
 ```bash
 # Create Nginx configuration
-sudo nano /etc/nginx/sites-available/pranjilheights.com
+sudo nano /etc/nginx/sites-available/pranijheightsindia.com
 ```
 
 ```nginx
@@ -98,7 +98,7 @@ sudo nano /etc/nginx/sites-available/pranjilheights.com
 server {
     listen 80;
     listen [::]:80;
-    server_name pranjilheights.com www.pranjilheights.com;
+    server_name pranijheightsindia.com www.pranijheightsindia.com;
     
     # Let's Encrypt challenge
     location /.well-known/acme-challenge/ {
@@ -115,11 +115,11 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name pranjilheights.com www.pranjilheights.com;
+    server_name pranijheightsindia.com www.pranijheightsindia.com;
 
     # SSL Configuration (will be added by Certbot)
-    # ssl_certificate /etc/letsencrypt/live/pranjilheights.com/fullchain.pem;
-    # ssl_certificate_key /etc/letsencrypt/live/pranjilheights.com/privkey.pem;
+    # ssl_certificate /etc/letsencrypt/live/pranijheightsindia.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/pranijheightsindia.com/privkey.pem;
     
     # Security Headers
     add_header X-Frame-Options "SAMEORIGIN" always;
@@ -137,7 +137,7 @@ server {
     gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml application/javascript application/json;
     
     # Root directory for frontend (built files)
-    root /var/www/pranjilheights.com/dist;
+    root /var/www/pranijheightsindia.com/dist;
     index index.html;
     
     # Frontend - Serve static files
@@ -168,7 +168,7 @@ server {
     
     # File uploads
     location /uploads/ {
-        alias /var/www/pranjilheights.com/uploads/;
+        alias /var/www/pranijheightsindia.com/uploads/;
         expires 1y;
         add_header Cache-Control "public, immutable";
     }
@@ -191,7 +191,7 @@ server {
 
 ```bash
 # Enable site
-sudo ln -s /etc/nginx/sites-available/pranjilheights.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/pranijheightsindia.com /etc/nginx/sites-enabled/
 
 # Remove default site
 sudo rm /etc/nginx/sites-enabled/default
@@ -203,7 +203,7 @@ sudo nginx -t
 sudo systemctl reload nginx
 
 # Get SSL certificate
-sudo certbot --nginx -d pranjilheights.com -d www.pranjilheights.com
+sudo certbot --nginx -d pranijheightsindia.com -d www.pranijheightsindia.com
 
 # Follow prompts:
 # - Enter email address
@@ -260,7 +260,7 @@ sudo chmod 600 /etc/ssl/cloudflare/origin.key
 ```nginx
 server {
     listen 443 ssl http2;
-    server_name pranjilheights.com www.pranjilheights.com;
+    server_name pranijheightsindia.com www.pranijheightsindia.com;
     
     # Cloudflare Origin Certificate
     ssl_certificate /etc/ssl/cloudflare/origin.pem;
@@ -286,7 +286,7 @@ server {
     deny all;
     
     # Rest of configuration...
-    root /var/www/pranjilheights.com/dist;
+    root /var/www/pranijheightsindia.com/dist;
     
     location / {
         try_files $uri $uri/ /index.html;
@@ -313,7 +313,7 @@ For AWS deployments with ALB:
 
 1. Go to AWS Certificate Manager
 2. Request a public certificate
-3. Enter domain: `pranjilheights.com`, `*.pranjilheights.com`
+3. Enter domain: `pranijheightsindia.com`, `*.pranijheightsindia.com`
 4. Choose DNS validation
 5. Create CNAME records in Route 53
 
@@ -341,7 +341,7 @@ Add listener rule for port 80:
 ```bash
 # .env
 NODE_ENV=production
-FRONTEND_URL=https://pranjilheights.com
+FRONTEND_URL=https://pranijheightsindia.com
 
 # If running Node.js directly with SSL (not recommended):
 # SSL_CERT_PATH=/path/to/cert.pem
@@ -377,7 +377,7 @@ if (process.env.NODE_ENV === 'production') {
 // In server.js
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://pranjilheights.com', 'https://www.pranjilheights.com']
+    ? ['https://pranijheightsindia.com', 'https://www.pranijheightsindia.com']
     : ['http://localhost:5173', 'http://localhost:3000'],
   credentials: true,
   optionsSuccessStatus: 200
@@ -426,7 +426,7 @@ add_header Content-Security-Policy "
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     font-src 'self' https://fonts.gstatic.com;
     img-src 'self' data: https: blob:;
-    connect-src 'self' https://api.pranjilheights.com https://www.google-analytics.com;
+    connect-src 'self' https://api.pranijheightsindia.com https://www.google-analytics.com;
     frame-ancestors 'none';
     form-action 'self';
     base-uri 'self';
@@ -452,16 +452,16 @@ add_header Content-Security-Policy "
 
 ```bash
 # Check certificate
-openssl s_client -connect pranjilheights.com:443 -servername pranjilheights.com
+openssl s_client -connect pranijheightsindia.com:443 -servername pranijheightsindia.com
 
 # Check certificate expiry
-echo | openssl s_client -connect pranjilheights.com:443 2>/dev/null | openssl x509 -noout -dates
+echo | openssl s_client -connect pranijheightsindia.com:443 2>/dev/null | openssl x509 -noout -dates
 
 # Check HTTPS redirect
-curl -I http://pranjilheights.com
+curl -I http://pranijheightsindia.com
 
 # Check security headers
-curl -I https://pranjilheights.com
+curl -I https://pranijheightsindia.com
 ```
 
 ---
@@ -502,7 +502,7 @@ curl -I https://pranjilheights.com
 **Certificate not trusted:**
 ```bash
 # Check certificate chain
-openssl s_client -connect pranjilheights.com:443 -showcerts
+openssl s_client -connect pranijheightsindia.com:443 -showcerts
 ```
 
 **Mixed content warnings:**

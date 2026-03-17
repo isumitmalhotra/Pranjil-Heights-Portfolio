@@ -243,7 +243,7 @@ export const updateQuoteStatus = async (req, res) => {
           <p><strong>Quoted Amount:</strong> ₹${quotedAmount.toLocaleString()}</p>
           ${validUntil ? `<p><strong>Valid Until:</strong> ${new Date(validUntil).toLocaleDateString()}</p>` : ''}
           <p>To discuss this quote or to proceed, please contact us or reply to this email.</p>
-          <p>Best regards,<br>Pranjil Heights India Team</p>
+          <p>Best regards,<br>Pranijheightsindia Team</p>
         `
       });
     } catch (error) {
