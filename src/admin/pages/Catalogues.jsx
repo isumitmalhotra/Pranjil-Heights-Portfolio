@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Plus, Search, Edit2, Trash2, Loader2, X, FileText,
   Download, Eye, ChevronLeft, ChevronRight, Upload,
@@ -51,11 +51,7 @@ const Catalogues = () => {
   const thumbInputRef = useRef(null);
   const itemsPerPage = 10;
 
-  useEffect(() => {
-    fetchCatalogues();
-  }, [currentPage, filterCategory, searchQuery]);
-
-  const fetchCatalogues = async () => {
+  const fetchCatalogues = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = {
@@ -68,22 +64,26 @@ const Catalogues = () => {
       const response = await cataloguesAPI.getAll(params);
       setCatalogues(response.data || []);
       setPagination(response.pagination || { total: 0, pages: 1 });
-    } catch (error) {
+    } catch {
       toast.error('Failed to load catalogues');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentPage, filterCategory, searchQuery]);
 
-  const fetchStats = async () => {
+  useEffect(() => {
+    fetchCatalogues();
+  }, [fetchCatalogues]);
+
+  const fetchStats = useCallback(async () => {
     try {
       const response = await cataloguesAPI.getStats(30);
       setStats(response.data || response);
       setShowStatsModal(true);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load stats');
     }
-  };
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -214,7 +214,7 @@ const Catalogues = () => {
       toast.success('Catalogue deleted');
       setDeleteConfirm(null);
       fetchCatalogues();
-    } catch (error) {
+    } catch {
       toast.error('Failed to delete catalogue');
     }
   };

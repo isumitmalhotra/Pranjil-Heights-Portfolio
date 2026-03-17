@@ -1,7 +1,12 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { protect, restrictTo } from '../middleware/auth.middleware.js';
-import { validateLogin, validateRegister } from '../middleware/validators.js';
+import {
+  validateLogin,
+  validateRegister,
+  validateForgotPassword,
+  validateResetPassword
+} from '../middleware/validators.js';
 import { validate } from '../middleware/validate.middleware.js';
 import { asyncHandler } from '../middleware/error.middleware.js';
 import {
@@ -32,8 +37,8 @@ const authLimiter = rateLimit({
 // Public routes
 router.post('/login', authLimiter, validateLogin, validate, asyncHandler(login));
 router.post('/logout', asyncHandler(logout));
-router.post('/forgot-password', authLimiter, asyncHandler(forgotPassword));
-router.post('/reset-password/:token', authLimiter, asyncHandler(resetPassword));
+router.post('/forgot-password', authLimiter, validateForgotPassword, validate, asyncHandler(forgotPassword));
+router.post('/reset-password/:token', authLimiter, validateResetPassword, validate, asyncHandler(resetPassword));
 
 // Protected routes
 router.use(protect); // All routes below this require authentication

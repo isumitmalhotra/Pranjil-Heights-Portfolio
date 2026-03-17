@@ -31,13 +31,25 @@ const ResourceCard = ({ icon: IconComponent, title, description, fileType, fileS
           <p className="text-slate-300 text-sm mb-4">{description}</p>
           <div className="flex items-center justify-between">
             <span className="text-slate-400 text-xs">{fileType} - {fileSize}</span>
-            <a 
-              href={downloadLink}
-              className="flex items-center gap-2 text-gold text-sm font-medium hover:gap-3 transition-all"
-            >
-              <Download className="w-4 h-4" />
-              Download
-            </a>
+            {downloadLink === '#' ? (
+              <Link
+                to="/contact"
+                className="flex items-center gap-2 text-gold text-sm font-medium hover:gap-3 transition-all"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Request File
+              </Link>
+            ) : (
+              <a 
+                href={downloadLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gold text-sm font-medium hover:gap-3 transition-all"
+              >
+                <Download className="w-4 h-4" />
+                Download
+              </a>
+            )}
           </div>
         </div>
       </div>

@@ -16,6 +16,8 @@ import DealerPortal from './pages/DealerPortal';
 import {
   AuthProvider,
   Login as AdminLogin,
+  ForgotPassword as AdminForgotPassword,
+  ResetPassword as AdminResetPassword,
   Dashboard as AdminDashboard,
   Products as AdminProducts,
   Categories as AdminCategories,
@@ -138,6 +140,18 @@ function App() {
           <Route path="/admin/login" element={
             <AuthProvider>
               <AdminLogin />
+            </AuthProvider>
+          } />
+
+          <Route path="/admin/forgot-password" element={
+            <AuthProvider>
+              <AdminForgotPassword />
+            </AuthProvider>
+          } />
+
+          <Route path="/admin/reset-password" element={
+            <AuthProvider>
+              <AdminResetPassword />
             </AuthProvider>
           } />
           

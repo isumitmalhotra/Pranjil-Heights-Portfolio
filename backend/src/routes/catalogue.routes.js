@@ -21,22 +21,6 @@ import {
 const router = express.Router();
 
 // ==========================================
-// PUBLIC ROUTES
-// ==========================================
-
-// Get all active catalogues
-router.get('/', asyncHandler(getCatalogues));
-
-// Get catalogue by slug
-router.get('/:slug', asyncHandler(getCatalogueBySlug));
-
-// Track download with user info (POST - for forms)
-router.post('/:slug/download', asyncHandler(downloadCatalogue));
-
-// Quick download without user info (GET - for direct links)
-router.get('/:slug/download', asyncHandler(quickDownload));
-
-// ==========================================
 // ADMIN ROUTES
 // ==========================================
 
@@ -63,5 +47,21 @@ router.put('/admin/:id', protect, restrictTo('ADMIN', 'SUPER_ADMIN'), asyncHandl
 
 // Delete catalogue
 router.delete('/admin/:id', protect, restrictTo('ADMIN', 'SUPER_ADMIN'), asyncHandler(deleteCatalogue));
+
+// ==========================================
+// PUBLIC ROUTES
+// ==========================================
+
+// Get all active catalogues
+router.get('/', asyncHandler(getCatalogues));
+
+// Track download with user info (POST - for forms)
+router.post('/:slug/download', asyncHandler(downloadCatalogue));
+
+// Quick download without user info (GET - for direct links)
+router.get('/:slug/download', asyncHandler(quickDownload));
+
+// Get catalogue by slug
+router.get('/:slug', asyncHandler(getCatalogueBySlug));
 
 export default router;

@@ -1,3 +1,4 @@
+/* global process */
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
@@ -335,7 +336,6 @@ async function main() {
 main()
   .catch((e) => {
     console.error('❌ Seeding failed:', e);
-    // eslint-disable-next-line no-undef
     process.exit(1);
   })
   .finally(async () => {

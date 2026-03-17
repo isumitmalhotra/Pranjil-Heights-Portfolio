@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Upload, Search, Trash2, Loader2, X, Image as ImageIcon,
   FileText, Film, File, HardDrive, FolderOpen,
@@ -33,15 +33,7 @@ const MediaLibrary = () => {
   const fileInputRef = useRef(null);
   const itemsPerPage = 24;
 
-  useEffect(() => {
-    fetchMedia();
-  }, [currentPage, filterFolder, searchQuery]);
-
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
-  const fetchMedia = async () => {
+  const fetchMedia = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = {
@@ -55,21 +47,29 @@ const MediaLibrary = () => {
       const data = response?.data || response;
       setMedia(data.media || []);
       setPagination(data.pagination || { total: 0, pages: 1 });
-    } catch (error) {
+    } catch {
       toast.error('Failed to load media');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentPage, filterFolder, searchQuery]);
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       const response = await uploadAPI.getStats();
       setStats(response?.data || response);
     } catch {
       // Stats are non-critical
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchMedia();
+  }, [fetchMedia]);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   const handleUpload = async (e) => {
     const files = Array.from(e.target.files || []);
@@ -106,7 +106,7 @@ const MediaLibrary = () => {
       setPreviewItem(null);
       fetchMedia();
       fetchStats();
-    } catch (error) {
+    } catch {
       toast.error('Failed to delete file');
     }
   };
@@ -359,7 +359,7 @@ const MediaLibrary = () => {
                           getFileIcon(item.mimeType)
                         )}
                       </div>
-                      <span className="text-sm font-medium text-gray-900 truncate max-w-[200px]" title={item.originalName}>
+                      <span className="text-sm font-medium text-gray-900 truncate max-w-50" title={item.originalName}>
                         {item.originalName}
                       </span>
                     </div>
@@ -534,7 +534,7 @@ const MediaLibrary = () => {
       {/* DELETE CONFIRMATION */}
       {/* ============================================ */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/50 z-60 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Delete File</h3>
             <p className="text-gray-600 mb-2">

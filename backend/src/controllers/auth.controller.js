@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../config/database.js';
 import { ApiError } from '../middleware/error.middleware.js';
+import { sendPasswordReset, sendPasswordResetSuccess } from '../config/email.js';
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -16,6 +17,20 @@ const generateRefreshToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_REFRESH_SECRET, {
     expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d'
   });
+};
+
+const getFrontendBaseUrl = () => {
+  const configured = process.env.FRONTEND_URL?.split(',')?.[0]?.trim();
+  return configured || 'http://localhost:5173';
+};
+
+const generatePasswordResetToken = (user) => {
+  const secret = `${process.env.JWT_SECRET}${user.password}`;
+  return jwt.sign(
+    { id: user.id, email: user.email, type: 'password_reset' },
+    secret,
+    { expiresIn: '1h' }
+  );
 };
 
 /**
@@ -221,8 +236,15 @@ export const forgotPassword = async (req, res) => {
     });
   }
 
-  // TODO: Generate reset token and send email
-  // For now, just return success message
+  const resetToken = generatePasswordResetToken(user);
+  const resetLink = `${getFrontendBaseUrl()}/admin/reset-password?token=${encodeURIComponent(resetToken)}`;
+
+  await sendPasswordReset({
+    name: user.name,
+    email: user.email,
+    resetLink,
+    expiresIn: '1 hour',
+  });
 
   res.json({
     success: true,
@@ -236,10 +258,42 @@ export const forgotPassword = async (req, res) => {
  * @access  Public
  */
 export const resetPassword = async (req, res) => {
-  const { token: _token } = req.params;
-  const { password: _password } = req.body;
+  const { token } = req.params;
+  const { password } = req.body;
 
-  // TODO: Verify reset token and update password
+  const decoded = jwt.decode(token);
+  if (!decoded?.id || decoded?.type !== 'password_reset') {
+    throw new ApiError(400, 'Invalid or expired reset link');
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: decoded.id }
+  });
+
+  if (!user || user.email !== decoded.email) {
+    throw new ApiError(400, 'Invalid or expired reset link');
+  }
+
+  try {
+    jwt.verify(token, `${process.env.JWT_SECRET}${user.password}`);
+  } catch {
+    throw new ApiError(400, 'Invalid or expired reset link');
+  }
+
+  const salt = await bcrypt.genSalt(12);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { password: hashedPassword }
+  });
+
+  await sendPasswordResetSuccess({
+    name: user.name,
+    email: user.email,
+    ipAddress: req.ip,
+    resetTime: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+  });
 
   res.json({
     success: true,
