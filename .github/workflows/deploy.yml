@@ -73,7 +73,7 @@ jobs:
 
           USER_NAME="${VPS_USER:-root}"
           PORT="${VPS_PORT:-22}"
-          APP_DIR="${VPS_APP_DIR:-/var/www/pranijheightsindia}"
+          APP_DIR="${VPS_APP_DIR:-}"
           HEALTH_URL="${VPS_HEALTH_URL:-http://localhost:5000/health}"
 
           sshpass -p "${VPS_PASSWORD}" ssh \
@@ -87,7 +87,14 @@ jobs:
             -o NumberOfPasswordPrompts=1 \
             "${USER_NAME}@${VPS_HOST}" APP_DIR="${APP_DIR}" HEALTH_URL="${HEALTH_URL}" 'bash -s' << 'EOF'
               set -e
-              APP_DIR="${APP_DIR:-/var/www/pranijheightsindia}"
+              if [ -n "${APP_DIR}" ]; then
+                APP_DIR="${APP_DIR}"
+              elif [ -d "/var/www/pranijheightsindia" ]; then
+                APP_DIR="/var/www/pranijheightsindia"
+              else
+                APP_DIR="/var/www/pranjil-heights"
+              fi
+
               HEALTH_URL="${HEALTH_URL:-http://localhost:5000/health}"
 
               cd "$APP_DIR"
@@ -110,6 +117,8 @@ jobs:
               echo "🔄 Restarting backend..."
               if pm2 describe pranijheightsindia-api > /dev/null; then
                 pm2 restart pranijheightsindia-api
+              elif pm2 describe pranjil-api > /dev/null; then
+                pm2 restart pranjil-api
               else
                 cd backend
                 pm2 start src/server.js --name pranijheightsindia-api
