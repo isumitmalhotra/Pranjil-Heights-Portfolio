@@ -412,6 +412,23 @@ crontab -e
 
 ## Phase 6: Post-Launch Verification (15-20 mins)
 
+### Reconciliation Note (2026-03-18)
+
+This checklist was created before final production hardening and remains as a broad manual launch guide.
+For handover signoff, use the dedicated production gates first:
+
+- `PRODUCTION_ADMIN_QA_SIGNOFF.md`
+- `PRODUCTION_SECRET_ROTATION_SIGNOFF.md`
+
+Current verified-live status snapshot:
+
+- [x] Health endpoint responding (`/health` = 200)
+- [x] Backend API identity parity verified (`/api` message matches source)
+- [x] Default seeded admin password rejected (401)
+- [x] Forgot-password endpoint reachable
+
+Treat remaining unchecked items below as manual validation tasks unless already captured in the signoff documents.
+
 ### 6.1 Website Testing Checklist
 - [ ] **Homepage** loads with all sections (Hero, Products, About, etc.)
 - [ ] **Products page** loads products from API

@@ -176,10 +176,12 @@
 - [x] PUT /api/catalogues/admin/:id - Update catalogue (Admin) ✅
 - [x] DELETE /api/catalogues/admin/:id - Delete catalogue (Admin) ✅
 
-### 3.9 Media Upload API ⬜ TODO
-- [ ] POST /api/media/upload - Upload images (multer + Cloudinary)
-- [ ] GET /api/media - List uploaded media (Admin)
-- [ ] DELETE /api/media/:id - Delete media file (Admin)
+### 3.9 Media Upload API ✅ COMPLETED (Local/Server Storage)
+- [x] POST /api/upload - Upload files (multer + local/server disk) ✅
+- [x] GET /api/upload/media - List uploaded media (Admin) ✅
+- [x] DELETE /api/upload/:id - Delete media file (Admin) ✅
+- [x] GET /api/upload/stats - Storage usage statistics ✅
+- [ ] Optional: migrate uploads to Cloudinary/S3 for managed object storage
 
 ---
 
@@ -201,7 +203,7 @@
 - [x] Add request validation (express-validator) ✅
 - [x] Sanitize inputs to prevent XSS/SQL injection ✅
 - [x] Set up helmet.js for security headers ✅
-- [ ] Set up HTTPS/SSL (production) 
+- [x] Set up HTTPS/SSL (production) ✅
 - [ ] Implement CSRF protection (production)
 
 ### 4.3 Role-Based Access Control ✅
@@ -231,7 +233,7 @@
 - [x] Edit product form ✅
 - [x] Delete product confirmation ✅
 - [x] Product finishes management (colors, images) ✅
-- [ ] Image upload functionality (needs Cloudinary/multer setup)
+- [x] Image upload functionality (multer-based upload system) ✅
 - [x] Bulk actions (activate/deactivate) ✅
 
 ### 5.3 Category Management ✅
@@ -250,7 +252,7 @@
 ### 5.5 Content Management ✅
 - [x] Testimonials management ✅
 - [x] Newsletter subscribers management ✅
-- [ ] Catalogue file upload/management
+- [x] Catalogue file upload/management ✅
 
 ### 5.6 Settings ✅
 - [x] Company information settings ✅
@@ -309,7 +311,7 @@
 - [x] Connect Quote Request form to API ✅ (QuoteRequestForm.jsx)
 - [x] Connect Dealer Application form to API ✅ (DealerPortal.jsx)
 - [x] Connect Newsletter subscription to API ✅ (Footer.jsx)
-- [ ] Connect Catalogue download tracking (TODO)
+- [x] Connect Catalogue download tracking ✅
 
 ### 7.3 Dynamic Data ✅
 - [x] Fetch products from API instead of static data ✅ (Products.jsx, FeaturedProducts.jsx)
@@ -361,13 +363,13 @@
 - [x] Hosting Pricing Comparison ✅ (HOSTING_PRICING_COMPARISON.md)
 
 ### 8.3 Deployment Setup ⬜ TODO
-- [ ] Set up production database (PostgreSQL)
-- [ ] Configure production environment variables
-- [ ] Set up CI/CD pipeline (GitHub Actions)
-- [ ] Deploy backend to hosting platform
-- [ ] Deploy frontend to hosting platform
-- [ ] Configure custom domain
-- [ ] Set up SSL certificate
+- [x] Set up production database (PostgreSQL) ✅
+- [x] Configure production environment variables ✅
+- [x] Set up CI/CD pipeline (GitHub Actions) ✅
+- [x] Deploy backend to hosting platform ✅
+- [x] Deploy frontend to hosting platform ✅
+- [x] Configure custom domain ✅
+- [x] Set up SSL certificate ✅
 
 ### 8.4 Monitoring & Maintenance ⬜ TODO
 - [ ] Set up error tracking (Sentry)
@@ -375,6 +377,24 @@
 - [ ] Configure automated backups
 - [ ] Set up logging and analytics
 - [ ] Create maintenance documentation
+
+---
+
+## Reconciled Pending Backlog (As of 2026-03-18)
+
+These are the actual remaining technical tasks after production deployment validation:
+
+1. Implement CSRF protection for cookie/session attack mitigation on sensitive auth/admin flows.
+2. Add automated test coverage:
+  - Unit tests for critical API controllers/services
+  - Integration tests for auth, upload, catalogue, and admin CRUD paths
+3. Monitoring and operations hardening:
+  - Error tracking (Sentry or equivalent)
+  - Uptime monitoring and on-call alerts
+  - Automated DB + uploads backups with retention policy
+  - Centralized logs/analytics and runbook documentation
+4. Optional infrastructure upgrade:
+  - Move media storage from local disk to object storage (Cloudinary/S3)
 
 ---
 

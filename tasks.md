@@ -358,24 +358,24 @@ Resources Dropdown:
   - [ ] Cross-browser testing
   - [ ] Mobile responsiveness check
   - [ ] Performance optimization
-  - [ ] Production deployment
+  - [x] Production deployment ✅
 
 ---
 
 ## 🔴 REMAINING TASKS
 
-### Backend (Minor)
-1. Image Upload System (Cloudinary/Multer)
-2. Catalogue Download Tracking API
-3. Admin Settings API Connection
-4. Admin User Management (list/update/delete)
+### Backend / Platform (Current)
+1. Implement CSRF protection for production auth/admin routes
+2. Add automated API test coverage (unit + integration)
+3. Set up monitoring stack (error tracking, uptime alerts, log analytics)
+4. Configure and verify automated backup + restore runbook
+5. Optional: migrate uploads from local disk to Cloudinary/S3
 
 ### Deployment
-1. Set up production PostgreSQL database
-2. Configure production environment
-3. Deploy to hosting (DigitalOcean recommended)
-4. SSL/HTTPS configuration
-5. Domain setup
+1. Run full production admin QA with real admin credentials and record signoff
+2. Complete manual password reset E2E signoff (mailbox-required)
+3. Rotate app/DB/SMTP/VPS/GitHub secrets and record evidence table
+4. Validate post-rotation deployment and security checks again
 
 ---
 
