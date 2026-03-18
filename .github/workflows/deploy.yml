@@ -87,42 +87,50 @@ jobs:
             -o NumberOfPasswordPrompts=1 \
             "${USER_NAME}@${VPS_HOST}" APP_DIR="${APP_DIR}" HEALTH_URL="${HEALTH_URL}" 'bash -s' << 'EOF'
               set -e
-              if [ -n "${APP_DIR}" ]; then
-                APP_DIR="${APP_DIR}"
-              elif [ -d "/var/www/pranijheightsindia" ]; then
-                APP_DIR="/var/www/pranijheightsindia"
-              else
-                APP_DIR="/var/www/pranjil-heights"
-              fi
-
               HEALTH_URL="${HEALTH_URL:-http://localhost:5000/health}"
 
-              cd "$APP_DIR"
+              CANDIDATE_DIRS=""
+              if [ -n "${APP_DIR}" ]; then
+                CANDIDATE_DIRS="${APP_DIR}"
+              fi
+              CANDIDATE_DIRS="${CANDIDATE_DIRS} /var/www/pranijheightsindia /var/www/pranjil-heights"
 
-              echo "📥 Pulling latest code..."
-              git fetch origin main
-              git reset --hard origin/main
+              DEPLOYED_DIR=""
+              for DIR in ${CANDIDATE_DIRS}; do
+                if [ -d "${DIR}" ]; then
+                  echo "📥 Deploying in ${DIR}"
+                  cd "${DIR}"
 
-              echo "📦 Installing backend dependencies..."
-              cd backend
-              npm install --production
-              npx prisma generate
-              npx prisma db push
-              cd ..
+                  git fetch origin main
+                  git reset --hard origin/main
 
-              echo "🏗️ Building frontend..."
-              npm install
-              npm run build
+                  echo "📦 Installing backend dependencies..."
+                  cd backend
+                  npm install --production
+                  npx prisma generate
+                  npx prisma db push
+                  cd ..
+
+                  echo "🏗️ Building frontend..."
+                  npm install
+                  npm run build
+
+                  DEPLOYED_DIR="${DIR}"
+                fi
+              done
+
+              if [ -z "${DEPLOYED_DIR}" ]; then
+                echo "❌ No valid deployment directory found"
+                exit 1
+              fi
 
               echo "🔄 Restarting backend..."
-              if pm2 describe pranijheightsindia-api > /dev/null; then
-                pm2 restart pranijheightsindia-api
-              elif pm2 describe pranjil-api > /dev/null; then
-                pm2 restart pranjil-api
-              else
-                cd backend
+              pm2 describe pranijheightsindia-api > /dev/null && pm2 restart pranijheightsindia-api || true
+              pm2 describe pranjil-api > /dev/null && pm2 restart pranjil-api || true
+
+              if ! pm2 describe pranijheightsindia-api > /dev/null && ! pm2 describe pranjil-api > /dev/null; then
+                cd "${DEPLOYED_DIR}/backend"
                 pm2 start src/server.js --name pranijheightsindia-api
-                cd ..
               fi
 
               pm2 save
@@ -130,6 +138,14 @@ jobs:
               echo "🩺 Running health check..."
               sleep 3
               curl -fsS "$HEALTH_URL" > /dev/null
+
+              echo "🧪 Verifying backend API identity..."
+              API_JSON=$(curl -fsS "http://localhost:5000/api")
+              echo "$API_JSON" | grep -q "Pranijheightsindia API v1.0" || {
+                echo "❌ Backend API identity mismatch after deploy"
+                echo "API response: $API_JSON"
+                exit 1
+              }
 
               echo "✅ Deployment complete!"
               pm2 status
