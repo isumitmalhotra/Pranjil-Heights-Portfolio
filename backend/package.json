@@ -9,6 +9,8 @@
     "dev": "nodemon src/server.js",
     "qa:prod": "node scripts/prod-admin-qa.mjs",
     "security:verify": "node scripts/prod-security-verify.mjs",
+    "catalogues:sync": "node scripts/sync-heights-pdfs.mjs",
+    "catalogues:sync:dry": "node scripts/sync-heights-pdfs.mjs --dryRun=true",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",

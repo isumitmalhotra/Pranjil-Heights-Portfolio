@@ -129,16 +129,18 @@ const Resources = () => {
   });
 
   const liveCatalogues = (catalogueResponse?.data || []).map((item) => ({
-    icon: item.category === 'technical' ? BookOpen : FileText,
+    icon: item.category === 'technical' ? BookOpen : item.category === 'marketing' ? Image : FileText,
     title: item.name,
     description: item.description || 'Downloadable business document',
     fileType: 'PDF',
     fileSize: formatBytes(item.fileSize),
     downloadLink: catalogueAPI.getDownloadUrl(item.slug, 'resources'),
+    category: item.category || 'product',
   }));
 
-  const catalogues = liveCatalogues.filter((item) => item.title.toLowerCase().includes('catalogue') || item.title.toLowerCase().includes('brochure'));
-  const technicalDocs = liveCatalogues.filter((item) => item.title.toLowerCase().includes('technical') || item.title.toLowerCase().includes('installation'));
+  const catalogues = liveCatalogues.filter((item) => item.category === 'product');
+  const technicalDocs = liveCatalogues.filter((item) => item.category === 'technical');
+  const marketingDocs = liveCatalogues.filter((item) => item.category === 'marketing');
 
   const installationGuides = [
     { 
@@ -317,6 +319,22 @@ const Resources = () => {
               icon={BookOpen}
               resources={technicalDocs}
             />
+          )}
+
+          {marketingDocs.length > 0 && (
+            <ResourceCategory
+              title="Marketing Assets"
+              description="Brochures and sales-ready collateral"
+              icon={Image}
+              resources={marketingDocs}
+            />
+          )}
+
+          {liveCatalogues.length === 0 && (
+            <GlassCard className="p-8 text-center border-gold/20">
+              <h3 className="text-white text-lg font-semibold mb-2">No documents published yet</h3>
+              <p className="text-slate-300">Catalogues will appear here automatically once uploaded in the admin system.</p>
+            </GlassCard>
           )}
 
           <ResourceCategory 
