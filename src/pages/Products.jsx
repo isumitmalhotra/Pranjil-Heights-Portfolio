@@ -13,31 +13,7 @@ import { Button } from '../components/ui/Button';
 import { H1, H2, Body, SectionBadge } from '../components/ui/Typography';
 import { products as staticProducts } from '../data/products';
 import { useProducts } from '../hooks/useApi';
-
-const getApiOrigin = () => {
-  const envApiUrl = import.meta.env.VITE_API_URL?.trim();
-  if (envApiUrl) {
-    try {
-      return new URL(envApiUrl).origin;
-    } catch {
-      // Fall back to runtime origin if env url is malformed.
-    }
-  }
-  if (typeof window !== 'undefined') return window.location.origin;
-  return '';
-};
-
-const toAbsoluteMediaUrl = (url) => {
-  if (!url || typeof url !== 'string') return null;
-  const normalizedUrl = url.replace(/\\/g, '/');
-  const apiRelativeUrl = normalizedUrl.startsWith('/uploads/')
-    ? normalizedUrl.replace('/uploads/', '/api/uploads/')
-    : normalizedUrl;
-  if (/^https?:\/\//i.test(apiRelativeUrl)) return apiRelativeUrl;
-  const origin = getApiOrigin();
-  if (!origin) return apiRelativeUrl;
-  return `${origin}${apiRelativeUrl.startsWith('/') ? '' : '/'}${apiRelativeUrl}`;
-};
+import { attachMediaFallback, getMediaCandidates, getPrimaryMediaUrl } from '../utils/mediaUrl';
 
 // Category mapping for URL params to display names and data
 const categoryMapping = {
@@ -115,6 +91,7 @@ const ProductCard = ({ product, index, viewMode }) => {
   
   const gradient = gradientMap[product.category] || 'from-charcoal-light to-charcoal';
   const imageUrl = product.image;
+  const imageCandidates = getMediaCandidates(imageUrl);
   const finishCount = product.colors.length;
   const thickness = product.specifications?.thickness || 'N/A';
 
@@ -130,9 +107,12 @@ const ProductCard = ({ product, index, viewMode }) => {
             <div className={`w-40 h-32 rounded-xl bg-linear-to-br ${gradient} shrink-0 relative overflow-hidden`}>
               {imageUrl ? (
                 <img
-                  src={imageUrl}
+                  src={imageCandidates[0] || imageUrl}
                   alt={product.name}
                   className="w-full h-full object-cover"
+                  data-media-candidates={imageCandidates.join('|')}
+                  data-media-index="0"
+                  onError={attachMediaFallback}
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -194,9 +174,12 @@ const ProductCard = ({ product, index, viewMode }) => {
           <div className={`relative h-48 bg-linear-to-br ${gradient} overflow-hidden`}>
             {imageUrl ? (
               <img
-                src={imageUrl}
+                src={imageCandidates[0] || imageUrl}
                 alt={product.name}
                 className="w-full h-full object-cover"
+                data-media-candidates={imageCandidates.join('|')}
+                data-media-index="0"
+                onError={attachMediaFallback}
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
@@ -329,7 +312,7 @@ const Products = () => {
     }
 
     const firstImage = Array.isArray(p.images) && p.images.length > 0
-      ? toAbsoluteMediaUrl(p.images[0]?.url)
+      ? getPrimaryMediaUrl(p.images[0]?.url)
       : null;
 
     const normalizedSpecifications = Object.fromEntries(

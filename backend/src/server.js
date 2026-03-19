@@ -48,7 +48,7 @@ import uploadRoutes from './routes/upload.routes.js';
 
 // Import middleware
 import { errorHandler, notFound } from './middleware/error.middleware.js';
-import { UPLOAD_BASE } from './middleware/upload.middleware.js';
+import { UPLOAD_BASE, LEGACY_UPLOAD_BASE } from './middleware/upload.middleware.js';
 import prisma from './config/database.js';
 
 // Initialize Express app
@@ -101,12 +101,29 @@ app.use('/uploads', express.static(UPLOAD_BASE, {
   lastModified: true,
 }));
 
+// Backward compatibility: also serve legacy backend/uploads if different from current base.
+if (LEGACY_UPLOAD_BASE !== UPLOAD_BASE) {
+  app.use('/uploads', express.static(LEGACY_UPLOAD_BASE, {
+    maxAge: '7d',
+    etag: true,
+    lastModified: true,
+  }));
+}
+
 // Also serve uploads under /api/uploads for deployments where only /api is proxied.
 app.use('/api/uploads', express.static(UPLOAD_BASE, {
   maxAge: '7d',
   etag: true,
   lastModified: true,
 }));
+
+if (LEGACY_UPLOAD_BASE !== UPLOAD_BASE) {
+  app.use('/api/uploads', express.static(LEGACY_UPLOAD_BASE, {
+    maxAge: '7d',
+    etag: true,
+    lastModified: true,
+  }));
+}
 
 // Logging
 if (process.env.NODE_ENV === 'development') {

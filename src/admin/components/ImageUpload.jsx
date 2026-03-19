@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Upload, X, Loader2, Image as ImageIcon } from 'lucide-react';
 import { uploadAPI } from '../services/adminApi';
 import toast from 'react-hot-toast';
+import { attachMediaFallback, getMediaCandidates, getPrimaryMediaUrl } from '../../utils/mediaUrl';
 
 /**
  * Reusable Image Upload component.
@@ -84,7 +85,7 @@ const ImageUpload = ({
 
       const url = response?.data?.url || response?.url;
       if (url) {
-        onChange(url);
+        onChange(getPrimaryMediaUrl(url) || url);
         toast.success('Image uploaded');
       } else {
         toast.error('Upload failed — no URL returned');
@@ -146,7 +147,9 @@ const ImageUpload = ({
                 src={value}
                 alt="Preview"
                 className={`w-full ${sizeClasses[previewSize]} object-cover rounded-lg border`}
-                onError={(e) => { e.target.style.display = 'none'; }}
+                data-media-candidates={getMediaCandidates(value).join('|')}
+                data-media-index="0"
+                onError={attachMediaFallback}
               />
               <button
                 type="button"
@@ -169,10 +172,15 @@ const ImageUpload = ({
                 alt="Preview"
                 className={`w-full ${sizeClasses[previewSize]} object-cover rounded-lg border`}
                 onError={(e) => {
-                  e.target.src = '';
-                  e.target.alt = 'Failed to load';
-                  e.target.className = `w-full ${sizeClasses[previewSize]} bg-gray-100 rounded-lg border flex items-center justify-center`;
+                  const el = e.currentTarget;
+                  const before = el.src;
+                  attachMediaFallback(e);
+                  if (el.src === before) {
+                    el.style.display = 'none';
+                  }
                 }}
+                data-media-candidates={getMediaCandidates(value).join('|')}
+                data-media-index="0"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
                 <button

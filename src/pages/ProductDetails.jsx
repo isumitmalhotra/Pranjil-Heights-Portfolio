@@ -14,31 +14,7 @@ import { H1, H2, H3, Body, SectionBadge } from '../components/ui/Typography';
 import { AnimatedBackground, SpotlightEffect } from '../components/ui/AnimatedBackground';
 import { products as staticProducts } from '../data/products';
 import { useProduct } from '../hooks/useApi';
-
-const getApiOrigin = () => {
-  const envApiUrl = import.meta.env.VITE_API_URL?.trim();
-  if (envApiUrl) {
-    try {
-      return new URL(envApiUrl).origin;
-    } catch {
-      // Fall back to runtime origin if env url is malformed.
-    }
-  }
-  if (typeof window !== 'undefined') return window.location.origin;
-  return '';
-};
-
-const toAbsoluteMediaUrl = (url) => {
-  if (!url || typeof url !== 'string') return null;
-  const normalizedUrl = url.replace(/\\/g, '/');
-  const apiRelativeUrl = normalizedUrl.startsWith('/uploads/')
-    ? normalizedUrl.replace('/uploads/', '/api/uploads/')
-    : normalizedUrl;
-  if (/^https?:\/\//i.test(apiRelativeUrl)) return apiRelativeUrl;
-  const origin = getApiOrigin();
-  if (!origin) return apiRelativeUrl;
-  return `${origin}${apiRelativeUrl.startsWith('/') ? '' : '/'}${apiRelativeUrl}`;
-};
+import { attachMediaFallback, getMediaCandidates, getPrimaryMediaUrl } from '../utils/mediaUrl';
 
 // 3D Product Viewer Component
 const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => {
@@ -86,6 +62,9 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
               src={images[selectedIndex]}
               alt="Product view"
               className="w-full h-full object-cover"
+              data-media-candidates={getMediaCandidates(images[selectedIndex]).join('|')}
+              data-media-index="0"
+              onError={attachMediaFallback}
             />
           ) : (
             <div className="absolute inset-0 bg-linear-to-br from-amber-800 to-amber-900" />
@@ -155,6 +134,9 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
                   src={img}
                   alt={`Product thumbnail ${index + 1}`}
                   className="w-full h-full object-cover"
+                  data-media-candidates={getMediaCandidates(img).join('|')}
+                  data-media-index="0"
+                  onError={attachMediaFallback}
                 />
               ) : (
                 <div className="absolute inset-0 bg-linear-to-br from-amber-800 to-amber-900" />
@@ -257,6 +239,9 @@ const ColorSelector = ({ colors, selected, onSelect }) => (
             src={selected.image} 
             alt={selected.name}
             className="w-20 h-14 object-cover rounded-lg shadow"
+            data-media-candidates={getMediaCandidates(selected.image).join('|')}
+            data-media-index="0"
+            onError={attachMediaFallback}
           />
           <div>
             <p className="text-sm font-medium text-white">{selected.name}</p>
@@ -392,12 +377,12 @@ const ProductDetails = () => {
           colors = finishes.map(f => ({
             name: typeof f === 'string' ? f : (f.name || 'Finish'),
             hex: typeof f === 'string' ? '#D4B896' : (f.hex || '#D4B896'),
-            image: typeof f === 'string' ? '' : (toAbsoluteMediaUrl(f.image) || ''),
+            image: typeof f === 'string' ? '' : (getPrimaryMediaUrl(f.image) || ''),
             images: typeof f === 'string'
               ? []
               : (
                 Array.isArray(f.images)
-                  ? f.images.map((url) => toAbsoluteMediaUrl(url)).filter(Boolean)
+                  ? f.images.map((url) => getPrimaryMediaUrl(url)).filter(Boolean)
                   : []
               )
           }));
@@ -409,7 +394,7 @@ const ProductDetails = () => {
     
     // Preserve uploaded product image URLs.
     const defaultImages = p.images?.length > 0 
-      ? p.images.map(img => toAbsoluteMediaUrl(img.url)).filter(Boolean)
+      ? p.images.map(img => getPrimaryMediaUrl(img.url)).filter(Boolean)
       : [];
 
     const normalizedSpecifications = Object.fromEntries(
@@ -450,7 +435,7 @@ const ProductDetails = () => {
         name: p.name,
         slug: p.slug,
         category: p.category?.name || 'General',
-        image: toAbsoluteMediaUrl(p.images?.[0]?.url),
+        image: getPrimaryMediaUrl(p.images?.[0]?.url),
         colors: (() => {
           try {
             const finishes = typeof p.finishes === 'string' ? JSON.parse(p.finishes) : p.finishes;
@@ -794,6 +779,9 @@ const ProductDetails = () => {
                           src={relatedProduct.image}
                           alt={relatedProduct.name}
                           className="w-full h-full object-cover"
+                          data-media-candidates={getMediaCandidates(relatedProduct.image).join('|')}
+                          data-media-index="0"
+                          onError={attachMediaFallback}
                         />
                       ) : null}
                     </div>

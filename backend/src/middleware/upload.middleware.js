@@ -9,8 +9,14 @@ import { ApiError } from './error.middleware.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Base upload directory (relative to project root)
-const UPLOAD_BASE = process.env.UPLOAD_DIR || path.join(__dirname, '..', '..', 'uploads');
+// Preferred base upload directory at project root.
+const ROOT_UPLOAD_BASE = path.join(__dirname, '..', '..', '..', 'uploads');
+
+// Legacy upload directory (inside backend folder) kept for backward compatibility.
+const LEGACY_UPLOAD_BASE = path.join(__dirname, '..', '..', 'uploads');
+
+// Base upload directory (can be overridden by env in production)
+const UPLOAD_BASE = process.env.UPLOAD_DIR || ROOT_UPLOAD_BASE;
 
 // Ensure upload directories exist
 const ensureDir = (dir) => {
@@ -240,3 +246,4 @@ export const handleMulterError = (err, req, res, next) => {
 };
 
 export { UPLOAD_BASE, UPLOAD_DIRS };
+export { ROOT_UPLOAD_BASE, LEGACY_UPLOAD_BASE };

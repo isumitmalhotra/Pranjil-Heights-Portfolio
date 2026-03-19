@@ -6,31 +6,7 @@ import {
 import { productsAPI, categoriesAPI } from '../services/adminApi';
 import ImageUpload from '../components/ImageUpload';
 import toast from 'react-hot-toast';
-
-const getApiOrigin = () => {
-  const envApiUrl = import.meta.env.VITE_API_URL?.trim();
-  if (envApiUrl) {
-    try {
-      return new URL(envApiUrl).origin;
-    } catch {
-      // Fall back to runtime origin if env url is malformed.
-    }
-  }
-  if (typeof window !== 'undefined') return window.location.origin;
-  return '';
-};
-
-const toAbsoluteMediaUrl = (url) => {
-  if (!url || typeof url !== 'string') return null;
-  const normalizedUrl = url.replace(/\\/g, '/');
-  const apiRelativeUrl = normalizedUrl.startsWith('/uploads/')
-    ? normalizedUrl.replace('/uploads/', '/api/uploads/')
-    : normalizedUrl;
-  if (/^https?:\/\//i.test(apiRelativeUrl)) return apiRelativeUrl;
-  const origin = getApiOrigin();
-  if (!origin) return apiRelativeUrl;
-  return `${origin}${apiRelativeUrl.startsWith('/') ? '' : '/'}${apiRelativeUrl}`;
-};
+import { attachMediaFallback, getMediaCandidates, getPrimaryMediaUrl } from '../../utils/mediaUrl';
 
 const initialFormData = {
   name: '',
@@ -96,7 +72,7 @@ const Products = () => {
       const apiProducts = response.data?.products || response.products || [];
       const normalizedProducts = apiProducts.map((product) => {
         const firstImageUrl = Array.isArray(product.images) && product.images.length > 0
-          ? toAbsoluteMediaUrl(typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url)
+          ? getPrimaryMediaUrl(typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url)
           : null;
 
         return {
@@ -228,7 +204,7 @@ const Products = () => {
       const imageUrls = Array.isArray(product.images) 
         ? product.images
             .map(img => typeof img === 'string' ? img : img.url)
-            .map(url => toAbsoluteMediaUrl(url))
+            .map(url => getPrimaryMediaUrl(url))
             .filter(Boolean)
         : [];
       
@@ -500,10 +476,13 @@ const Products = () => {
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden">
                           {product.image ? (
-                            <img 
-                              src={product.image} 
+                            <img
+                              src={getMediaCandidates(product.image)[0] || product.image}
                               alt={product.name}
                               className="w-full h-full object-cover"
+                              data-media-candidates={getMediaCandidates(product.image).join('|')}
+                              data-media-index="0"
+                              onError={attachMediaFallback}
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center">
