@@ -101,6 +101,13 @@ app.use('/uploads', express.static(UPLOAD_BASE, {
   lastModified: true,
 }));
 
+// Also serve uploads under /api/uploads for deployments where only /api is proxied.
+app.use('/api/uploads', express.static(UPLOAD_BASE, {
+  maxAge: '7d',
+  etag: true,
+  lastModified: true,
+}));
+
 // Logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));

@@ -201,7 +201,7 @@ export const uploadMultipleGeneral = multer({
  */
 export const getFileUrl = (absolutePath) => {
   const relativePath = path.relative(UPLOAD_BASE, absolutePath).replace(/\\/g, '/');
-  return `/uploads/${relativePath}`;
+  return `/api/uploads/${relativePath}`;
 };
 
 /**

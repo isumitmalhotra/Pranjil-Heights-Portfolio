@@ -22,10 +22,14 @@ const getApiOrigin = () => {
 
 const toAbsoluteMediaUrl = (url) => {
   if (!url || typeof url !== 'string') return null;
-  if (/^https?:\/\//i.test(url)) return url;
+  const normalizedUrl = url.replace(/\\/g, '/');
+  const apiRelativeUrl = normalizedUrl.startsWith('/uploads/')
+    ? normalizedUrl.replace('/uploads/', '/api/uploads/')
+    : normalizedUrl;
+  if (/^https?:\/\//i.test(apiRelativeUrl)) return apiRelativeUrl;
   const origin = getApiOrigin();
-  if (!origin) return url;
-  return `${origin}${url.startsWith('/') ? '' : '/'}${url}`;
+  if (!origin) return apiRelativeUrl;
+  return `${origin}${apiRelativeUrl.startsWith('/') ? '' : '/'}${apiRelativeUrl}`;
 };
 
 const initialFormData = {

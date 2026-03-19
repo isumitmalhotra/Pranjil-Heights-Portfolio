@@ -30,10 +30,14 @@ const getApiOrigin = () => {
 
 const toAbsoluteMediaUrl = (url) => {
   if (!url || typeof url !== 'string') return null;
-  if (/^https?:\/\//i.test(url)) return url;
+  const normalizedUrl = url.replace(/\\/g, '/');
+  const apiRelativeUrl = normalizedUrl.startsWith('/uploads/')
+    ? normalizedUrl.replace('/uploads/', '/api/uploads/')
+    : normalizedUrl;
+  if (/^https?:\/\//i.test(apiRelativeUrl)) return apiRelativeUrl;
   const origin = getApiOrigin();
-  if (!origin) return url;
-  return `${origin}${url.startsWith('/') ? '' : '/'}${url}`;
+  if (!origin) return apiRelativeUrl;
+  return `${origin}${apiRelativeUrl.startsWith('/') ? '' : '/'}${apiRelativeUrl}`;
 };
 
 // 3D Product Viewer Component
@@ -132,38 +136,40 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
       </motion.div>
 
       {/* Thumbnail Gallery */}
-      <div className="flex gap-3">
-        {images.map((img, index) => (
-          <motion.button
-            key={index}
-            onClick={() => onSelect(index)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`relative flex-1 aspect-square rounded-xl overflow-hidden border-2 transition-all ${
-              selectedIndex === index 
-                ? 'border-yellow-600 shadow-md' 
-                : 'border-blue-200/25 hover:border-yellow-300'
-            }`}
-          >
-            {img ? (
-              <img
-                src={img}
-                alt={`Product thumbnail ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="absolute inset-0 bg-linear-to-br from-amber-800 to-amber-900" />
-            )}
+      {images.length > 1 && (
+        <div className="flex gap-3">
+          {images.map((img, index) => (
+            <motion.button
+              key={index}
+              onClick={() => onSelect(index)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`relative flex-1 aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                selectedIndex === index 
+                  ? 'border-yellow-600 shadow-md' 
+                  : 'border-blue-200/25 hover:border-yellow-300'
+              }`}
+            >
+              {img ? (
+                <img
+                  src={img}
+                  alt={`Product thumbnail ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-linear-to-br from-amber-800 to-amber-900" />
+              )}
 
-            {selectedIndex === index && (
-              <motion.div 
-                layoutId="activeThumb"
-                className="absolute inset-0 bg-yellow-600/10"
-              />
-            )}
-          </motion.button>
-        ))}
-      </div>
+              {selectedIndex === index && (
+                <motion.div 
+                  layoutId="activeThumb"
+                  className="absolute inset-0 bg-yellow-600/10"
+                />
+              )}
+            </motion.button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
