@@ -25,7 +25,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-6">
+    <div className="admin-theme min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
         <Link to="/admin/login" className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mb-6">
           <ArrowLeft className="w-4 h-4" />

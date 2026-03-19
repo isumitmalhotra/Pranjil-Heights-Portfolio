@@ -219,7 +219,7 @@ const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="admin-theme min-h-screen bg-gray-50 flex">
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       
       <div className="flex-1 flex flex-col min-h-screen lg:ml-0">

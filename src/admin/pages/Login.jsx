@@ -31,7 +31,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-6">
+    <div className="admin-theme min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-6">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0" style={{

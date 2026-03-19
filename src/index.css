@@ -137,6 +137,70 @@
 
 @layer components {
   /* ========================================
+     ADMIN BRAND LAYER + FORM READABILITY
+     ======================================== */
+  .admin-theme {
+    background: radial-gradient(circle at 10% 10%, #1b3b66 0%, #0b2442 45%, #061223 100%);
+  }
+
+  .admin-theme main {
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.96) 0%, rgba(241, 245, 249, 0.96) 100%);
+  }
+
+  .admin-theme .bg-white {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(8, 23, 46, 0.08);
+  }
+
+  .admin-theme input:not([type='checkbox']):not([type='radio']):not([type='file']),
+  .admin-theme textarea,
+  .admin-theme select {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    caret-color: #0f172a !important;
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  .admin-theme input:not([type='checkbox']):not([type='radio']):not([type='file'])::placeholder,
+  .admin-theme textarea::placeholder {
+    color: #64748b !important;
+    opacity: 1;
+  }
+
+  .admin-theme input:not([type='checkbox']):not([type='radio']):not([type='file']):focus,
+  .admin-theme textarea:focus,
+  .admin-theme select:focus {
+    border-color: #f97316 !important;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.16) !important;
+    outline: none;
+  }
+
+  .admin-theme select option {
+    color: #0f172a;
+    background-color: #ffffff;
+  }
+
+  .admin-theme input:-webkit-autofill,
+  .admin-theme input:-webkit-autofill:hover,
+  .admin-theme input:-webkit-autofill:focus,
+  .admin-theme textarea:-webkit-autofill,
+  .admin-theme select:-webkit-autofill {
+    -webkit-text-fill-color: #0f172a !important;
+    box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  .admin-theme input:disabled,
+  .admin-theme textarea:disabled,
+  .admin-theme select:disabled {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+    background-color: #f1f5f9 !important;
+  }
+
+  /* ========================================
      CARD STYLES - Blue Glass Morphism
      ======================================== */
   .glass-card {
