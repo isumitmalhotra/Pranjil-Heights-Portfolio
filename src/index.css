@@ -151,6 +151,22 @@
     background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
     border: 1px solid #e2e8f0;
     box-shadow: 0 10px 30px rgba(8, 23, 46, 0.08);
+    color: #0f172a;
+  }
+
+  .admin-theme .bg-white p,
+  .admin-theme .bg-white span,
+  .admin-theme .bg-white label,
+  .admin-theme .bg-white h1,
+  .admin-theme .bg-white h2,
+  .admin-theme .bg-white h3,
+  .admin-theme .bg-white h4,
+  .admin-theme .bg-white h5,
+  .admin-theme .bg-white h6,
+  .admin-theme .bg-white th,
+  .admin-theme .bg-white td,
+  .admin-theme .bg-white li {
+    color: inherit;
   }
 
   .admin-theme input:not([type='checkbox']):not([type='radio']):not([type='file']),
@@ -161,6 +177,13 @@
     caret-color: #0f172a !important;
     background-color: #ffffff !important;
     border-color: #cbd5e1 !important;
+    color-scheme: light;
+  }
+
+  .admin-theme input[type='color'] {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    padding: 0;
   }
 
   .admin-theme input:not([type='checkbox']):not([type='radio']):not([type='file'])::placeholder,

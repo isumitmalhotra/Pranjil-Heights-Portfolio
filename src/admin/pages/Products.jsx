@@ -7,6 +7,27 @@ import { productsAPI, categoriesAPI } from '../services/adminApi';
 import ImageUpload from '../components/ImageUpload';
 import toast from 'react-hot-toast';
 
+const getApiOrigin = () => {
+  const envApiUrl = import.meta.env.VITE_API_URL?.trim();
+  if (envApiUrl) {
+    try {
+      return new URL(envApiUrl).origin;
+    } catch {
+      // Fall back to runtime origin if env url is malformed.
+    }
+  }
+  if (typeof window !== 'undefined') return window.location.origin;
+  return '';
+};
+
+const toAbsoluteMediaUrl = (url) => {
+  if (!url || typeof url !== 'string') return null;
+  if (/^https?:\/\//i.test(url)) return url;
+  const origin = getApiOrigin();
+  if (!origin) return url;
+  return `${origin}${url.startsWith('/') ? '' : '/'}${url}`;
+};
+
 const initialFormData = {
   name: '',
   slug: '',
@@ -67,8 +88,19 @@ const Products = () => {
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      const response = await productsAPI.getAll({ limit: 'all', order: 'desc', sortBy: 'updatedAt' });
-      setProducts(response.data?.products || response.products || []);
+      const response = await productsAPI.getAll({ limit: 100, page: 1, order: 'desc', sortBy: 'updatedAt' });
+      const apiProducts = response.data?.products || response.products || [];
+      const normalizedProducts = apiProducts.map((product) => {
+        const firstImageUrl = Array.isArray(product.images) && product.images.length > 0
+          ? toAbsoluteMediaUrl(typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url)
+          : null;
+
+        return {
+          ...product,
+          image: product.image || firstImageUrl
+        };
+      });
+      setProducts(normalizedProducts);
     } catch (error) {
       console.error('Error fetching products:', error);
       toast.error('Failed to load products');
@@ -190,7 +222,10 @@ const Products = () => {
       
       // Handle images - array of objects {url, alt}
       const imageUrls = Array.isArray(product.images) 
-        ? product.images.map(img => typeof img === 'string' ? img : img.url).filter(Boolean)
+        ? product.images
+            .map(img => typeof img === 'string' ? img : img.url)
+            .map(url => toAbsoluteMediaUrl(url))
+            .filter(Boolean)
         : [];
       
       // Parse finishes if stored - now as array of objects with name, hex, image, and images array

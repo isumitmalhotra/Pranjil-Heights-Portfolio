@@ -14,6 +14,27 @@ import { H1, H2, Body, SectionBadge } from '../components/ui/Typography';
 import { products as staticProducts } from '../data/products';
 import { useProducts } from '../hooks/useApi';
 
+const getApiOrigin = () => {
+  const envApiUrl = import.meta.env.VITE_API_URL?.trim();
+  if (envApiUrl) {
+    try {
+      return new URL(envApiUrl).origin;
+    } catch {
+      // Fall back to runtime origin if env url is malformed.
+    }
+  }
+  if (typeof window !== 'undefined') return window.location.origin;
+  return '';
+};
+
+const toAbsoluteMediaUrl = (url) => {
+  if (!url || typeof url !== 'string') return null;
+  if (/^https?:\/\//i.test(url)) return url;
+  const origin = getApiOrigin();
+  if (!origin) return url;
+  return `${origin}${url.startsWith('/') ? '' : '/'}${url}`;
+};
+
 // Category mapping for URL params to display names and data
 const categoryMapping = {
   'wall': { name: 'Wall Panels', displayName: 'PVC Wall Panels', icon: Palette, filter: ['Wood Series', 'Stone Series', 'Solid Colors'] },
@@ -257,7 +278,7 @@ const Products = () => {
   // Fetch products from API
   const { data: apiResponse } = useProducts({
     page: 1,
-    limit: 'all',
+    limit: 100,
     sortBy: 'sortOrder',
     order: 'asc'
   });
@@ -304,7 +325,7 @@ const Products = () => {
     }
 
     const firstImage = Array.isArray(p.images) && p.images.length > 0
-      ? p.images[0]?.url || null
+      ? toAbsoluteMediaUrl(p.images[0]?.url)
       : null;
 
     const normalizedSpecifications = Object.fromEntries(

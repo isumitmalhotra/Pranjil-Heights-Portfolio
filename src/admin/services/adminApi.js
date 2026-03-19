@@ -1,8 +1,17 @@
 import axios from 'axios';
 
+const resolveAdminApiBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL?.trim();
+  if (envUrl) return envUrl.replace(/\/+$/, '');
+  if (typeof window !== 'undefined') {
+    return `${window.location.origin}/api`;
+  }
+  return 'http://localhost:5000/api';
+};
+
 // Create admin axios instance
 const adminApi = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: resolveAdminApiBaseUrl(),
   timeout: 15000,
   headers: {
     'Content-Type': 'application/json',

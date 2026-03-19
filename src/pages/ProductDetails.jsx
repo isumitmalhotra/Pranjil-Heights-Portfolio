@@ -15,6 +15,27 @@ import { AnimatedBackground, SpotlightEffect } from '../components/ui/AnimatedBa
 import { products as staticProducts } from '../data/products';
 import { useProduct } from '../hooks/useApi';
 
+const getApiOrigin = () => {
+  const envApiUrl = import.meta.env.VITE_API_URL?.trim();
+  if (envApiUrl) {
+    try {
+      return new URL(envApiUrl).origin;
+    } catch {
+      // Fall back to runtime origin if env url is malformed.
+    }
+  }
+  if (typeof window !== 'undefined') return window.location.origin;
+  return '';
+};
+
+const toAbsoluteMediaUrl = (url) => {
+  if (!url || typeof url !== 'string') return null;
+  if (/^https?:\/\//i.test(url)) return url;
+  const origin = getApiOrigin();
+  if (!origin) return url;
+  return `${origin}${url.startsWith('/') ? '' : '/'}${url}`;
+};
+
 // 3D Product Viewer Component
 const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => {
   const containerRef = useRef(null);
@@ -365,10 +386,14 @@ const ProductDetails = () => {
           colors = finishes.map(f => ({
             name: typeof f === 'string' ? f : (f.name || 'Finish'),
             hex: typeof f === 'string' ? '#D4B896' : (f.hex || '#D4B896'),
-            image: typeof f === 'string' ? '' : (f.image || ''),
+            image: typeof f === 'string' ? '' : (toAbsoluteMediaUrl(f.image) || ''),
             images: typeof f === 'string'
               ? []
-              : (Array.isArray(f.images) ? f.images.filter(url => url && url.trim()) : [])
+              : (
+                Array.isArray(f.images)
+                  ? f.images.map((url) => toAbsoluteMediaUrl(url)).filter(Boolean)
+                  : []
+              )
           }));
         }
       }
@@ -378,7 +403,7 @@ const ProductDetails = () => {
     
     // Preserve uploaded product image URLs.
     const defaultImages = p.images?.length > 0 
-      ? p.images.map(img => img.url)
+      ? p.images.map(img => toAbsoluteMediaUrl(img.url)).filter(Boolean)
       : [];
 
     const normalizedSpecifications = Object.fromEntries(
@@ -419,7 +444,7 @@ const ProductDetails = () => {
         name: p.name,
         slug: p.slug,
         category: p.category?.name || 'General',
-        image: p.images?.[0]?.url || null,
+        image: toAbsoluteMediaUrl(p.images?.[0]?.url),
         colors: (() => {
           try {
             const finishes = typeof p.finishes === 'string' ? JSON.parse(p.finishes) : p.finishes;
