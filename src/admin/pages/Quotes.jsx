@@ -15,6 +15,22 @@ const statusOptions = [
   { value: 'LOST', label: 'Lost', color: 'bg-red-100 text-red-700', icon: XCircle }
 ];
 
+const normalizeQuote = (quote) => {
+  const estimatedAreaText = quote.estimatedArea
+    ? `${quote.estimatedArea}${quote.areaUnit ? ` ${quote.areaUnit}` : ''}`
+    : '';
+
+  return {
+    ...quote,
+    companyName: quote.companyName || quote.company || '',
+    city: quote.city || quote.deliveryAddress || '',
+    state: quote.state || '',
+    productInterest: quote.productInterest || quote.projectType || '',
+    requirements: quote.requirements || quote.projectDetails || quote.additionalNotes || '',
+    quantity: quote.quantity || estimatedAreaText,
+  };
+};
+
 const Quotes = () => {
   const [quotes, setQuotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +51,8 @@ const Quotes = () => {
     setIsLoading(true);
     try {
       const response = await quotesAPI.getAll();
-      setQuotes(response.data?.quotes || response.quotes || []);
+      const rawQuotes = response.data?.quotes || response.quotes || [];
+      setQuotes(rawQuotes.map(normalizeQuote));
     } catch (error) {
       console.error('Error fetching quotes:', error);
       toast.error('Failed to load quote requests');
@@ -327,15 +344,15 @@ const Quotes = () => {
               <div className="space-y-4">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                   <Package className="w-4 h-4" />
-                  Product Interest
+                  Project Requirement
                 </h3>
                 <div className="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
                   <div>
-                    <label className="text-xs text-gray-500">Product</label>
+                    <label className="text-xs text-gray-500">Type</label>
                     <p className="text-gray-900">{viewQuote.productInterest || 'Not specified'}</p>
                   </div>
                   <div>
-                    <label className="text-xs text-gray-500">Quantity</label>
+                    <label className="text-xs text-gray-500">Estimated Area / Quantity</label>
                     <p className="text-gray-900">{viewQuote.quantity || 'Not specified'}</p>
                   </div>
                 </div>
