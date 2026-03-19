@@ -288,11 +288,11 @@ export const Hero = () => {
                 Explore Product Range
               </Button>
             </Link>
-            <a href="/catalogue.pdf" download>
+            <Link to="/resources">
               <Button variant="secondary" size="lg" icon={Download} iconPosition="left" className="bg-blue-300/16 text-white hover:bg-blue-300/25 border border-white/25 shadow-lg shadow-black/20">
                 Download Catalogue
               </Button>
-            </a>
+            </Link>
             <Link to="/contact">
               <Button variant="secondary" size="lg" className="bg-[#0F2A44] text-white hover:bg-[#0b2238] border border-blue-200/30 shadow-lg shadow-black/30">
                 Become a Dealer
