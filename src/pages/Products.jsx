@@ -89,6 +89,9 @@ const ProductCard = ({ product, index, viewMode }) => {
   };
   
   const gradient = gradientMap[product.category] || 'from-charcoal-light to-charcoal';
+  const imageUrl = product.image;
+  const finishCount = product.colors.length;
+  const thickness = product.specifications?.thickness || 'N/A';
 
   if (viewMode === 'list') {
     return (
@@ -100,9 +103,17 @@ const ProductCard = ({ product, index, viewMode }) => {
       <Link to={`/products/${product.slug || product.id}`}>
           <div className="glass-card p-6 flex gap-6 group hover:border-yellow-500/30 transition-all duration-300">
             <div className={`w-40 h-32 rounded-xl bg-linear-to-br ${gradient} shrink-0 relative overflow-hidden`}>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Package className="w-10 h-10 text-white/40" />
-              </div>
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Package className="w-10 h-10 text-white/40" />
+                </div>
+              )}
             </div>
             <div className="flex-1 flex flex-col justify-between">
               <div>
@@ -121,9 +132,9 @@ const ProductCard = ({ product, index, viewMode }) => {
               </div>
               <div className="flex items-center justify-between mt-4">
                 <div className="flex items-center gap-4 text-sm text-slate-300">
-                  <span>{product.specifications?.thickness} thick</span>
+                  <span>{thickness} thick</span>
                   <span className="w-1 h-1 rounded-full bg-gray-400" />
-                  <span>{product.colors.length} finishes available</span>
+                  <span>{finishCount} finishes available</span>
                 </div>
                 <span className="text-yellow-600 text-sm flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   View Details <ArrowRight className="w-4 h-4" />
@@ -156,14 +167,22 @@ const ProductCard = ({ product, index, viewMode }) => {
 
           {/* Image */}
           <div className={`relative h-48 bg-linear-to-br ${gradient} overflow-hidden`}>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                className="w-20 h-20 rounded-2xl bg-blue-300/30 backdrop-blur-sm border border-white/40 flex items-center justify-center"
-              >
-                <Package className="w-8 h-8 text-white/80" />
-              </motion.div>
-            </div>
+            {imageUrl ? (
+              <img
+                src={imageUrl}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="w-20 h-20 rounded-2xl bg-blue-300/30 backdrop-blur-sm border border-white/40 flex items-center justify-center"
+                >
+                  <Package className="w-8 h-8 text-white/80" />
+                </motion.div>
+              </div>
+            )}
             
             {/* Hover Overlay */}
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -187,8 +206,8 @@ const ProductCard = ({ product, index, viewMode }) => {
 
             <div className="pt-3 border-t border-blue-200/20">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-300">{product.specifications?.thickness} thickness</span>
-                <span className="text-slate-300">{product.colors.length} finishes</span>
+                <span className="text-slate-300">{thickness} thickness</span>
+                <span className="text-slate-300">{finishCount} finishes</span>
               </div>
             </div>
           </div>
@@ -236,7 +255,12 @@ const Products = () => {
   const [showFilters, setShowFilters] = useState(false);
   
   // Fetch products from API
-  const { data: apiResponse } = useProducts();
+  const { data: apiResponse } = useProducts({
+    page: 1,
+    limit: 'all',
+    sortBy: 'sortOrder',
+    order: 'asc'
+  });
   
   // Transform API products to match static format
   const transformProduct = (p) => {
@@ -260,27 +284,47 @@ const Products = () => {
       specifications = p.specifications || {};
     }
     
-    // Create default colors if not provided
-    const colors = p.colors || [
-      { name: 'Natural', hex: '#D4B896' },
-      { name: 'Walnut', hex: '#5D4037' },
-      { name: 'Oak', hex: '#C4A35A' },
-      { name: 'White', hex: '#F5F5F5' }
-    ];
+    let colors = [];
+    try {
+      const parsedFinishes = typeof p.finishes === 'string'
+        ? JSON.parse(p.finishes)
+        : p.finishes;
+      if (Array.isArray(parsedFinishes)) {
+        colors = parsedFinishes
+          .filter((finish) => finish && typeof finish === 'object')
+          .map((finish) => ({
+            name: finish.name || 'Finish',
+            hex: finish.hex || '#D4B896',
+            image: finish.image || '',
+            images: Array.isArray(finish.images) ? finish.images.filter(Boolean) : []
+          }));
+      }
+    } catch {
+      colors = [];
+    }
+
+    const firstImage = Array.isArray(p.images) && p.images.length > 0
+      ? p.images[0]?.url || null
+      : null;
+
+    const normalizedSpecifications = Object.fromEntries(
+      Object.entries(specifications || {}).map(([key, value]) => [key.toLowerCase(), value])
+    );
     
     return {
       id: p.id,
       name: p.name,
       slug: p.slug,
       category: p.category?.name || 'General',
+      categorySlug: p.category?.slug || '',
       description: p.description || p.shortDescription || '',
       shortDescription: p.shortDescription || '',
       price: p.price,
       unit: p.unit || 'sq ft',
-      image: p.images?.[0]?.url || '/placeholder-product.jpg',
+      image: firstImage,
       features: features,
       applications: applications,
-      specifications: specifications,
+      specifications: normalizedSpecifications,
       colors: colors,
       isFeatured: p.isFeatured,
       badge: p.isFeatured ? 'Featured' : null
@@ -323,8 +367,14 @@ const Products = () => {
       
       // Filter by URL category param
       let matchesCategory = true;
-      if (mappedCategory && mappedCategory.filter) {
-        matchesCategory = mappedCategory.filter.includes(product.category);
+      if (categoryParam !== 'all') {
+        if (mappedCategory && mappedCategory.filter) {
+          matchesCategory =
+            mappedCategory.filter.includes(product.category) ||
+            mappedCategory.filter.includes(product.categorySlug);
+        } else {
+          matchesCategory = product.categorySlug === categoryParam;
+        }
       }
       
       return matchesSearch && matchesCategory;
@@ -344,7 +394,7 @@ const Products = () => {
     }
     
     return result;
-  }, [searchTerm, sortBy, mappedCategory, products]);
+  }, [searchTerm, sortBy, mappedCategory, categoryParam, products]);
 
   return (
     <div className="min-h-screen relative">

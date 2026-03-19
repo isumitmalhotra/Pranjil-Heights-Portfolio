@@ -19,7 +19,10 @@ export const getProducts = async (req, res) => {
     isActive
   } = req.query;
 
-  const skip = (parseInt(page) - 1) * parseInt(limit);
+  const isUnpaginated = String(limit).toLowerCase() === 'all';
+  const parsedLimit = isUnpaginated ? null : Math.max(parseInt(limit, 10) || 12, 1);
+  const parsedPage = Math.max(parseInt(page, 10) || 1, 1);
+  const skip = isUnpaginated ? 0 : (parsedPage - 1) * parsedLimit;
 
   // Build where clause
   const where = {};
@@ -67,21 +70,22 @@ export const getProducts = async (req, res) => {
         }
       },
       orderBy,
-      skip,
-      take: parseInt(limit)
+      ...(isUnpaginated ? {} : { skip, take: parsedLimit })
     }),
     prisma.product.count({ where })
   ]);
+
+  const paginationLimit = isUnpaginated ? total : parsedLimit;
 
   res.json({
     success: true,
     data: {
       products,
       pagination: {
-        page: parseInt(page),
-        limit: parseInt(limit),
+        page: parsedPage,
+        limit: paginationLimit,
         total,
-        pages: Math.ceil(total / parseInt(limit))
+        pages: isUnpaginated ? 1 : Math.ceil(total / parsedLimit)
       }
     }
   });
@@ -309,6 +313,22 @@ export const createProduct = async (req, res) => {
     metaDescription
   } = req.body;
 
+  const parsedCategoryId = parseInt(categoryId, 10);
+  if (!Number.isInteger(parsedCategoryId) || parsedCategoryId <= 0) {
+    throw new ApiError(400, 'Invalid category selected');
+  }
+
+  let normalizedFinishes = null;
+  if (finishes !== undefined && finishes !== null && finishes !== '' && finishes !== 'null') {
+    if (typeof finishes === 'string') {
+      normalizedFinishes = finishes;
+    } else if (Array.isArray(finishes)) {
+      normalizedFinishes = finishes.length > 0 ? JSON.stringify(finishes) : null;
+    } else {
+      normalizedFinishes = JSON.stringify(finishes);
+    }
+  }
+
   // Generate slug
   const slug = name
     .toLowerCase()
@@ -330,11 +350,11 @@ export const createProduct = async (req, res) => {
       shortDescription,
       price: price ? parseFloat(price) : null,
       unit: unit || 'sq ft',
-      categoryId: parseInt(categoryId),
+      categoryId: parsedCategoryId,
       sku,
       features: features ? JSON.stringify(features) : null,
       applications: applications ? JSON.stringify(applications) : null,
-      finishes: finishes ? (typeof finishes === 'string' ? finishes : JSON.stringify(finishes)) : null,
+      finishes: normalizedFinishes,
       sortOrder: sortOrder ? parseInt(sortOrder) : 0,
       isFeatured: isFeatured || false,
       isActive: isActive !== false,
@@ -416,7 +436,13 @@ export const updateProduct = async (req, res) => {
   if (updateData.metaDescription !== undefined) cleanUpdateData.metaDescription = updateData.metaDescription;
   
   // Numeric fields - only set if provided and valid
-  if (updateData.categoryId) cleanUpdateData.categoryId = parseInt(updateData.categoryId);
+  if (updateData.categoryId !== undefined) {
+    const parsedCategoryId = parseInt(updateData.categoryId, 10);
+    if (!Number.isInteger(parsedCategoryId) || parsedCategoryId <= 0) {
+      throw new ApiError(400, 'Invalid category selected');
+    }
+    cleanUpdateData.categoryId = parsedCategoryId;
+  }
   if (updateData.price !== undefined && updateData.price !== null && updateData.price !== '') {
     cleanUpdateData.price = parseFloat(updateData.price);
   }
@@ -438,9 +464,17 @@ export const updateProduct = async (req, res) => {
       : updateData.applications;
   }
   if (updateData.finishes !== undefined) {
-    cleanUpdateData.finishes = typeof updateData.finishes === 'string' 
-      ? updateData.finishes 
-      : JSON.stringify(updateData.finishes);
+    if (updateData.finishes === null || updateData.finishes === '' || updateData.finishes === 'null') {
+      cleanUpdateData.finishes = null;
+    } else if (typeof updateData.finishes === 'string') {
+      cleanUpdateData.finishes = updateData.finishes;
+    } else if (Array.isArray(updateData.finishes)) {
+      cleanUpdateData.finishes = updateData.finishes.length > 0
+        ? JSON.stringify(updateData.finishes)
+        : null;
+    } else {
+      cleanUpdateData.finishes = JSON.stringify(updateData.finishes);
+    }
   }
   
   // Nested creates

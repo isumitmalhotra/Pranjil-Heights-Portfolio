@@ -50,12 +50,22 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
       >
         {/* Product Image */}
         <motion.div
-          key={selectedIndex}
+          key={images[selectedIndex] || selectedIndex}
           initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className={`absolute inset-0 ${images[selectedIndex]}`}
+          className="absolute inset-0"
         >
+          {images[selectedIndex] ? (
+            <img
+              src={images[selectedIndex]}
+              alt="Product view"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-linear-to-br from-amber-800 to-amber-900" />
+          )}
+
           {/* Color Overlay */}
           <div 
             className="absolute inset-0 mix-blend-overlay transition-all duration-700"
@@ -112,8 +122,18 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
               selectedIndex === index 
                 ? 'border-yellow-600 shadow-md' 
                 : 'border-blue-200/25 hover:border-yellow-300'
-            } ${img}`}
+            }`}
           >
+            {img ? (
+              <img
+                src={img}
+                alt={`Product thumbnail ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-linear-to-br from-amber-800 to-amber-900" />
+            )}
+
             {selectedIndex === index && (
               <motion.div 
                 layoutId="activeThumb"
@@ -130,9 +150,15 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
 // Color Selector Component
 const ColorSelector = ({ colors, selected, onSelect }) => (
   <div className="space-y-4">
+    {colors.length === 0 ? (
+      <div className="rounded-xl border border-blue-200/25 bg-blue-400/10 p-4">
+        <p className="text-slate-300 text-sm">No finishes have been added for this product yet.</p>
+      </div>
+    ) : null}
+
     <div className="flex items-center justify-between">
       <h3 className="text-white font-semibold">Available Finishes</h3>
-      <span className="text-yellow-600 font-medium">{selected?.name}</span>
+      <span className="text-yellow-600 font-medium">{selected?.name || '-'}</span>
     </div>
     <div className="flex flex-wrap gap-3">
       {colors.map((color) => (
@@ -327,13 +353,8 @@ const ProductDetails = () => {
       specifications = p.specifications || {};
     }
     
-    // Parse finishes from API or use defaults
-    let colors = [
-      { name: 'Natural', hex: '#D4B896', image: '', images: [] },
-      { name: 'Walnut', hex: '#5D4037', image: '', images: [] },
-      { name: 'Oak', hex: '#C4A35A', image: '', images: [] },
-      { name: 'White', hex: '#F5F5F5', image: '', images: [] }
-    ];
+    // Parse finishes from API payload.
+    let colors = [];
     
     try {
       if (p.finishes) {
@@ -342,26 +363,27 @@ const ProductDetails = () => {
           : p.finishes;
         if (Array.isArray(finishes) && finishes.length > 0) {
           colors = finishes.map(f => ({
-            name: f.name || 'Unknown',
-            hex: f.hex || '#D4B896',
-            image: f.image || '',
-            images: Array.isArray(f.images) ? f.images.filter(url => url && url.trim()) : []
+            name: typeof f === 'string' ? f : (f.name || 'Finish'),
+            hex: typeof f === 'string' ? '#D4B896' : (f.hex || '#D4B896'),
+            image: typeof f === 'string' ? '' : (f.image || ''),
+            images: typeof f === 'string'
+              ? []
+              : (Array.isArray(f.images) ? f.images.filter(url => url && url.trim()) : [])
           }));
         }
       }
     } catch {
-      // Keep defaults if parsing fails
+      colors = [];
     }
     
-    // Create default images array from API images (used when finish has no specific images)
+    // Preserve uploaded product image URLs.
     const defaultImages = p.images?.length > 0 
       ? p.images.map(img => img.url)
       : [];
-    
-    // Create images as CSS background classes for gallery
-    const images = defaultImages.length > 0
-      ? defaultImages.map(url => `bg-[url('${url}')] bg-cover bg-center`)
-      : ['bg-linear-to-br from-amber-800 to-amber-900'];
+
+    const normalizedSpecifications = Object.fromEntries(
+      Object.entries(specifications || {}).map(([key, value]) => [key.toLowerCase(), value])
+    );
     
     return {
       id: p.id,
@@ -375,9 +397,9 @@ const ProductDetails = () => {
       unit: p.unit || 'sq ft',
       features: features,
       applications: applications,
-      specifications: specifications,
+      specifications: normalizedSpecifications,
       colors: colors,
-      images: images,
+      images: defaultImages,
       defaultImageUrls: defaultImages,
       isFeatured: p.isFeatured
     };
@@ -397,10 +419,15 @@ const ProductDetails = () => {
         name: p.name,
         slug: p.slug,
         category: p.category?.name || 'General',
-        images: p.images?.length > 0 
-          ? p.images.map(img => `bg-[url('${img.url}')] bg-cover bg-center`)
-          : ['bg-linear-to-br from-amber-800 to-amber-900'],
-        colors: [{ name: 'Default', hex: '#D4B896' }]
+        image: p.images?.[0]?.url || null,
+        colors: (() => {
+          try {
+            const finishes = typeof p.finishes === 'string' ? JSON.parse(p.finishes) : p.finishes;
+            return Array.isArray(finishes) ? finishes : [];
+          } catch {
+            return [];
+          }
+        })()
       }))
     : staticProducts.filter(p => p.id !== product?.id && p.category === product?.category).slice(0, 4);
   
@@ -421,9 +448,12 @@ const ProductDetails = () => {
   // If selected finish has specific images, use those; otherwise use product default images
   const currentImages = useMemo(() => {
     if (selectedColor?.images && selectedColor.images.length > 0) {
-      return selectedColor.images.map(url => `bg-[url('${url}')] bg-cover bg-center`);
+      return selectedColor.images;
     }
-    return product?.images || ['bg-linear-to-br from-amber-800 to-amber-900'];
+    if (product?.images && product.images.length > 0) {
+      return product.images;
+    }
+    return [null];
   }, [selectedColor, product?.images]);
 
   // Reset image index when finish changes - handled in color selection handler below
@@ -560,7 +590,7 @@ const ProductDetails = () => {
               </div>
               <div>
                 <span className="text-slate-400 text-sm">Finish</span>
-                <p className="text-white font-medium">{product.specifications?.finish}</p>
+                <p className="text-white font-medium">{selectedColor?.name || 'Standard'}</p>
               </div>
               <div>
                 <span className="text-slate-400 text-sm">Available Finishes</span>
@@ -727,12 +757,20 @@ const ProductDetails = () => {
               >
                 <Link to={`/products/${relatedProduct.slug || relatedProduct.id}`}>
                   <GlassCard className="p-4 hover:border-yellow-300 transition-all group">
-                    <div className={`aspect-square rounded-xl mb-4 ${relatedProduct.images?.[0] || 'bg-gray-200'} group-hover:scale-105 transition-transform`} />
+                    <div className="aspect-square rounded-xl mb-4 overflow-hidden bg-gray-200 group-hover:scale-105 transition-transform">
+                      {relatedProduct.image ? (
+                        <img
+                          src={relatedProduct.image}
+                          alt={relatedProduct.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : null}
+                    </div>
                     <p className="text-yellow-600 text-xs font-medium mb-1">{relatedProduct.category}</p>
                     <h3 className="text-white font-medium group-hover:text-yellow-600 transition-colors">
                       {relatedProduct.name}
                     </h3>
-                    <p className="text-slate-400 text-sm mt-1">{relatedProduct.colors?.length || 4} finishes</p>
+                    <p className="text-slate-400 text-sm mt-1">{relatedProduct.colors?.length || 0} finishes</p>
                   </GlassCard>
                 </Link>
               </motion.div>

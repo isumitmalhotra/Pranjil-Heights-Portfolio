@@ -42,6 +42,7 @@ const initialFormData = {
 
 // Default finish template - now includes array of images for each finish
 const defaultFinish = { name: '', hex: '#D4B896', image: '', images: ['', '', '', '', '', ''] };
+const standardSpecKeys = ['thickness', 'width', 'length', 'material', 'weight'];
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -66,7 +67,7 @@ const Products = () => {
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      const response = await productsAPI.getAll();
+      const response = await productsAPI.getAll({ limit: 'all', order: 'desc', sortBy: 'updatedAt' });
       setProducts(response.data?.products || response.products || []);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -133,6 +134,11 @@ const Products = () => {
       let featuresText = '';
       let applicationsText = '';
       let specificationsText = '';
+      let thickness = '';
+      let width = '';
+      let length = '';
+      let material = 'PVC';
+      let weight = '';
       
       try {
         const features = typeof product.features === 'string' 
@@ -148,16 +154,37 @@ const Products = () => {
         applicationsText = Array.isArray(applications) ? applications.join('\n') : '';
       } catch { applicationsText = ''; }
       
-      // Handle specifications - can be array of objects or object
+      // Handle specifications from either array or object payload.
       try {
         if (Array.isArray(product.specifications)) {
-          specificationsText = product.specifications
-            .map(spec => `${spec.name}: ${spec.value}${spec.unit ? ' ' + spec.unit : ''}`)
-            .join('\n');
+          const customSpecs = [];
+          product.specifications.forEach((spec) => {
+            const rawName = spec?.name || '';
+            const normalizedName = rawName.toLowerCase().trim();
+            const valueWithUnit = `${spec?.value || ''}${spec?.unit ? ` ${spec.unit}` : ''}`.trim();
+
+            if (normalizedName.includes('thickness')) thickness = spec?.value || '';
+            else if (normalizedName.includes('width')) width = spec?.value || '';
+            else if (normalizedName.includes('length')) length = spec?.value || '';
+            else if (normalizedName.includes('material')) material = spec?.value || material;
+            else if (normalizedName.includes('weight')) weight = spec?.value || '';
+            else if (rawName) customSpecs.push(`${rawName}: ${valueWithUnit}`);
+          });
+          specificationsText = customSpecs.join('\n');
         } else if (typeof product.specifications === 'object' && product.specifications) {
-          specificationsText = Object.entries(product.specifications)
-            .map(([key, val]) => `${key}: ${val}`)
-            .join('\n');
+          const customSpecs = [];
+          Object.entries(product.specifications).forEach(([key, val]) => {
+            const normalizedKey = key.toLowerCase().trim();
+            const value = `${val || ''}`.trim();
+
+            if (normalizedKey === 'thickness') thickness = value;
+            else if (normalizedKey === 'width') width = value;
+            else if (normalizedKey === 'length') length = value;
+            else if (normalizedKey === 'material') material = value || material;
+            else if (normalizedKey === 'weight') weight = value;
+            else customSpecs.push(`${key}: ${value}`);
+          });
+          specificationsText = customSpecs.join('\n');
         }
       } catch { specificationsText = ''; }
       
@@ -165,19 +192,6 @@ const Products = () => {
       const imageUrls = Array.isArray(product.images) 
         ? product.images.map(img => typeof img === 'string' ? img : img.url).filter(Boolean)
         : [];
-      
-      // Parse specifications to extract standard fields
-      let thickness = '', width = '', length = '', material = 'PVC', weight = '';
-      if (Array.isArray(product.specifications)) {
-        product.specifications.forEach(spec => {
-          const name = spec.name?.toLowerCase();
-          if (name?.includes('thickness')) thickness = spec.value;
-          else if (name?.includes('width')) width = spec.value;
-          else if (name?.includes('length')) length = spec.value;
-          else if (name?.includes('material')) material = spec.value;
-          else if (name?.includes('weight')) weight = spec.value;
-        });
-      }
       
       // Parse finishes if stored - now as array of objects with name, hex, image, and images array
       let finishesArray = [];
@@ -200,7 +214,7 @@ const Products = () => {
         slug: product.slug || '',
         description: product.description || '',
         shortDescription: product.shortDescription || '',
-        categoryId: product.categoryId || '',
+        categoryId: product.categoryId ? String(product.categoryId) : '',
         price: product.price || '',
         thickness,
         width,
@@ -239,6 +253,12 @@ const Products = () => {
     setIsSubmitting(true);
 
     try {
+      const parsedCategoryId = Number.parseInt(formData.categoryId, 10);
+      if (!Number.isInteger(parsedCategoryId) || parsedCategoryId <= 0) {
+        toast.error('Please select a valid category');
+        return;
+      }
+
       // Build specifications array from structured fields + custom specs
       let specifications = [];
       
@@ -255,14 +275,27 @@ const Products = () => {
           .filter(Boolean)
           .map(line => {
             const [name, ...rest] = line.split(':');
+            const specName = name?.trim() || '';
             return {
-              name: name?.trim() || '',
+              name: specName,
               value: rest.join(':').trim() || line.trim(),
               unit: ''
             };
+          })
+          .filter(spec => {
+            const normalized = spec.name.toLowerCase();
+            return spec.name && !standardSpecKeys.includes(normalized);
           });
         specifications.push(...customSpecs);
       }
+
+      const seenSpecs = new Set();
+      specifications = specifications.filter((spec) => {
+        const key = `${spec.name.toLowerCase()}::${spec.value}`;
+        if (seenSpecs.has(key)) return false;
+        seenSpecs.add(key);
+        return true;
+      });
 
       // Collect all image URLs
       const allImageUrls = [
@@ -280,7 +313,14 @@ const Products = () => {
 
       // Finishes is already an array of objects with name, hex, image
       const finishes = Array.isArray(formData.finishes) 
-        ? formData.finishes.filter(f => f.name && f.name.trim())
+        ? formData.finishes
+            .filter(f => f.name && f.name.trim())
+            .map(f => ({
+              name: f.name.trim(),
+              hex: f.hex || '#D4B896',
+              image: f.image || '',
+              images: Array.isArray(f.images) ? f.images.filter(url => url && url.trim()) : []
+            }))
         : [];
 
       const submitData = {
@@ -288,14 +328,14 @@ const Products = () => {
         slug: formData.slug,
         description: formData.description,
         shortDescription: formData.shortDescription,
-        categoryId: parseInt(formData.categoryId),
+        categoryId: parsedCategoryId,
         price: formData.price ? parseFloat(formData.price) : null,
         sortOrder: parseInt(formData.sortOrder) || 0,
         features: formData.features ? formData.features.split('\n').filter(Boolean) : [],
         applications: formData.applications ? formData.applications.split('\n').filter(Boolean) : [],
         specifications: specifications.length > 0 ? specifications : null,
         images,
-        finishes: finishes.length > 0 ? JSON.stringify(finishes) : null,
+        finishes: finishes.length > 0 ? finishes : null,
         isFeatured: formData.isFeatured || false,
         isActive: formData.isActive !== false
       };
