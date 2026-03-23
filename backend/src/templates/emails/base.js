@@ -24,7 +24,7 @@ const COMPANY = {
   name: 'Pranijheightsindia',
   tagline: 'Premium PVC Panel Manufacturer',
   website: process.env.FRONTEND_URL || 'https://pranijheightsindia.com',
-  email: 'info@pranijheightsindia.com',
+  email: 'contact@pranijheightsindia.com',
   phone: '+91 XXXXX XXXXX',
   address: 'Your Address, City, State, India',
   logo: 'https://pranijheightsindia.com/logo.png', // Update with actual logo URL

@@ -11,6 +11,7 @@ import Resources from './pages/Resources';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import DealerPortal from './pages/DealerPortal';
+import Unsubscribe from './pages/Unsubscribe';
 
 // Admin imports
 import {
@@ -134,6 +135,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/dealer" element={<DealerPortal />} />
+            <Route path="/unsubscribe" element={<Unsubscribe />} />
           </Route>
 
           {/* Admin Routes */}

@@ -124,7 +124,7 @@ export const newsletterUnsubscribeTemplate = (data) => {
       <p style="margin: 0 0 16px; color: ${COLORS.textPrimary}; font-size: 16px;">
         Unsubscribed by mistake?
       </p>
-      ${createButton('Resubscribe', `${COMPANY.website}/newsletter?resubscribe=${encodeURIComponent(email)}`)}
+      ${createButton('Resubscribe', `${COMPANY.website}/unsubscribe?email=${encodeURIComponent(email)}&resubscribe=true`)}
     </div>
     
     <p style="margin: 20px 0; color: ${COLORS.textLight}; font-size: 14px; text-align: center;">

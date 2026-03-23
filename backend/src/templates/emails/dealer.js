@@ -241,7 +241,7 @@ export const dealerAdminNotificationTemplate = (data) => {
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
         <tr>
           <td style="padding-right: 12px;">
-            ${createButton('Review Application', `${COMPANY.website}/admin/dealers/${id || ''}`)}
+            ${createButton('Review Application', `${COMPANY.website}/admin/dealers?id=${id || ''}`)}
           </td>
           <td>
             ${createButton('Call Applicant', `tel:${phone}`, 'secondary')}

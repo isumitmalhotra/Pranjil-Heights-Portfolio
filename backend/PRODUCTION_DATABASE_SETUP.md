@@ -200,14 +200,16 @@ DATABASE_URL="postgresql://username:password@host:5432/pvc_portfolio?schema=publ
 JWT_SECRET="your-super-secret-jwt-key-min-32-characters"
 
 # SMTP Configuration
-SMTP_HOST=smtp.gmail.com
+SMTP_HOST=smtp.titan.email
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=your-email@gmail.com
-SMTP_PASS=your-gmail-app-password
+SMTP_USER=contact@pranijheightsindia.com
+SMTP_PASS=your-titan-mailbox-password
+EMAIL_FROM="Pranijheightsindia <contact@pranijheightsindia.com>"
 
-# Admin Email (receives notifications)
-ADMIN_EMAIL=admin@pranijheightsindia.com
+# Notification recipients (comma-separated)
+NOTIFICATION_EMAILS=contact@pranijheightsindia.com,accounts@pranijheightsindia.com
+ADMIN_EMAIL=contact@pranijheightsindia.com
 
 # Frontend URL (for CORS and email links)
 FRONTEND_URL=https://pranijheightsindia.com

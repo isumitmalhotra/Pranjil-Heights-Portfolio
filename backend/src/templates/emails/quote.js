@@ -211,7 +211,7 @@ export const quoteAdminNotificationTemplate = (data) => {
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
         <tr>
           <td style="padding-right: 12px;">
-            ${createButton('Prepare Quote', `${COMPANY.website}/admin/quotes/${id || ''}`)}
+            ${createButton('Prepare Quote', `${COMPANY.website}/admin/quotes?id=${id || ''}`)}
           </td>
           <td>
             ${createButton('Contact Customer', `mailto:${email}?subject=Re: Quote Request ${referenceNumber}`, 'secondary')}

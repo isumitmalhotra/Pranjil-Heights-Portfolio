@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { 
-  Download, FileText, BookOpen, Video, Image, Calculator, 
+  Download, FileText, BookOpen, Video, Image, Calculator,
   ArrowRight, ExternalLink, Ruler, CheckCircle, Phone, HelpCircle
 } from 'lucide-react';
 import { MaterialCalculator } from '../components/tools/MaterialCalculator';
@@ -15,8 +16,70 @@ import { H1, H2, Body, SectionBadge } from '../components/ui/Typography';
 import { Button } from '../components/ui/Button';
 import { catalogueAPI } from '../services/api';
 
+const CatalogueLeadModal = ({ isOpen, catalogue, leadForm, onChange, onClose, onSubmit, isSubmitting }) => {
+  if (!isOpen || !catalogue) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 px-4">
+      <GlassCard className="w-full max-w-lg border-gold/30 p-6">
+        <h3 className="mb-2 text-xl font-bold text-white font-heading">Download Catalogue</h3>
+        <p className="mb-5 text-sm text-slate-300">
+          Share your details to receive and download <span className="text-gold">{catalogue.title}</span>.
+        </p>
+
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <input
+              type="text"
+              required
+              value={leadForm.name}
+              onChange={(e) => onChange('name', e.target.value)}
+              placeholder="Full name"
+              className="w-full rounded-xl border border-blue-200/25 bg-blue-300/15 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50"
+            />
+            <input
+              type="tel"
+              required
+              value={leadForm.phone}
+              onChange={(e) => onChange('phone', e.target.value)}
+              placeholder="Phone number"
+              className="w-full rounded-xl border border-blue-200/25 bg-blue-300/15 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50"
+            />
+          </div>
+
+          <input
+            type="email"
+            required
+            value={leadForm.email}
+            onChange={(e) => onChange('email', e.target.value)}
+            placeholder="Business email"
+            className="w-full rounded-xl border border-blue-200/25 bg-blue-300/15 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50"
+          />
+
+          <input
+            type="text"
+            value={leadForm.company}
+            onChange={(e) => onChange('company', e.target.value)}
+            placeholder="Company (optional)"
+            className="w-full rounded-xl border border-blue-200/25 bg-blue-300/15 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50"
+          />
+
+          <div className="flex flex-wrap justify-end gap-3 pt-2">
+            <Button type="button" variant="outline" className="border-gold/40 text-gold hover:bg-gold/10" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button type="submit" variant="primary" className="bg-gold text-white hover:bg-gold/90" disabled={isSubmitting}>
+              {isSubmitting ? 'Processing...' : 'Download Now'}
+            </Button>
+          </div>
+        </form>
+      </GlassCard>
+    </div>
+  );
+};
+
 // Resource Card Component
-const ResourceCard = ({ icon: IconComponent, title, description, fileType, fileSize, downloadLink }) => (
+const ResourceCard = ({ icon: IconComponent, title, description, fileType, fileSize, downloadLink, slug, onLeadDownload }) => (
   <motion.div
     whileHover={{ y: -5, scale: 1.02 }}
     className="group"
@@ -33,7 +96,16 @@ const ResourceCard = ({ icon: IconComponent, title, description, fileType, fileS
           <p className="text-slate-300 text-sm mb-4">{description}</p>
           <div className="flex items-center justify-between">
             <span className="text-slate-400 text-xs">{fileType} - {fileSize}</span>
-            {downloadLink === '#' ? (
+            {slug ? (
+              <button
+                type="button"
+                onClick={() => onLeadDownload({ slug, title })}
+                className="flex items-center gap-2 text-gold text-sm font-medium hover:gap-3 transition-all"
+              >
+                <Download className="w-4 h-4" />
+                Download
+              </button>
+            ) : downloadLink === '#' ? (
               <Link
                 to="/contact"
                 className="flex items-center gap-2 text-gold text-sm font-medium hover:gap-3 transition-all"
@@ -60,7 +132,7 @@ const ResourceCard = ({ icon: IconComponent, title, description, fileType, fileS
 );
 
 // Category Section Component
-const ResourceCategory = ({ title, description, icon: IconComponent, resources }) => (
+const ResourceCategory = ({ title, description, icon: IconComponent, resources, onLeadDownload }) => (
   <div className="mb-16">
     <div className="flex items-center gap-4 mb-8">
       <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center">
@@ -80,7 +152,7 @@ const ResourceCategory = ({ title, description, icon: IconComponent, resources }
           viewport={{ once: true }}
           transition={{ delay: index * 0.1 }}
         >
-          <ResourceCard {...resource} />
+          <ResourceCard {...resource} onLeadDownload={onLeadDownload} />
         </motion.div>
       ))}
     </div>
@@ -108,6 +180,15 @@ const QuickLinkCard = ({ icon: IconComponent, title, description, link, linkText
 );
 
 const Resources = () => {
+  const [selectedCatalogue, setSelectedCatalogue] = useState(null);
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
+  const [leadForm, setLeadForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+  });
+
   const formatBytes = (bytes) => {
     if (!bytes) return '—';
     const units = ['B', 'KB', 'MB', 'GB'];
@@ -130,13 +211,57 @@ const Resources = () => {
 
   const liveCatalogues = (catalogueResponse?.data || []).map((item) => ({
     icon: item.category === 'technical' ? BookOpen : item.category === 'marketing' ? Image : FileText,
+    slug: item.slug,
     title: item.name,
     description: item.description || 'Downloadable business document',
     fileType: 'PDF',
     fileSize: formatBytes(item.fileSize),
-    downloadLink: catalogueAPI.getDownloadUrl(item.slug, 'resources'),
+    downloadLink: null,
     category: item.category || 'product',
   }));
+
+  const onLeadFieldChange = (field, value) => {
+    setLeadForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const onOpenLeadModal = (catalogue) => {
+    setSelectedCatalogue(catalogue);
+  };
+
+  const onCloseLeadModal = () => {
+    setSelectedCatalogue(null);
+  };
+
+  const onSubmitLeadDownload = async (event) => {
+    event.preventDefault();
+
+    if (!selectedCatalogue?.slug) {
+      toast.error('Unable to download this catalogue right now.');
+      return;
+    }
+
+    setIsSubmittingLead(true);
+    try {
+      const response = await catalogueAPI.download(selectedCatalogue.slug, {
+        ...leadForm,
+        source: 'resources-lead',
+      });
+
+      const fileUrl = response?.data?.fileUrl;
+      if (!fileUrl) {
+        throw new Error('Download URL missing from response');
+      }
+
+      window.open(fileUrl, '_blank', 'noopener,noreferrer');
+      toast.success('Catalogue download started. We have also notified our team.');
+      setLeadForm({ name: '', email: '', phone: '', company: '' });
+      onCloseLeadModal();
+    } catch (error) {
+      toast.error(error.message || 'Failed to start download. Please try again.');
+    } finally {
+      setIsSubmittingLead(false);
+    }
+  };
 
   const catalogues = liveCatalogues.filter((item) => item.category === 'product');
   const technicalDocs = liveCatalogues.filter((item) => item.category === 'technical');
@@ -309,6 +434,7 @@ const Resources = () => {
               description="Complete product range documentation"
               icon={FileText}
               resources={catalogues}
+              onLeadDownload={onOpenLeadModal}
             />
           )}
 
@@ -318,6 +444,7 @@ const Resources = () => {
               description="Specifications and installation documents"
               icon={BookOpen}
               resources={technicalDocs}
+              onLeadDownload={onOpenLeadModal}
             />
           )}
 
@@ -327,6 +454,7 @@ const Resources = () => {
               description="Brochures and sales-ready collateral"
               icon={Image}
               resources={marketingDocs}
+              onLeadDownload={onOpenLeadModal}
             />
           )}
 
@@ -342,6 +470,7 @@ const Resources = () => {
             description="Step-by-step installation instructions and videos"
             icon={Video}
             resources={installationGuides}
+            onLeadDownload={onOpenLeadModal}
           />
 
           <ResourceCategory 
@@ -349,6 +478,7 @@ const Resources = () => {
             description="Images and brand materials for dealers"
             icon={Image}
             resources={imageAssets}
+            onLeadDownload={onOpenLeadModal}
           />
         </div>
       </section>
@@ -449,6 +579,16 @@ const Resources = () => {
           </motion.div>
         </div>
       </section>
+
+      <CatalogueLeadModal
+        isOpen={Boolean(selectedCatalogue)}
+        catalogue={selectedCatalogue}
+        leadForm={leadForm}
+        onChange={onLeadFieldChange}
+        onClose={onCloseLeadModal}
+        onSubmit={onSubmitLeadDownload}
+        isSubmitting={isSubmittingLead}
+      />
     </div>
   );
 };

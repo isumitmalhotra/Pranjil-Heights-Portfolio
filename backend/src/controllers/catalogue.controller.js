@@ -1,5 +1,6 @@
 import prisma from '../config/database.js';
 import { ApiError } from '../middleware/error.middleware.js';
+import { sendCatalogueLeadAdminNotification } from '../config/email.js';
 
 /**
  * Generate unique slug from name
@@ -123,6 +124,22 @@ export const downloadCatalogue = async (req, res) => {
       referrer: req.headers['referer'] || req.headers['referrer']
     }
   });
+
+  // Notify admin only for lead form submissions (not anonymous quick downloads)
+  if (name || email || phone || company) {
+    try {
+      await sendCatalogueLeadAdminNotification({
+        catalogueName: catalogue.name,
+        name,
+        email: email?.toLowerCase(),
+        phone,
+        company,
+        source: source || 'website',
+      });
+    } catch (error) {
+      console.error('Failed to send catalogue lead admin notification email:', error);
+    }
+  }
 
   res.json({
     success: true,

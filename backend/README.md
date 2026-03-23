@@ -197,12 +197,13 @@ backend/
 | `JWT_SECRET` | JWT signing secret | - |
 | `JWT_EXPIRES_IN` | JWT expiration | 7d |
 | `FRONTEND_URL` | Frontend URL for CORS | http://localhost:5173 |
-| `SMTP_HOST` | Email server host | - |
+| `SMTP_HOST` | Email server host (Titan: smtp.titan.email) | - |
 | `SMTP_PORT` | Email server port | 587 |
 | `SMTP_USER` | Email username | - |
 | `SMTP_PASS` | Email password | - |
 | `EMAIL_FROM` | From email address | - |
-| `ADMIN_EMAIL` | Admin notification email | - |
+| `NOTIFICATION_EMAILS` | Comma-separated notification recipients | - |
+| `ADMIN_EMAIL` | Fallback notification email if NOTIFICATION_EMAILS is empty | - |
 
 ## Default Admin Credentials
 

@@ -1,6 +1,6 @@
 import prisma from '../config/database.js';
 import { ApiError } from '../middleware/error.middleware.js';
-import { sendNewsletterWelcome, sendNewsletterUnsubscribe } from '../config/email.js';
+import { sendNewsletterWelcome, sendNewsletterUnsubscribe, sendNewsletterAdminNotification } from '../config/email.js';
 
 /**
  * @desc    Subscribe to newsletter
@@ -53,6 +53,17 @@ export const subscribe = async (req, res) => {
     await sendNewsletterWelcome(email, name);
   } catch (error) {
     console.error('Failed to send newsletter welcome email:', error);
+  }
+
+  // Send admin notification
+  try {
+    await sendNewsletterAdminNotification({
+      email: email.toLowerCase(),
+      name,
+      source: source || 'website',
+    });
+  } catch (error) {
+    console.error('Failed to send newsletter admin notification email:', error);
   }
 
   res.status(201).json({

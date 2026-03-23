@@ -33,15 +33,24 @@ const isEmailConfigured = () => {
     process.env.SMTP_HOST &&
     process.env.SMTP_USER &&
     process.env.SMTP_PASS &&
-    process.env.SMTP_PASS !== 'your_gmail_app_password_here'
+    process.env.SMTP_PASS !== 'your-smtp-password'
   );
+};
+
+const getNotificationRecipients = () => {
+  const rawRecipients = process.env.NOTIFICATION_EMAILS || process.env.ADMIN_EMAIL || '';
+  const recipients = rawRecipients
+    .split(',')
+    .map((email) => email.trim())
+    .filter(Boolean);
+
+  return recipients;
 };
 
 // Log email config status on startup
 if (!isEmailConfigured()) {
-  console.log('⚠️  Email not configured - emails will be logged to console instead');
-  console.log('   To enable email, set SMTP_USER and SMTP_PASS in .env with a Gmail App Password');
-  console.log('   See: https://support.google.com/accounts/answer/185833');
+  console.log('Email not configured - emails will be logged to console instead');
+  console.log('To enable email, set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS in .env');
 }
 
 // Create transporter
@@ -69,7 +78,7 @@ export const sendEmail = async ({ to, subject, html, text }) => {
 
   // If email not configured, log to console instead
   if (!transporter) {
-    console.log('📧 [EMAIL NOT SENT - No SMTP configured]');
+    console.log('[EMAIL NOT SENT - No SMTP configured]');
     console.log(`   To: ${to}`);
     console.log(`   Subject: ${subject}`);
     console.log(`   (Email would be sent in production with valid SMTP credentials)`);
@@ -87,13 +96,29 @@ export const sendEmail = async ({ to, subject, html, text }) => {
 
     const info = await transporter.sendMail(mailOptions);
     
-    console.log('✅ Email sent:', info.messageId);
+    console.log('Email sent:', info.messageId);
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('❌ Email error:', error.message);
+    console.error('Email error:', error.message);
     // Don't throw - email failure shouldn't break the main request
     return { success: false, error: error.message };
   }
+};
+
+const sendAdminEmail = async ({ subject, html, text }) => {
+  const recipients = getNotificationRecipients();
+
+  if (!recipients.length) {
+    console.warn('No admin notification recipients configured (set NOTIFICATION_EMAILS or ADMIN_EMAIL)');
+    return { success: false, error: 'No recipients configured' };
+  }
+
+  return sendEmail({
+    to: recipients,
+    subject,
+    html,
+    text,
+  });
 };
 
 /**
@@ -115,10 +140,7 @@ export const sendContactConfirmation = async (data) => {
 
 // Contact Form Admin Notification
 export const sendContactAdminNotification = async (data) => {
-  const adminEmail = process.env.ADMIN_EMAIL;
-  
-  return sendEmail({
-    to: adminEmail,
+  return sendAdminEmail({
     subject: `[Website] New Contact Inquiry from ${data.name}`,
     html: contactAdminNotificationTemplate(data),
   });
@@ -143,10 +165,7 @@ export const sendQuoteConfirmation = async (data) => {
 
 // Quote Request Admin Notification
 export const sendQuoteAdminNotification = async (data) => {
-  const adminEmail = process.env.ADMIN_EMAIL;
-  
-  return sendEmail({
-    to: adminEmail,
+  return sendAdminEmail({
     subject: `[Quote Request] ${data.priority === 'urgent' ? '🔴 URGENT' : 'New'} from ${data.name}`,
     html: quoteAdminNotificationTemplate(data),
   });
@@ -171,12 +190,46 @@ export const sendDealerConfirmation = async (data) => {
 
 // Dealer Application Admin Notification
 export const sendDealerAdminNotification = async (data) => {
-  const adminEmail = process.env.ADMIN_EMAIL;
-  
-  return sendEmail({
-    to: adminEmail,
+  return sendAdminEmail({
     subject: `[Dealer Application] New from ${data.companyName}`,
     html: dealerAdminNotificationTemplate(data),
+  });
+};
+
+// Newsletter Admin Notification
+export const sendNewsletterAdminNotification = async (data) => {
+  const { email, name, source } = data;
+
+  return sendAdminEmail({
+    subject: `[Newsletter] New subscription from ${email}`,
+    html: `
+      <h2>New Newsletter Subscription</h2>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Name:</strong> ${name || 'Not provided'}</p>
+      <p><strong>Source:</strong> ${source || 'website'}</p>
+      <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+    `,
+    text: `New Newsletter Subscription\nEmail: ${email}\nName: ${name || 'Not provided'}\nSource: ${source || 'website'}`,
+  });
+};
+
+// Catalogue Lead Admin Notification
+export const sendCatalogueLeadAdminNotification = async (data) => {
+  const { catalogueName, name, email, phone, company, source } = data;
+
+  return sendAdminEmail({
+    subject: `[Catalogue Lead] ${catalogueName} requested by ${name || email || 'Visitor'}`,
+    html: `
+      <h2>New Catalogue Lead</h2>
+      <p><strong>Catalogue:</strong> ${catalogueName}</p>
+      <p><strong>Name:</strong> ${name || 'Not provided'}</p>
+      <p><strong>Email:</strong> ${email || 'Not provided'}</p>
+      <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+      <p><strong>Company:</strong> ${company || 'Not provided'}</p>
+      <p><strong>Source:</strong> ${source || 'website'}</p>
+      <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+    `,
+    text: `New Catalogue Lead\nCatalogue: ${catalogueName}\nName: ${name || 'Not provided'}\nEmail: ${email || 'Not provided'}\nPhone: ${phone || 'Not provided'}\nCompany: ${company || 'Not provided'}\nSource: ${source || 'website'}`,
   });
 };
 
@@ -284,6 +337,10 @@ export const sendAdminNotification = async (type, data) => {
       return sendQuoteAdminNotification(data);
     case 'dealer':
       return sendDealerAdminNotification(data);
+    case 'newsletter':
+      return sendNewsletterAdminNotification(data);
+    case 'catalogue':
+      return sendCatalogueLeadAdminNotification(data);
     default:
       console.warn(`Unknown notification type: ${type}`);
       return { success: false, error: `Unknown notification type: ${type}` };
