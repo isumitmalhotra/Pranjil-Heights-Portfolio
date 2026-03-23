@@ -80,7 +80,7 @@ export const submitDealerApplication = async (req, res) => {
       address,
       city,
       state,
-      pincode,
+      pincode: pincode || '',
       currentProducts: currentProducts ? JSON.stringify(currentProducts) : null,
       warehouseArea: warehouseArea ? parseInt(warehouseArea) : null,
       showroomArea: showroomArea ? parseInt(showroomArea) : null,
