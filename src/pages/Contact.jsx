@@ -56,6 +56,7 @@ const ContactCard = ({ icon: IconComponent, title, details, action, link, index 
 // Enquiry Form Component
 const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const nativeOptionStyle = { backgroundColor: '#0f172a', color: '#f8fafc' };
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -271,20 +272,20 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
               onChange={(e) => setFormData({ ...formData, requirement: e.target.value })}
               className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
             >
-              <option value="" className="bg-white text-slate-900">Select...</option>
+              <option value="" style={nativeOptionStyle}>Select...</option>
               {enquiryType === 'dealer' ? (
                 <>
-                  <option value="retailer" className="bg-white text-slate-900">Retailer</option>
-                  <option value="distributor" className="bg-white text-slate-900">Distributor</option>
-                  <option value="contractor" className="bg-white text-slate-900">Contractor</option>
-                  <option value="architect" className="bg-white text-slate-900">Architect/Designer</option>
+                  <option value="retailer" style={nativeOptionStyle}>Retailer</option>
+                  <option value="distributor" style={nativeOptionStyle}>Distributor</option>
+                  <option value="contractor" style={nativeOptionStyle}>Contractor</option>
+                  <option value="architect" style={nativeOptionStyle}>Architect/Designer</option>
                 </>
               ) : (
                 <>
-                  <option value="residential" className="bg-white text-slate-900">Residential Project</option>
-                  <option value="commercial" className="bg-white text-slate-900">Commercial Project</option>
-                  <option value="institutional" className="bg-white text-slate-900">Institutional Project</option>
-                  <option value="bulk" className="bg-white text-slate-900">Bulk Order</option>
+                  <option value="residential" style={nativeOptionStyle}>Residential Project</option>
+                  <option value="commercial" style={nativeOptionStyle}>Commercial Project</option>
+                  <option value="institutional" style={nativeOptionStyle}>Institutional Project</option>
+                  <option value="bulk" style={nativeOptionStyle}>Bulk Order</option>
                 </>
               )}
             </select>
@@ -312,9 +313,9 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
                   onChange={(e) => setFormData({ ...formData, areaUnit: e.target.value })}
                   className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="sq ft" className="bg-white text-slate-900">sq ft</option>
-                  <option value="sq m" className="bg-white text-slate-900">sq m</option>
-                  <option value="panels" className="bg-white text-slate-900">panels</option>
+                  <option value="sq ft" style={nativeOptionStyle}>sq ft</option>
+                  <option value="sq m" style={nativeOptionStyle}>sq m</option>
+                  <option value="panels" style={nativeOptionStyle}>panels</option>
                 </select>
               </div>
             </div>
@@ -339,12 +340,12 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                   className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="" className="bg-white text-slate-900">Select budget</option>
-                  <option value="Below 1 Lakh" className="bg-white text-slate-900">Below 1 Lakh</option>
-                  <option value="1-3 Lakhs" className="bg-white text-slate-900">1-3 Lakhs</option>
-                  <option value="3-5 Lakhs" className="bg-white text-slate-900">3-5 Lakhs</option>
-                  <option value="5-10 Lakhs" className="bg-white text-slate-900">5-10 Lakhs</option>
-                  <option value="10+ Lakhs" className="bg-white text-slate-900">10+ Lakhs</option>
+                  <option value="" style={nativeOptionStyle}>Select budget</option>
+                  <option value="Below 1 Lakh" style={nativeOptionStyle}>Below 1 Lakh</option>
+                  <option value="1-3 Lakhs" style={nativeOptionStyle}>1-3 Lakhs</option>
+                  <option value="3-5 Lakhs" style={nativeOptionStyle}>3-5 Lakhs</option>
+                  <option value="5-10 Lakhs" style={nativeOptionStyle}>5-10 Lakhs</option>
+                  <option value="10+ Lakhs" style={nativeOptionStyle}>10+ Lakhs</option>
                 </select>
               </div>
               <div>
@@ -354,12 +355,12 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
                   onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
                   className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="" className="bg-white text-slate-900">Select timeline</option>
-                  <option value="Immediate" className="bg-white text-slate-900">Immediate</option>
-                  <option value="Within 15 days" className="bg-white text-slate-900">Within 15 days</option>
-                  <option value="Within 1 month" className="bg-white text-slate-900">Within 1 month</option>
-                  <option value="1-3 months" className="bg-white text-slate-900">1-3 months</option>
-                  <option value="Flexible" className="bg-white text-slate-900">Flexible</option>
+                  <option value="" style={nativeOptionStyle}>Select timeline</option>
+                  <option value="Immediate" style={nativeOptionStyle}>Immediate</option>
+                  <option value="Within 15 days" style={nativeOptionStyle}>Within 15 days</option>
+                  <option value="Within 1 month" style={nativeOptionStyle}>Within 1 month</option>
+                  <option value="1-3 months" style={nativeOptionStyle}>1-3 months</option>
+                  <option value="Flexible" style={nativeOptionStyle}>Flexible</option>
                 </select>
               </div>
             </div>
