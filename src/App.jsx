@@ -114,7 +114,10 @@ function RouteSeoManager() {
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const origin = window.location.origin;
+    const configuredSiteUrl = import.meta.env.VITE_SITE_URL?.trim();
+    const origin = configuredSiteUrl
+      ? configuredSiteUrl.replace(/\/+$/, '')
+      : 'https://pranijheightsindia.com';
     const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
     const canonicalUrl = `${origin}${normalizedPath}`;
 
