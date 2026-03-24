@@ -231,3 +231,68 @@ export const quoteTemplates = {
   confirmation: quoteConfirmationTemplate,
   adminNotification: quoteAdminNotificationTemplate,
 };
+
+/**
+ * Quote Ready - Customer Notification Email
+ */
+export const quoteReadyTemplate = (data) => {
+  const {
+    name,
+    referenceNumber,
+    quotedAmount,
+    validUntil,
+    notes,
+  } = data;
+
+  const content = `
+    <div style="text-align: center; margin-bottom: 20px;">
+      ${createBadge('QUOTE READY', 'success')}
+    </div>
+
+    <h2 style="margin: 0 0 20px; color: ${COLORS.textPrimary}; font-size: 24px; text-align: center;">
+      Your Quote Is Ready
+    </h2>
+
+    <p style="margin: 0 0 20px; color: ${COLORS.textSecondary}; font-size: 16px; line-height: 1.6;">
+      Dear <strong>${name}</strong>,
+    </p>
+
+    <p style="margin: 0 0 24px; color: ${COLORS.textSecondary}; font-size: 16px; line-height: 1.6;">
+      We have prepared your quotation. Please review the details below and connect with our team to proceed.
+    </p>
+
+    <div style="background: linear-gradient(135deg, ${COLORS.primary}, ${COLORS.primaryDark}); border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center;">
+      <p style="margin: 0 0 8px; color: rgba(255,255,255,0.85); font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+        Quote Reference
+      </p>
+      <p style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: 1px;">
+        ${referenceNumber}
+      </p>
+    </div>
+
+    <div style="background-color: #fafafa; border: 1px solid ${COLORS.border}; border-radius: 8px; padding: 20px; margin: 24px 0;">
+      <h3 style="margin: 0 0 16px; color: ${COLORS.textPrimary}; font-size: 16px; font-weight: 600;">
+        📄 Quote Details
+      </h3>
+      ${createInfoTable([
+        ['Quoted Amount', quotedAmount ? `<strong>Rs. ${Number(quotedAmount).toLocaleString('en-IN')}</strong>` : 'Not specified'],
+        ['Valid Until', validUntil ? new Date(validUntil).toLocaleDateString('en-IN') : 'Not specified'],
+      ])}
+    </div>
+
+    ${notes ? `
+    <div style="background-color: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 16px; margin: 20px 0;">
+      <p style="margin: 0 0 8px; color: ${COLORS.textPrimary}; font-size: 14px;"><strong>Additional Notes</strong></p>
+      <p style="margin: 0; color: ${COLORS.textSecondary}; font-size: 14px; line-height: 1.5; white-space: pre-wrap;">${notes}</p>
+    </div>
+    ` : ''}
+
+    <div style="text-align: center; margin: 32px 0;">
+      ${createButton('Contact Sales Team', `${COMPANY.website}/contact`)}
+    </div>
+  `;
+
+  return baseTemplate(content, {
+    preheader: `Your quote ${referenceNumber} is ready.`,
+  });
+};

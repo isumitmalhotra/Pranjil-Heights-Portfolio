@@ -107,6 +107,7 @@ export const baseTemplate = (content, options = {}) => {
           <!-- Header -->
           <tr>
             <td class="header" style="background: linear-gradient(135deg, ${COLORS.background}, #2a2a2a); padding: 30px 40px; text-align: center;">
+              <img src="${COMPANY.logo}" alt="${COMPANY.name} Logo" width="72" height="72" style="display: block; margin: 0 auto 14px; border-radius: 12px; object-fit: contain; background: #ffffff; padding: 6px;" />
               <h1 style="margin: 0; color: ${COLORS.primary}; font-size: 28px; font-weight: 700; letter-spacing: 1px;">
                 ${COMPANY.name.toUpperCase()}
               </h1>

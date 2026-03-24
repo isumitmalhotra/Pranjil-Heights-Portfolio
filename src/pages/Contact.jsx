@@ -86,7 +86,12 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
     phone: '',
     city: '',
     requirement: '',
-    message: ''
+    message: '',
+    estimatedArea: '',
+    areaUnit: 'sq ft',
+    preferredProducts: '',
+    budget: '',
+    timeline: '',
   });
 
   const resetForm = () => {
@@ -97,7 +102,12 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
       phone: '',
       city: '',
       requirement: '',
-      message: ''
+      message: '',
+      estimatedArea: '',
+      areaUnit: 'sq ft',
+      preferredProducts: '',
+      budget: '',
+      timeline: '',
     });
   };
 
@@ -125,6 +135,11 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
         toast.success(`Dealer application submitted! Reference: ${response.data.referenceNumber}`);
       } else if (enquiryType === 'quotation') {
         // Quote request
+        const preferredProducts = formData.preferredProducts
+          .split(',')
+          .map((item) => item.trim())
+          .filter(Boolean);
+
         response = await quoteAPI.submit({
           name: formData.name,
           company: formData.company,
@@ -132,7 +147,13 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
           phone: formData.phone,
           projectType: formData.requirement,
           projectDetails: formData.message,
-          deliveryAddress: formData.city
+          estimatedArea: formData.estimatedArea || undefined,
+          areaUnit: formData.areaUnit || 'sq ft',
+          preferredProducts,
+          budget: formData.budget || undefined,
+          timeline: formData.timeline || undefined,
+          deliveryAddress: formData.city,
+          additionalNotes: formData.message || undefined,
         });
         toast.success(`Quote request submitted! Reference: ${response.data.referenceNumber}`);
       } else {
@@ -286,6 +307,81 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
             </select>
           </div>
         </div>
+
+        {enquiryType === 'quotation' && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-slate-200 text-sm mb-2">Estimated Area</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={formData.estimatedArea}
+                  onChange={(e) => setFormData({ ...formData, estimatedArea: e.target.value })}
+                  className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                  placeholder="e.g. 1200"
+                />
+              </div>
+              <div>
+                <label className="block text-slate-200 text-sm mb-2">Area Unit</label>
+                <select
+                  value={formData.areaUnit}
+                  onChange={(e) => setFormData({ ...formData, areaUnit: e.target.value })}
+                  className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
+                >
+                  <option value="sq ft" className="bg-blue-300/15">sq ft</option>
+                  <option value="sq m" className="bg-blue-300/15">sq m</option>
+                  <option value="panels" className="bg-blue-300/15">panels</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-slate-200 text-sm mb-2">Preferred Products</label>
+              <input
+                type="text"
+                value={formData.preferredProducts}
+                onChange={(e) => setFormData({ ...formData, preferredProducts: e.target.value })}
+                className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
+                placeholder="e.g. Fluted Panel, UV Sheet, WPC Louver"
+              />
+              <p className="mt-1 text-xs text-slate-400">Separate multiple products with commas.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-slate-200 text-sm mb-2">Budget Range</label>
+                <select
+                  value={formData.budget}
+                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                  className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
+                >
+                  <option value="" className="bg-blue-300/15">Select budget</option>
+                  <option value="Below 1 Lakh" className="bg-blue-300/15">Below 1 Lakh</option>
+                  <option value="1-3 Lakhs" className="bg-blue-300/15">1-3 Lakhs</option>
+                  <option value="3-5 Lakhs" className="bg-blue-300/15">3-5 Lakhs</option>
+                  <option value="5-10 Lakhs" className="bg-blue-300/15">5-10 Lakhs</option>
+                  <option value="10+ Lakhs" className="bg-blue-300/15">10+ Lakhs</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-slate-200 text-sm mb-2">Expected Timeline</label>
+                <select
+                  value={formData.timeline}
+                  onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
+                  className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
+                >
+                  <option value="" className="bg-blue-300/15">Select timeline</option>
+                  <option value="Immediate" className="bg-blue-300/15">Immediate</option>
+                  <option value="Within 15 days" className="bg-blue-300/15">Within 15 days</option>
+                  <option value="Within 1 month" className="bg-blue-300/15">Within 1 month</option>
+                  <option value="1-3 months" className="bg-blue-300/15">1-3 months</option>
+                  <option value="Flexible" className="bg-blue-300/15">Flexible</option>
+                </select>
+              </div>
+            </div>
+          </>
+        )}
 
         <div>
           <label className="block text-slate-200 text-sm mb-2">

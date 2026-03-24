@@ -8,7 +8,8 @@ import {
 } from '../templates/emails/contact.js';
 import { 
   quoteConfirmationTemplate, 
-  quoteAdminNotificationTemplate 
+  quoteAdminNotificationTemplate,
+  quoteReadyTemplate,
 } from '../templates/emails/quote.js';
 import { 
   dealerConfirmationTemplate, 
@@ -168,6 +169,17 @@ export const sendQuoteAdminNotification = async (data) => {
   return sendAdminEmail({
     subject: `[Quote Request] ${data.priority === 'urgent' ? '🔴 URGENT' : 'New'} from ${data.name}`,
     html: quoteAdminNotificationTemplate(data),
+  });
+};
+
+// Quote Ready Notification (to user)
+export const sendQuoteReady = async (data) => {
+  const { email, referenceNumber } = data;
+
+  return sendEmail({
+    to: email,
+    subject: `Your Quote is Ready - ${referenceNumber}`,
+    html: quoteReadyTemplate(data),
   });
 };
 

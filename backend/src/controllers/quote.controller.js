@@ -1,6 +1,6 @@
 import prisma from '../config/database.js';
 import { ApiError } from '../middleware/error.middleware.js';
-import { sendEmail, sendQuoteConfirmation, sendQuoteAdminNotification } from '../config/email.js';
+import { sendQuoteReady, sendQuoteConfirmation, sendQuoteAdminNotification } from '../config/email.js';
 
 /**
  * @desc    Submit quote request
@@ -67,13 +67,14 @@ export const submitQuote = async (req, res) => {
     projectDetails,
     estimatedArea,
     areaUnit: areaUnit || 'sq ft',
-    products: productsArray,
+    preferredProducts: productsArray,
     budget,
     timeline,
     deliveryAddress,
     additionalNotes,
     referenceNumber: quoteRef,
     priority,
+    createdAt: quote.createdAt,
     submittedAt: quote.createdAt,
   };
 
@@ -232,19 +233,13 @@ export const updateQuoteStatus = async (req, res) => {
   // Send email notification to customer if quote is ready
   if (status === 'QUOTED') {
     try {
-      await sendEmail({
-        to: quote.email,
-        subject: `Your Quote is Ready - ${quote.referenceNumber}`,
-        html: `
-          <h1>Your Quote is Ready!</h1>
-          <p>Dear ${quote.name},</p>
-          <p>We have prepared a quote for your project. Please find the details below:</p>
-          <p><strong>Reference Number:</strong> ${quote.referenceNumber}</p>
-          <p><strong>Quoted Amount:</strong> ₹${quotedAmount.toLocaleString()}</p>
-          ${validUntil ? `<p><strong>Valid Until:</strong> ${new Date(validUntil).toLocaleDateString()}</p>` : ''}
-          <p>To discuss this quote or to proceed, please contact us or reply to this email.</p>
-          <p>Best regards,<br>Pranijheightsindia Team</p>
-        `
+      await sendQuoteReady({
+        email: quote.email,
+        name: quote.name,
+        referenceNumber: quote.referenceNumber,
+        quotedAmount,
+        validUntil,
+        notes,
       });
     } catch (error) {
       console.error('Failed to send quote email:', error);
