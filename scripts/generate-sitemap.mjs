@@ -6,7 +6,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const publicDir = path.join(rootDir, 'public');
-const sitemapPath = path.join(publicDir, 'sitemap.xml');
+const sitemapIndexPath = path.join(publicDir, 'sitemap-index.xml');
+const sitemapPagesPath = path.join(publicDir, 'sitemap-pages.xml');
+const sitemapProductsPath = path.join(publicDir, 'sitemap-products.xml');
+const legacySitemapPath = path.join(publicDir, 'sitemap.xml');
 
 const SITE_URL = (process.env.SITE_URL || 'https://pranijheightsindia.com').replace(/\/+$/, '');
 const API_BASE = (
@@ -107,19 +110,8 @@ function normalizeProductUrls(products) {
   return [...unique.values()];
 }
 
-function buildXml(staticRoutes, dynamicProductRoutes) {
-  const today = toIsoDate(new Date());
-
-  const staticEntries = staticRoutes.map((route) => ({
-    loc: `${SITE_URL}${route.path === '/' ? '' : route.path}` || SITE_URL,
-    changefreq: route.changefreq,
-    priority: route.priority,
-    lastmod: today,
-  }));
-
-  const allEntries = [...staticEntries, ...dynamicProductRoutes];
-
-  const urlNodes = allEntries
+function buildUrlSetXml(entries) {
+  const urlNodes = entries
     .map(
       (entry) => `  <url>\n` +
         `    <loc>${escapeXml(entry.loc)}</loc>\n` +
@@ -136,6 +128,33 @@ function buildXml(staticRoutes, dynamicProductRoutes) {
     `</urlset>\n`;
 }
 
+function buildSitemapIndexXml(sitemaps) {
+  const sitemapNodes = sitemaps
+    .map(
+      (entry) => `  <sitemap>\n` +
+        `    <loc>${escapeXml(entry.loc)}</loc>\n` +
+        `    <lastmod>${entry.lastmod}</lastmod>\n` +
+        `  </sitemap>`
+    )
+    .join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n` +
+    `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    `${sitemapNodes}\n` +
+    `</sitemapindex>\n`;
+}
+
+function buildPageEntries(staticRoutes) {
+  const today = toIsoDate(new Date());
+
+  return staticRoutes.map((route) => ({
+    loc: `${SITE_URL}${route.path === '/' ? '' : route.path}` || SITE_URL,
+    changefreq: route.changefreq,
+    priority: route.priority,
+    lastmod: today,
+  }));
+}
+
 async function main() {
   let products = [];
 
@@ -149,12 +168,29 @@ async function main() {
   }
 
   const productRoutes = normalizeProductUrls(products);
-  const xml = buildXml(STATIC_ROUTES, productRoutes);
+  const pageRoutes = buildPageEntries(STATIC_ROUTES);
+
+  const pagesXml = buildUrlSetXml(pageRoutes);
+  const productsXml = buildUrlSetXml(productRoutes);
+
+  const lastmod = toIsoDate(new Date());
+  const indexXml = buildSitemapIndexXml([
+    { loc: `${SITE_URL}/sitemap-pages.xml`, lastmod },
+    { loc: `${SITE_URL}/sitemap-products.xml`, lastmod },
+  ]);
 
   await fs.mkdir(publicDir, { recursive: true });
-  await fs.writeFile(sitemapPath, xml, 'utf8');
+  await Promise.all([
+    fs.writeFile(sitemapPagesPath, pagesXml, 'utf8'),
+    fs.writeFile(sitemapProductsPath, productsXml, 'utf8'),
+    fs.writeFile(sitemapIndexPath, indexXml, 'utf8'),
+    // Keep legacy path for existing Search Console submissions.
+    fs.writeFile(legacySitemapPath, indexXml, 'utf8'),
+  ]);
 
-  console.log(`Generated sitemap with ${STATIC_ROUTES.length + productRoutes.length} URLs at ${sitemapPath}`);
+  console.log(`Generated sitemap index with ${2} child sitemaps at ${sitemapIndexPath}`);
+  console.log(`Pages sitemap URLs: ${pageRoutes.length} (${sitemapPagesPath})`);
+  console.log(`Products sitemap URLs: ${productRoutes.length} (${sitemapProductsPath})`);
 }
 
 main().catch((error) => {
