@@ -176,8 +176,8 @@ export const DealerPartnershipCTA = () => {
             Contact our dealer development team today and start your journey with Pranij Heights India.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="tel:+919876543210" className="text-orange-300 font-semibold hover:underline">
-              Call: +91 98765 43210
+            <a href="tel:+919813145740" className="text-orange-300 font-semibold hover:underline">
+              Call Deepak: +91 98131 45740
             </a>
             <span className="text-slate-300 hidden sm:inline">|</span>
             <a href="mailto:dealers@pranijheightsindia.com" className="text-orange-300 font-semibold hover:underline">

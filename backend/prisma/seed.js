@@ -235,9 +235,10 @@ async function main() {
   // Create site settings
   const settings = [
     { key: 'company_name', value: 'Pranijheightsindia', group: 'general' },
-    { key: 'company_email', value: 'info@pranijheightsindia.com', group: 'contact' },
-    { key: 'company_phone', value: '+91 98765 43210', group: 'contact' },
-    { key: 'company_address', value: 'Industrial Area, Phase 2, New Delhi - 110020', group: 'contact' },
+    { key: 'company_email', value: 'contact@pranijheightsindia.com', group: 'contact' },
+    { key: 'company_phone', value: '+91 98131 45740', group: 'contact' },
+    { key: 'company_contact_person', value: 'Deepak', group: 'contact' },
+    { key: 'company_address', value: '8 KM Stone, Agroha Road, Mandi Adampur, Hisar, Haryana - 125052', group: 'contact' },
     { key: 'meta_title', value: 'Pranijheightsindia - Premium PVC Panel Manufacturer in India', group: 'seo' },
     { key: 'meta_description', value: 'Leading manufacturer of premium quality PVC wall panels, ceiling panels, and WPC panels. Best quality at competitive prices.', group: 'seo' }
   ];

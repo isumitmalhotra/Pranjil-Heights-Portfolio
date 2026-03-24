@@ -267,24 +267,24 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="tel:+919876543210" className="flex items-start gap-3 group">
+                <a href="tel:+919813145740" className="flex items-start gap-3 group">
                   <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-yellow-600 shrink-0 group-hover:bg-yellow-50 transition-colors">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-gray-800 text-sm font-medium">Call Us</p>
-                    <p className="text-gray-500 text-xs">+91 98765 43210</p>
+                    <p className="text-gray-800 text-sm font-medium">Call Us (Deepak)</p>
+                    <p className="text-gray-500 text-xs">+91 98131 45740</p>
                   </div>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@pranijheightsindia.com" className="flex items-start gap-3 group">
+                <a href="mailto:contact@pranijheightsindia.com" className="flex items-start gap-3 group">
                   <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-yellow-600 shrink-0 group-hover:bg-yellow-50 transition-colors">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
                     <p className="text-gray-800 text-sm font-medium">Email Us</p>
-                    <p className="text-gray-500 text-xs">info@pranijheightsindia.com</p>
+                    <p className="text-gray-500 text-xs">contact@pranijheightsindia.com</p>
                   </div>
                 </a>
               </li>

@@ -567,10 +567,10 @@ const Resources = () => {
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </Link>
-                  <a href="tel:+919876543210">
+                  <a href="tel:+919813145740">
                     <Button variant="outline" size="lg" className="border-gold/50 text-gold hover:bg-gold/10">
                       <Phone className="w-5 h-5 mr-2" />
-                      +91 98765 43210
+                      Deepak: +91 98131 45740
                     </Button>
                   </a>
                 </div>
