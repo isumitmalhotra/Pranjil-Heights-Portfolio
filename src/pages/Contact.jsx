@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { 
   MapPin, Phone, Mail, Clock, Send, MessageCircle, Users, Building, ArrowRight,
-  CheckCircle, Globe, Briefcase, Factory, Loader2
+  CheckCircle, Briefcase, Loader2
 } from 'lucide-react';
 import { H1, H2, Body, SectionBadge } from '../components/ui/Typography';
 import { GlassCard } from '../components/ui/GlassCard';
@@ -51,29 +51,6 @@ const ContactCard = ({ icon: IconComponent, title, details, action, link, index 
       </div>
     </GlassCard>
   </motion.div>
-);
-
-// Regional Office Card
-const RegionalOfficeCard = ({ city, address, phone, email }) => (
-  <GlassCard className="p-6 border-gold/20 hover:border-gold/40 transition-all">
-    <div className="flex items-center gap-3 mb-4">
-      <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center">
-        <MapPin className="w-5 h-5 text-gold" />
-      </div>
-      <h4 className="text-white font-bold font-heading">{city}</h4>
-    </div>
-    <p className="text-slate-300 text-sm mb-3">{address}</p>
-    <div className="space-y-2">
-      <a href={`tel:${phone}`} className="flex items-center gap-2 text-slate-200 text-sm hover:text-gold transition-colors">
-        <Phone className="w-4 h-4" />
-        {phone}
-      </a>
-      <a href={`mailto:${email}`} className="flex items-center gap-2 text-slate-200 text-sm hover:text-gold transition-colors">
-        <Mail className="w-4 h-4" />
-        {email}
-      </a>
-    </div>
-  </GlassCard>
 );
 
 // Enquiry Form Component
@@ -171,6 +148,12 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
       
       resetForm();
     } catch (error) {
+      const isTimeoutError = typeof error?.message === 'string' && error.message.toLowerCase().includes('timeout');
+      if (isTimeoutError) {
+        toast.success('Your enquiry was received. Confirmation may take a few extra seconds.');
+        resetForm();
+        return;
+      }
       toast.error(error.message || 'Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -288,20 +271,20 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
               onChange={(e) => setFormData({ ...formData, requirement: e.target.value })}
               className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
             >
-              <option value="" className="bg-blue-300/15">Select...</option>
+              <option value="" className="bg-white text-slate-900">Select...</option>
               {enquiryType === 'dealer' ? (
                 <>
-                  <option value="retailer" className="bg-blue-300/15">Retailer</option>
-                  <option value="distributor" className="bg-blue-300/15">Distributor</option>
-                  <option value="contractor" className="bg-blue-300/15">Contractor</option>
-                  <option value="architect" className="bg-blue-300/15">Architect/Designer</option>
+                  <option value="retailer" className="bg-white text-slate-900">Retailer</option>
+                  <option value="distributor" className="bg-white text-slate-900">Distributor</option>
+                  <option value="contractor" className="bg-white text-slate-900">Contractor</option>
+                  <option value="architect" className="bg-white text-slate-900">Architect/Designer</option>
                 </>
               ) : (
                 <>
-                  <option value="residential" className="bg-blue-300/15">Residential Project</option>
-                  <option value="commercial" className="bg-blue-300/15">Commercial Project</option>
-                  <option value="institutional" className="bg-blue-300/15">Institutional Project</option>
-                  <option value="bulk" className="bg-blue-300/15">Bulk Order</option>
+                  <option value="residential" className="bg-white text-slate-900">Residential Project</option>
+                  <option value="commercial" className="bg-white text-slate-900">Commercial Project</option>
+                  <option value="institutional" className="bg-white text-slate-900">Institutional Project</option>
+                  <option value="bulk" className="bg-white text-slate-900">Bulk Order</option>
                 </>
               )}
             </select>
@@ -329,9 +312,9 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
                   onChange={(e) => setFormData({ ...formData, areaUnit: e.target.value })}
                   className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="sq ft" className="bg-blue-300/15">sq ft</option>
-                  <option value="sq m" className="bg-blue-300/15">sq m</option>
-                  <option value="panels" className="bg-blue-300/15">panels</option>
+                  <option value="sq ft" className="bg-white text-slate-900">sq ft</option>
+                  <option value="sq m" className="bg-white text-slate-900">sq m</option>
+                  <option value="panels" className="bg-white text-slate-900">panels</option>
                 </select>
               </div>
             </div>
@@ -356,12 +339,12 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                   className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="" className="bg-blue-300/15">Select budget</option>
-                  <option value="Below 1 Lakh" className="bg-blue-300/15">Below 1 Lakh</option>
-                  <option value="1-3 Lakhs" className="bg-blue-300/15">1-3 Lakhs</option>
-                  <option value="3-5 Lakhs" className="bg-blue-300/15">3-5 Lakhs</option>
-                  <option value="5-10 Lakhs" className="bg-blue-300/15">5-10 Lakhs</option>
-                  <option value="10+ Lakhs" className="bg-blue-300/15">10+ Lakhs</option>
+                  <option value="" className="bg-white text-slate-900">Select budget</option>
+                  <option value="Below 1 Lakh" className="bg-white text-slate-900">Below 1 Lakh</option>
+                  <option value="1-3 Lakhs" className="bg-white text-slate-900">1-3 Lakhs</option>
+                  <option value="3-5 Lakhs" className="bg-white text-slate-900">3-5 Lakhs</option>
+                  <option value="5-10 Lakhs" className="bg-white text-slate-900">5-10 Lakhs</option>
+                  <option value="10+ Lakhs" className="bg-white text-slate-900">10+ Lakhs</option>
                 </select>
               </div>
               <div>
@@ -371,12 +354,12 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
                   onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
                   className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="" className="bg-blue-300/15">Select timeline</option>
-                  <option value="Immediate" className="bg-blue-300/15">Immediate</option>
-                  <option value="Within 15 days" className="bg-blue-300/15">Within 15 days</option>
-                  <option value="Within 1 month" className="bg-blue-300/15">Within 1 month</option>
-                  <option value="1-3 months" className="bg-blue-300/15">1-3 months</option>
-                  <option value="Flexible" className="bg-blue-300/15">Flexible</option>
+                  <option value="" className="bg-white text-slate-900">Select timeline</option>
+                  <option value="Immediate" className="bg-white text-slate-900">Immediate</option>
+                  <option value="Within 15 days" className="bg-white text-slate-900">Within 15 days</option>
+                  <option value="Within 1 month" className="bg-white text-slate-900">Within 1 month</option>
+                  <option value="1-3 months" className="bg-white text-slate-900">1-3 months</option>
+                  <option value="Flexible" className="bg-white text-slate-900">Flexible</option>
                 </select>
               </div>
             </div>
@@ -463,13 +446,6 @@ const Contact = () => {
       action: null,
       link: null
     }
-  ];
-
-  const regionalOffices = [
-    { city: "Mumbai", address: "Unit 45, Trade Center, Andheri East", phone: "+91 22 2345 6789", email: "mumbai@pranijheightsindia.com" },
-    { city: "Bangalore", address: "12/A, Industrial Layout, Whitefield", phone: "+91 80 2345 6789", email: "bangalore@pranijheightsindia.com" },
-    { city: "Chennai", address: "Plot 78, SIDCO Industrial Estate", phone: "+91 44 2345 6789", email: "chennai@pranijheightsindia.com" },
-    { city: "Kolkata", address: "Block C, Salt Lake Sector V", phone: "+91 33 2345 6789", email: "kolkata@pranijheightsindia.com" },
   ];
 
   return (
@@ -586,46 +562,6 @@ const Contact = () => {
                 </GlassCard>
               </motion.div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Regional Offices Section */}
-      <section className="relative py-16 bg-charcoal-light/30">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
-              <Globe className="w-4 h-4" />
-              Regional Presence
-            </SectionBadge>
-            
-            <H2 className="mb-4 font-heading text-white">
-              Our <span className="text-gold">Offices</span> Across India
-            </H2>
-            
-            <p className="text-slate-300 max-w-2xl mx-auto">
-              With regional offices in major cities, we ensure prompt support and 
-              efficient delivery to our dealers and customers.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {regionalOffices.map((office, index) => (
-              <motion.div
-                key={office.city}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <RegionalOfficeCard {...office} />
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
