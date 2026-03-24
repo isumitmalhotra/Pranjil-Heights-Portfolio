@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Keep private/admin paths out of search indices
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://pranijheightsindia.com/sitemap.xml
