@@ -108,6 +108,89 @@ function ScrollToTop() {
   return null;
 }
 
+function RouteSeoManager() {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const origin = window.location.origin;
+    const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
+    const canonicalUrl = `${origin}${normalizedPath}`;
+
+    const seoByRoute = {
+      '/': {
+        title: 'Pranijheightsindia - Premium PVC Panels',
+        description: 'Leading manufacturer of premium PVC wall panels, ceiling panels, WPC panels and louver panels for modern architecture and interiors.'
+      },
+      '/products': {
+        title: 'Products | Pranijheightsindia PVC Panels',
+        description: 'Explore Pranijheightsindia product range including PVC wall panels, UV sheets, fluted panels and WPC louvers.'
+      },
+      '/compare': {
+        title: 'Compare Products | Pranijheightsindia',
+        description: 'Compare panel specifications, applications and finishes to choose the right Pranijheightsindia solution for your project.'
+      },
+      '/resources': {
+        title: 'Resources | Catalogues and Technical Information',
+        description: 'Download catalogues, brochures and technical resources for Pranijheightsindia PVC and WPC product collections.'
+      },
+      '/about': {
+        title: 'About Us | Pranijheightsindia',
+        description: 'Learn about Pranijheightsindia, our manufacturing capabilities, quality standards and pan-India dealer network.'
+      },
+      '/contact': {
+        title: 'Contact Us | Pranijheightsindia',
+        description: 'Contact Pranijheightsindia for project quotations, product inquiries and dealer partnership opportunities.'
+      },
+      '/dealer': {
+        title: 'Dealer Partnership | Pranijheightsindia',
+        description: 'Join the Pranijheightsindia dealer network and grow with premium PVC panel products and dedicated support.'
+      },
+      '/unsubscribe': {
+        title: 'Email Preferences | Pranijheightsindia',
+        description: 'Manage your Pranijheightsindia email communication preferences.'
+      }
+    };
+
+    const routeSeo = pathname.startsWith('/products/')
+      ? {
+          title: 'Product Details | Pranijheightsindia',
+          description: 'View detailed specifications, features and application information for Pranijheightsindia panel products.'
+        }
+      : (seoByRoute[normalizedPath] || seoByRoute['/']);
+
+    const upsertMeta = (selector, createAttrs, content) => {
+      let el = document.head.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        Object.entries(createAttrs).forEach(([key, value]) => el.setAttribute(key, value));
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+
+    document.title = routeSeo.title;
+
+    upsertMeta('meta[name="description"]', { name: 'description' }, routeSeo.description);
+    upsertMeta('meta[property="og:title"]', { property: 'og:title' }, routeSeo.title);
+    upsertMeta('meta[property="og:description"]', { property: 'og:description' }, routeSeo.description);
+    upsertMeta('meta[property="og:url"]', { property: 'og:url' }, canonicalUrl);
+    upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title' }, routeSeo.title);
+    upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description' }, routeSeo.description);
+
+    let canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', canonicalUrl);
+  }, [pathname]);
+
+  return null;
+}
+
 // Create a client for React Query
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -124,6 +207,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <ScrollToTop />
+        <RouteSeoManager />
         <Routes>
           {/* Public Routes */}
           <Route element={<Layout />}>
