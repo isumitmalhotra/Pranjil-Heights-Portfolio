@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { 
   Check, Download, ArrowLeft, Share2, 
   Maximize, ZoomIn, ChevronLeft, ChevronRight,
-  ShieldCheck, Truck, Package, Sparkles, FileText, ArrowRight,
+  ShieldCheck, Truck, Package, Sparkles, FileText, ArrowRight, X,
   Droplets, Shield, Flame, Leaf, Factory, Award, Phone, Loader2
 } from 'lucide-react';
 import { GlassCard } from '../components/ui/GlassCard';
@@ -17,7 +17,7 @@ import { useProduct } from '../hooks/useApi';
 import { attachMediaFallback, getMediaCandidates, getPrimaryMediaUrl } from '../utils/mediaUrl';
 
 // 3D Product Viewer Component
-const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => {
+const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect, onOpenFullscreen }) => {
   const containerRef = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -99,19 +99,29 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
         
         {/* Action Buttons */}
         <div className="absolute top-4 right-4 flex gap-2">
-          <button className="w-10 h-10 rounded-full bg-blue-300/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-300/40 transition-all">
+          <button type="button" className="w-10 h-10 rounded-full bg-blue-300/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-300/40 transition-all">
             <Share2 className="w-5 h-5" />
           </button>
-          <button className="w-10 h-10 rounded-full bg-blue-300/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-300/40 transition-all">
+          <button
+            type="button"
+            onClick={onOpenFullscreen}
+            className="w-10 h-10 rounded-full bg-blue-300/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-300/40 transition-all"
+            aria-label="Open fullscreen image"
+          >
             <Maximize className="w-5 h-5" />
           </button>
         </div>
         
         {/* Zoom indicator */}
-        <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-300/80 backdrop-blur-sm text-white text-sm">
+        <button
+          type="button"
+          onClick={onOpenFullscreen}
+          className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-300/80 backdrop-blur-sm text-white text-sm hover:bg-blue-300/40 transition-all"
+          aria-label="Open full image view"
+        >
           <ZoomIn className="w-4 h-4" />
           Drag to rotate
-        </div>
+        </button>
       </motion.div>
 
       {/* Thumbnail Gallery */}
@@ -153,6 +163,97 @@ const ProductViewer3D = ({ images, selectedColor, selectedIndex, onSelect }) => 
         </div>
       )}
     </div>
+  );
+};
+
+const FullscreenImageViewer = ({ isOpen, images, selectedIndex, onSelect, onClose }) => {
+  if (!isOpen) return null;
+
+  const activeImage = images[selectedIndex] || null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[120] bg-black/90 backdrop-blur-sm"
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+          aria-label="Close fullscreen viewer"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        {images.length > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => onSelect(selectedIndex === 0 ? images.length - 1 : selectedIndex - 1)}
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              type="button"
+              onClick={() => onSelect(selectedIndex === images.length - 1 ? 0 : selectedIndex + 1)}
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </>
+        )}
+
+        <div className="h-full w-full flex items-center justify-center px-16 py-20">
+          {activeImage ? (
+            <img
+              src={activeImage}
+              alt="Product fullscreen view"
+              className="max-h-full max-w-full object-contain rounded-xl"
+              data-media-candidates={getMediaCandidates(activeImage).join('|')}
+              data-media-index="0"
+              onError={attachMediaFallback}
+            />
+          ) : (
+            <div className="w-80 h-80 rounded-xl bg-blue-300/20 border border-white/20" />
+          )}
+        </div>
+
+        {images.length > 1 && (
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 max-w-[90vw] overflow-x-auto px-2 py-1 rounded-xl bg-black/40 border border-white/10">
+            {images.map((img, index) => (
+              <button
+                key={`${img || 'placeholder'}-${index}`}
+                type="button"
+                onClick={() => onSelect(index)}
+                className={`w-16 h-16 rounded-lg overflow-hidden border-2 shrink-0 transition-all ${
+                  selectedIndex === index ? 'border-yellow-400' : 'border-white/20'
+                }`}
+                aria-label={`View image ${index + 1}`}
+              >
+                {img ? (
+                  <img
+                    src={img}
+                    alt={`Thumbnail ${index + 1}`}
+                    className="w-full h-full object-cover"
+                    data-media-candidates={getMediaCandidates(img).join('|')}
+                    data-media-index="0"
+                    onError={attachMediaFallback}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-blue-300/20" />
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
@@ -449,6 +550,7 @@ const ProductDetails = () => {
   
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
   
   // Set initial color when product loads - using layout effect to run before paint
   // This is a valid use case for setState in effect - initializing from async data
@@ -560,6 +662,7 @@ const ProductDetails = () => {
               selectedColor={selectedColor}
               selectedIndex={selectedImageIndex}
               onSelect={setSelectedImageIndex}
+              onOpenFullscreen={() => setIsFullscreenOpen(true)}
             />
           </motion.div>
 
@@ -797,6 +900,14 @@ const ProductDetails = () => {
           </div>
         </motion.div>
       </div>
+
+      <FullscreenImageViewer
+        isOpen={isFullscreenOpen}
+        images={currentImages}
+        selectedIndex={selectedImageIndex}
+        onSelect={setSelectedImageIndex}
+        onClose={() => setIsFullscreenOpen(false)}
+      />
     </div>
   );
 };
