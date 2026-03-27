@@ -255,7 +255,6 @@ export const Navbar = () => {
   const resourceItems = [
     { name: 'Download Catalogue', path: '/resources#catalogue', icon: Download, description: 'Product brochures' },
     { name: 'Material Calculator', path: '/resources#calculator', icon: Calculator, description: 'Estimate requirements' },
-    { name: 'Technical Documents', path: '/resources#technical', icon: FileText, description: 'Specs & guides' },
     { name: 'FAQs', path: '/resources#faq', icon: HelpCircle, description: 'Common questions' },
   ];
 

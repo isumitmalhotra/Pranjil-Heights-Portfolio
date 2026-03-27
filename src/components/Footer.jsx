@@ -215,7 +215,6 @@ export const Footer = () => {
             <ul className="space-y-4">
               <FooterLink to="/resources">Catalogue Download</FooterLink>
               <FooterLink to="/resources#calculator">Material Calculator</FooterLink>
-              <FooterLink to="/resources">Technical Documents</FooterLink>
               <FooterLink to="/resources#faq">FAQs</FooterLink>
               <FooterLink to="/about">About Us</FooterLink>
             </ul>

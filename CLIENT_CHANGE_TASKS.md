@@ -118,3 +118,27 @@ Code references:
 
 Validation:
 - Frontend production build passed after change.
+
+---
+
+## CR-005: Remove Empty Technical Documentation and Installation Guides Sections
+Status: [x] Completed
+Priority: High
+
+Client feedback:
+- Remove Technical Documentation and Installation Guides areas from website where nothing is available to upload.
+
+Fix implemented:
+- Removed Technical Documentation section rendering from Resources page.
+- Removed Installation Guides section from Resources page.
+- Updated Resources page heading/description copy to remove technical docs/install guides references.
+- Removed Technical Documents item from Resources dropdown in navbar.
+- Removed Technical Documents quick link from footer.
+
+Code references:
+- src/pages/Resources.jsx
+- src/components/Navbar.jsx
+- src/components/Footer.jsx
+
+Validation:
+- Frontend production build passed after change.

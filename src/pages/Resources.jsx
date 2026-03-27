@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { 
-  Download, FileText, BookOpen, Video, Image, Calculator,
+  Download, FileText, BookOpen, Image, Calculator,
   ArrowRight, ExternalLink, Ruler, CheckCircle, Phone, HelpCircle
 } from 'lucide-react';
 import { MaterialCalculator } from '../components/tools/MaterialCalculator';
@@ -264,35 +264,7 @@ const Resources = () => {
   };
 
   const catalogues = liveCatalogues.filter((item) => item.category === 'product');
-  const technicalDocs = liveCatalogues.filter((item) => item.category === 'technical');
   const marketingDocs = liveCatalogues.filter((item) => item.category === 'marketing');
-
-  const installationGuides = [
-    { 
-      icon: Video, 
-      title: "Wall Panel Installation Guide", 
-      description: "Step-by-step video guide for wall panel installation.", 
-      fileType: "Video", 
-      fileSize: "Watch Online",
-      downloadLink: "#"
-    },
-    { 
-      icon: Video, 
-      title: "Ceiling Panel Installation", 
-      description: "Complete guide for ceiling panel installation techniques.", 
-      fileType: "Video", 
-      fileSize: "Watch Online",
-      downloadLink: "#"
-    },
-    { 
-      icon: BookOpen, 
-      title: "Installation Manual", 
-      description: "Comprehensive PDF manual with detailed instructions.", 
-      fileType: "PDF", 
-      fileSize: "5.4 MB",
-      downloadLink: "#"
-    },
-  ];
 
   const imageAssets = [
     { 
@@ -348,12 +320,12 @@ const Resources = () => {
             </SectionBadge>
             
             <H1 className="mb-6 font-heading text-white">
-              Downloads & <span className="text-gold">Technical Resources</span>
+              Downloads & <span className="text-gold">Resources</span>
             </H1>
             
             <Body className="text-slate-300 text-lg">
-              Access product catalogues, technical documentation, installation guides, 
-              and marketing materials. Everything you need for your projects.
+              Access product catalogues and marketing materials.
+              Everything you need for your projects in one place.
             </Body>
           </motion.div>
         </div>
@@ -420,11 +392,11 @@ const Resources = () => {
             </SectionBadge>
             
             <H2 className="mb-4 font-heading text-white">
-              Product <span className="text-gold">Catalogues</span> & Documentation
+              Product <span className="text-gold">Catalogues</span>
             </H2>
             
             <p className="text-slate-300 max-w-2xl mx-auto">
-              Download live catalogues and technical documents directly from our backend document library.
+              Download live catalogues directly from our backend document library.
             </p>
           </motion.div>
 
@@ -434,16 +406,6 @@ const Resources = () => {
               description="Complete product range documentation"
               icon={FileText}
               resources={catalogues}
-              onLeadDownload={onOpenLeadModal}
-            />
-          )}
-
-          {technicalDocs.length > 0 && (
-            <ResourceCategory 
-              title="Technical Documentation" 
-              description="Specifications and installation documents"
-              icon={BookOpen}
-              resources={technicalDocs}
               onLeadDownload={onOpenLeadModal}
             />
           )}
@@ -464,14 +426,6 @@ const Resources = () => {
               <p className="text-slate-300">Catalogues will appear here automatically once uploaded in the admin system.</p>
             </GlassCard>
           )}
-
-          <ResourceCategory 
-            title="Installation Guides" 
-            description="Step-by-step installation instructions and videos"
-            icon={Video}
-            resources={installationGuides}
-            onLeadDownload={onOpenLeadModal}
-          />
 
           <ResourceCategory 
             title="Marketing Assets" 
