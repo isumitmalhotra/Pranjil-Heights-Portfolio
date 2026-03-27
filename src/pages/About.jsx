@@ -23,49 +23,6 @@ const AnimatedNumber = ({ value, suffix = '' }) => {
   );
 };
 
-// Timeline Item Component
-const TimelineItem = ({ year, title, description, index, isLast }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      className={`flex items-center gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-    >
-      {/* Content */}
-      <div className="flex-1">
-        <GlassCard className={`p-6 ${index % 2 === 0 ? 'md:ml-auto' : ''} max-w-md`}>
-          <span className="text-yellow-600 font-bold text-2xl mb-2 block">{year}</span>
-          <H3 className="mb-3 text-white">{title}</H3>
-          <p className="text-slate-300">{description}</p>
-        </GlassCard>
-      </div>
-      
-      {/* Timeline Node */}
-      <div className="relative flex flex-col items-center">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : {}}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="w-6 h-6 rounded-full bg-yellow-600 relative z-10 shadow-md"
-        >
-          <div className="absolute inset-0 rounded-full bg-yellow-600 animate-ping opacity-30" />
-        </motion.div>
-        {!isLast && (
-          <div className="w-0.5 h-24 bg-gray-200" />
-        )}
-      </div>
-      
-      {/* Spacer */}
-      <div className="flex-1 hidden md:block" />
-    </motion.div>
-  );
-};
-
 // Value Card Component
 const ValueCard = ({ icon: IconComponent, title, description }) => (
   <motion.div
@@ -156,14 +113,6 @@ const About = () => {
   const leadership = [
     { name: "Anup Jain", role: "Director", experience: "Board Director" },
     { name: "Brij Bhushan Singhal", role: "Director", experience: "Board Director" },
-  ];
-
-  const timeline = [
-    { year: "2017", title: "Company Founded", description: "Started manufacturing operations with a vision to transform interior solutions across India." },
-    { year: "2019", title: "Capacity Expansion", description: "Scaled production with advanced automated machinery for faster and consistent output." },
-    { year: "2021", title: "ISO Certification", description: "Achieved ISO 9001:2015 certification for quality management systems." },
-    { year: "2023", title: "Pan-India Network", description: "Expanded to a 5000+ dealer network with regional distribution support." },
-    { year: "2024", title: "Sustainability Focus", description: "Launched 100% recyclable product line and achieved carbon-neutral manufacturing." },
   ];
 
   const certifications = [
@@ -484,40 +433,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="relative py-24">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <SectionBadge className="mb-6 bg-blue-300/16 text-orange-300 border-blue-200/30">
-              <TrendingUp className="w-4 h-4" />
-              Our Journey
-            </SectionBadge>
-            
-            <H2 className="mb-4 font-heading text-white">
-              Our <span className="text-yellow-600">Journey of Excellence</span>
-            </H2>
-          </motion.div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-8">
-              {timeline.map((item, index) => (
-                <TimelineItem 
-                  key={index} 
-                  {...item} 
-                  index={index}
-                  isLast={index === timeline.length - 1}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Certifications Section */}
       <section className="relative py-24 bg-blue-400/10">
         <div className="container mx-auto px-6">
@@ -611,7 +526,7 @@ const About = () => {
           >
             <GlassCard className="text-center py-16 px-8 relative overflow-hidden border-yellow-100">
               {/* Background Gradient */}
-              <div className="absolute inset-0 bg-linear-to-r from-yellow-50 via-transparent to-yellow-50 -z-10" />
+              <div className="absolute inset-0 bg-linear-to-r from-blue-950/55 via-blue-900/25 to-blue-950/55 -z-10" />
               
               <div className="max-w-2xl mx-auto">
                 <Award className="w-12 h-12 text-yellow-600 mx-auto mb-6" />

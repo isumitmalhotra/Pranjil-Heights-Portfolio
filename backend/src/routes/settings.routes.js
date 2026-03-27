@@ -5,6 +5,7 @@ import {
   getAllSettings,
   getSettingsByGroup,
   getSetting,
+  getPublicHomeVideos,
   upsertSetting,
   bulkUpdateSettings,
   deleteSetting,
@@ -14,6 +15,9 @@ import {
 } from '../controllers/settings.controller.js';
 
 const router = express.Router();
+
+// Public route
+router.get('/public/home-videos', asyncHandler(getPublicHomeVideos));
 
 // All routes require authentication
 router.use(protect);

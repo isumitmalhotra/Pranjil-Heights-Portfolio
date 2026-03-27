@@ -139,6 +139,14 @@ export const catalogueAPI = {
 };
 
 // ============================================
+// HOMEPAGE VIDEOS API
+// ============================================
+export const homeVideosAPI = {
+  // Get public latest homepage videos
+  getLatest: () => api.get('/settings/public/home-videos'),
+};
+
+// ============================================
 // AUTH API (for admin)
 // ============================================
 export const authAPI = {

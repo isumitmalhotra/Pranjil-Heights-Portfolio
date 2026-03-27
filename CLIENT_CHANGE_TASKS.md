@@ -175,3 +175,76 @@ Code references:
 
 Validation:
 - Frontend production build passed after change.
+
+---
+
+## CR-007: Replace Home CTA Options with Latest Videos + Admin Video Management
+Status: [x] Completed
+Priority: High
+
+Client request:
+- Remove the 3 option cards shown below "Ready to Partner With Us".
+- Add a "Check Our Latest Video" section in that area.
+- Provide admin dashboard support to upload/manage videos so homepage updates automatically.
+
+Fix implemented:
+- Replaced the old three-card CTA block with a dynamic "CHECK OUR LATEST VIDEO" section on home page.
+- Added public backend endpoint to fetch active homepage videos from settings:
+  - `GET /api/settings/public/home-videos`
+- Added frontend public API helper to consume homepage videos.
+- Added admin page "Home Latest Videos" with:
+  - Add/remove video entries
+  - Title, video URL, thumbnail URL, active toggle, display order controls
+  - Upload video file support
+  - Upload thumbnail support
+  - Save to settings as JSON (`home_latest_videos`, group `homepage`)
+- Wired admin route and sidebar navigation for easy management.
+
+Code references:
+- src/components/home/CTASection.jsx
+- src/services/api.js
+- backend/src/controllers/settings.controller.js
+- backend/src/routes/settings.routes.js
+- src/admin/pages/HomeVideos.jsx
+- src/admin/layouts/AdminLayout.jsx
+- src/admin/index.js
+- src/App.jsx
+
+Validation:
+- Frontend production build passed after changes.
+
+---
+
+## CR-008: Latest Videos UI Refinement + About Page Cleanup
+Status: [x] Completed
+Priority: High
+
+Client request:
+- Refine the new "Check Our Latest Video" section visual layout to remove rigid box feel and improve spacing.
+- Ensure equal spacing so 5 video cards fit neatly in one row on desktop without awkward side gaps.
+- Add a section break between "Ready to Partner With Us" and latest videos.
+- On About page, remove "Our Journey of Excellence" section.
+- Fix the bad white gradient patch in About page CTA box.
+- Ensure admin dashboard video upload works correctly for publishing videos to homepage section.
+
+Fix implemented:
+- Iteratively refined latest videos section layout and interaction in homepage CTA component:
+  - Removed rigid boxed look
+  - Kept clean horizontal strip with responsive behavior
+  - Desktop now uses equal 5-column layout
+  - Added visual section divider between partner CTA and videos
+- Removed full About page "Our Journey of Excellence" timeline block.
+- Replaced About CTA white center gradient with darker blue on-brand gradient overlay.
+- Verified admin videos management wiring and fixed backend upload MIME handling so admin can upload video files via general upload endpoint:
+  - Added video MIME support for general uploads (MP4/WebM/OGG/MOV)
+  - Preserved stricter MIME validation for catalogue routes.
+
+Code references:
+- src/components/home/CTASection.jsx
+- src/pages/About.jsx
+- src/admin/pages/HomeVideos.jsx
+- backend/src/middleware/upload.middleware.js
+
+Validation:
+- Frontend production build passed after changes.
+- Static verification confirms uploaded video URL from admin can be saved and rendered in homepage latest videos section.

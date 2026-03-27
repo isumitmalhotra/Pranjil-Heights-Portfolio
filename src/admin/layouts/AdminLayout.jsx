@@ -3,7 +3,7 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, Package, FolderTree, MessageSquare, 
   FileText, Users, Star, Mail, Settings, LogOut, Menu, X,
-  ChevronDown, Bell, Search, User, Image
+  ChevronDown, Bell, Search, User, Image, Video
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -21,6 +21,7 @@ const navigation = [
     ]
   },
   { name: 'Catalogues', href: '/admin/catalogues', icon: FileText },
+  { name: 'Home Videos', href: '/admin/home-videos', icon: Video },
   { name: 'Testimonials', href: '/admin/testimonials', icon: Star },
   { name: 'Media Library', href: '/admin/media', icon: Image },
   { name: 'Newsletter', href: '/admin/newsletter', icon: Mail },

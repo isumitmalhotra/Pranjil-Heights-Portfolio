@@ -1,5 +1,8 @@
 # PVC Panel Industries - Project Task Tracker
 
+## Client Change Requests
+- Separate tracker: [CLIENT_CHANGE_TASKS.md](CLIENT_CHANGE_TASKS.md)
+
 > **Project Version:** 2.0 (B2B Corporate Redesign)  
 > **Last Updated:** January 29, 2026  
 > **Status:** ✅ UI Redesign Complete | Production Deployment Phase

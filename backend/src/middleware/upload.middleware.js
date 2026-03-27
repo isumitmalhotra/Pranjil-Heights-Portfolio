@@ -40,7 +40,9 @@ Object.values(UPLOAD_DIRS).forEach(ensureDir);
 // Allowed MIME types
 const IMAGE_MIMES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml'];
 const DOCUMENT_MIMES = ['application/pdf'];
+const VIDEO_MIMES = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
 const ALL_ALLOWED = [...IMAGE_MIMES, ...DOCUMENT_MIMES];
+const GENERAL_ALLOWED = [...IMAGE_MIMES, ...DOCUMENT_MIMES, ...VIDEO_MIMES];
 
 // File size limits
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;    // 5MB per image
@@ -108,6 +110,17 @@ const allFilter = (req, file, cb) => {
     cb(null, true);
   } else {
     cb(new ApiError(400, `Invalid file type: ${file.mimetype}. Allowed: JPEG, PNG, WebP, GIF, SVG, PDF`), false);
+  }
+};
+
+/**
+ * File filter for general uploads (images + PDFs + videos)
+ */
+const generalFilter = (req, file, cb) => {
+  if (GENERAL_ALLOWED.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new ApiError(400, `Invalid file type: ${file.mimetype}. Allowed: JPEG, PNG, WebP, GIF, SVG, PDF, MP4, WebM, OGG, MOV`), false);
   }
 };
 
@@ -184,7 +197,7 @@ export const uploadTestimonialImage = multer({
  */
 export const uploadGeneral = multer({
   storage: createStorage('general'),
-  fileFilter: allFilter,
+  fileFilter: generalFilter,
   limits: { fileSize: MAX_PDF_SIZE }
 }).single('file');
 
@@ -194,7 +207,7 @@ export const uploadGeneral = multer({
  */
 export const uploadMultipleGeneral = multer({
   storage: createStorage('general'),
-  fileFilter: allFilter,
+  fileFilter: generalFilter,
   limits: { fileSize: MAX_PDF_SIZE, files: MAX_FILES }
 }).array('files', MAX_FILES);
 

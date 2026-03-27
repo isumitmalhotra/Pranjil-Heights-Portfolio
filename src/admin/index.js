@@ -12,6 +12,7 @@ export { default as Testimonials } from './pages/Testimonials';
 export { default as Newsletter } from './pages/Newsletter';
 export { default as Settings } from './pages/Settings';
 export { default as Catalogues } from './pages/Catalogues';
+export { default as HomeVideos } from './pages/HomeVideos';
 export { default as MediaLibrary } from './pages/MediaLibrary';
 
 export { default as AdminLayout } from './layouts/AdminLayout';

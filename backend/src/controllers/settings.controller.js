@@ -112,6 +112,47 @@ export const getSetting = async (req, res) => {
 };
 
 /**
+ * @desc    Get public home page videos
+ * @route   GET /api/settings/public/home-videos
+ * @access  Public
+ */
+export const getPublicHomeVideos = async (req, res) => {
+  const setting = await prisma.siteSetting.findUnique({
+    where: { key: 'home_latest_videos' }
+  });
+
+  let videos = [];
+  if (setting?.value) {
+    try {
+      const parsed = JSON.parse(setting.value);
+      if (Array.isArray(parsed)) {
+        videos = parsed;
+      }
+    } catch {
+      videos = [];
+    }
+  }
+
+  const normalized = videos
+    .filter((item) => item && typeof item === 'object')
+    .map((item, index) => ({
+      id: item.id || `video-${index + 1}`,
+      title: item.title || `Video ${index + 1}`,
+      videoUrl: item.videoUrl || '',
+      thumbnailUrl: item.thumbnailUrl || '',
+      isActive: item.isActive !== false,
+      order: Number.isFinite(Number(item.order)) ? Number(item.order) : index,
+    }))
+    .filter((item) => item.isActive && item.videoUrl)
+    .sort((a, b) => a.order - b.order);
+
+  res.json({
+    success: true,
+    data: normalized,
+  });
+};
+
+/**
  * @desc    Update or create a setting
  * @route   PUT /api/settings/:key
  * @access  Private/Admin
