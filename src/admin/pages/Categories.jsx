@@ -264,7 +264,7 @@ const Categories = () => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl w-full max-w-lg overflow-hidden">
+          <div className="bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4 border-b">
               <h2 className="text-lg font-semibold">
                 {editingCategory ? 'Edit Category' : 'Add New Category'}
@@ -274,7 +274,7 @@ const Categories = () => {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto max-h-[calc(90vh-140px)]">
               {/* Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Category Name *</label>

@@ -31,10 +31,15 @@ const FeaturePill = ({ icon: Icon, text }) => (
   </div>
 );
 
-const HeroPoint = ({ title, detail }) => (
-  <div className="rounded-xl border border-blue-200/25 bg-blue-300/10 p-4">
-    <p className="text-sm font-semibold text-white">{title}</p>
-    <p className="text-xs text-slate-300 mt-1 leading-relaxed">{detail}</p>
+const ProductSwatch = ({ title, subtitle, textureClass }) => (
+  <div className="group rounded-xl border border-blue-200/25 bg-[#0F2A44]/55 p-2 transition-all hover:-translate-y-0.5 hover:border-orange-400/40">
+    <div className={`relative h-28 rounded-lg overflow-hidden ${textureClass}`}>
+      <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors" />
+      <div className="absolute top-2 left-2 rounded-full bg-[#0F2A44]/75 px-2 py-1 border border-white/20">
+        <span className="text-[10px] uppercase tracking-wide text-slate-100 font-semibold">{subtitle}</span>
+      </div>
+    </div>
+    <p className="text-sm font-semibold text-white mt-2 px-1">{title}</p>
   </div>
 );
 
@@ -175,26 +180,33 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="hidden xl:block xl:col-span-4 rounded-2xl border border-blue-200/30 bg-blue-300/10 backdrop-blur-md p-6 shadow-xl shadow-black/25"
           >
-            <div className="mb-6">
-              <p className="text-xs uppercase tracking-[0.18em] text-orange-300 font-semibold">Dealer Confidence</p>
-              <h3 className="text-2xl font-bold text-white mt-2 leading-tight">Built for High-Volume Projects</h3>
-            </div>
-
-            <div className="space-y-3 mb-6">
-              <HeroPoint title="Fast Dispatch" detail="Reliable bulk supply and pan-India delivery support for dealers and contractors." />
-              <HeroPoint title="Consistent Finishes" detail="Standardized production quality for repeat orders and project continuity." />
-              <HeroPoint title="Technical Support" detail="Application guidance and product consultation for every requirement." />
+            <div className="mb-5">
+              <p className="text-xs uppercase tracking-[0.18em] text-orange-300 font-semibold">Product Visual Stack</p>
+              <h3 className="text-2xl font-bold text-white mt-2 leading-tight">Explore Core Panel Categories</h3>
+              <p className="text-xs text-slate-300 mt-2">Premium finishes crafted for dealer display, residential interiors, and commercial projects.</p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-xl border border-blue-200/25 bg-[#0F2A44]/70 p-3 text-center">
-                <p className="text-lg font-bold text-white">5000+</p>
-                <p className="text-[11px] text-slate-300 uppercase tracking-wide">Dealers</p>
-              </div>
-              <div className="rounded-xl border border-blue-200/25 bg-[#0F2A44]/70 p-3 text-center">
-                <p className="text-lg font-bold text-white">10,000+</p>
-                <p className="text-[11px] text-slate-300 uppercase tracking-wide">Projects</p>
-              </div>
+              <ProductSwatch
+                title="PVC Wall Panel"
+                subtitle="Matte Grain"
+                textureClass="bg-linear-to-br from-stone-300 via-stone-400 to-slate-500"
+              />
+              <ProductSwatch
+                title="Fluted Panel"
+                subtitle="Vertical Groove"
+                textureClass="bg-[repeating-linear-gradient(90deg,#6b4f3e_0_6px,#805f49_6px_12px)]"
+              />
+              <ProductSwatch
+                title="ACP/HPL Sheet"
+                subtitle="Metallic Finish"
+                textureClass="bg-linear-to-br from-slate-200 via-slate-400 to-slate-700"
+              />
+              <ProductSwatch
+                title="UV Marble Sheet"
+                subtitle="High Gloss"
+                textureClass="bg-[radial-gradient(circle_at_25%_25%,#f8fafc_0_20%,#cbd5e1_20_35%,#f8fafc_35_52%,#94a3b8_52_70%,#e2e8f0_70_100%)]"
+              />
             </div>
           </motion.aside>
         </div>
