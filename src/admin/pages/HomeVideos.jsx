@@ -3,6 +3,9 @@ import { Plus, Trash2, Save, Video, Upload, Loader2, Eye } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { settingsAPI, uploadAPI } from '../services/adminApi';
 
+const MAX_VIDEO_UPLOAD_MB = 60;
+const MAX_VIDEO_UPLOAD_BYTES = MAX_VIDEO_UPLOAD_MB * 1024 * 1024;
+
 const emptyVideo = {
   id: '',
   title: '',
@@ -98,6 +101,10 @@ const HomeVideos = () => {
 
   const uploadVideoFile = async (id, file) => {
     if (!file) return;
+    if (file.size > MAX_VIDEO_UPLOAD_BYTES) {
+      toast.error(`Video is too large. Please upload up to ${MAX_VIDEO_UPLOAD_MB}MB or use a YouTube link.`);
+      return;
+    }
     setUploadingVideoId(id);
     try {
       const response = await uploadAPI.upload(file, 'general', 'Home video');
@@ -106,7 +113,10 @@ const HomeVideos = () => {
       updateVideo(id, { videoUrl: url });
       toast.success('Video uploaded');
     } catch (error) {
-      toast.error(error.message || 'Video upload failed');
+      const message = String(error?.message || '').toLowerCase().includes('timeout')
+        ? 'Video upload timed out. Try a smaller compressed video or paste a YouTube URL in Video URL field.'
+        : (error.message || 'Video upload failed');
+      toast.error(message);
     } finally {
       setUploadingVideoId(null);
     }
@@ -245,12 +255,14 @@ const HomeVideos = () => {
                   Upload Video File
                   <input
                     type="file"
-                    accept="video/*"
+                    accept="video/mp4,video/webm,video/ogg,video/quicktime"
                     className="hidden"
                     onChange={(e) => uploadVideoFile(video.id, e.target.files?.[0])}
                     disabled={uploadingVideoId === video.id}
                   />
                 </label>
+
+                <span className="text-xs text-gray-500">Max video size: {MAX_VIDEO_UPLOAD_MB}MB</span>
 
                 <label className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-700 cursor-pointer hover:bg-gray-50">
                   {uploadingThumbId === video.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const ADMIN_API_TIMEOUT_MS = 60000;
-const ADMIN_UPLOAD_TIMEOUT_MS = 600000;
+const ADMIN_UPLOAD_TIMEOUT_MS = 0;
 
 const resolveAdminApiBaseUrl = () => {
   const envUrl = import.meta.env.VITE_API_URL?.trim();
@@ -231,6 +231,8 @@ export const uploadAPI = {
     return adminApi.post('/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       timeout: ADMIN_UPLOAD_TIMEOUT_MS,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity,
     });
   },
 
@@ -242,6 +244,8 @@ export const uploadAPI = {
     return adminApi.post('/upload/multiple', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       timeout: ADMIN_UPLOAD_TIMEOUT_MS,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity,
     });
   },
 
@@ -253,6 +257,8 @@ export const uploadAPI = {
     return adminApi.post('/upload/product-image', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       timeout: ADMIN_UPLOAD_TIMEOUT_MS,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity,
     });
   },
 
@@ -264,6 +270,8 @@ export const uploadAPI = {
     return adminApi.post('/upload/category-image', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       timeout: ADMIN_UPLOAD_TIMEOUT_MS,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity,
     });
   },
 
@@ -275,6 +283,8 @@ export const uploadAPI = {
     return adminApi.post('/upload/catalogue', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       timeout: ADMIN_UPLOAD_TIMEOUT_MS,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity,
     });
   },
 
@@ -287,6 +297,8 @@ export const uploadAPI = {
     return adminApi.post('/upload/testimonial-image', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       timeout: ADMIN_UPLOAD_TIMEOUT_MS,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity,
     });
   },
 

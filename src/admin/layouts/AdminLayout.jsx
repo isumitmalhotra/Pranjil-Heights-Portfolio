@@ -62,9 +62,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
       {/* Sidebar */}
       <aside className={`
-        fixed top-0 left-0 z-50 h-full w-64 bg-gray-900 border-r border-gray-800
+        fixed top-0 left-0 z-50 h-screen w-64 bg-gray-900 border-r border-gray-800
         transform transition-transform duration-300 ease-in-out
         lg:translate-x-0 lg:static
+        flex flex-col
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         {/* Logo */}
@@ -86,7 +87,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto h-[calc(100vh-8rem)]">
+        <nav className="flex-1 min-h-0 px-4 py-6 space-y-1 overflow-y-auto">
           {navigation.map((item) => (
             <div key={item.name}>
               {item.children ? (
@@ -151,7 +152,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         </nav>
 
         {/* User Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-800 bg-gray-900">
+        <div className="mt-auto p-4 border-t border-gray-800 bg-gray-900">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
               <User className="w-5 h-5 text-amber-500" />
