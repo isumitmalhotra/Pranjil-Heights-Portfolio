@@ -21,6 +21,7 @@ const navigation = [
     ]
   },
   { name: 'Catalogues', href: '/admin/catalogues', icon: FileText },
+  { name: 'Home Hero', href: '/admin/home-hero', icon: FileText },
   { name: 'Home Videos', href: '/admin/home-videos', icon: Video },
   { name: 'Testimonials', href: '/admin/testimonials', icon: Star },
   { name: 'Media Library', href: '/admin/media', icon: Image },

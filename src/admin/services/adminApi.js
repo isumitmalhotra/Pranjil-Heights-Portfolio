@@ -206,6 +206,7 @@ export const settingsAPI = {
   getAll: (group) => adminApi.get('/settings', { params: group ? { group } : {} }),
   getByGroup: (group) => adminApi.get(`/settings/group/${group}`),
   getByKey: (key) => adminApi.get(`/settings/key/${key}`),
+  getPublicHomeHero: () => adminApi.get('/settings/public/home-hero'),
   update: (key, data) => adminApi.put(`/settings/${key}`, data),
   bulkUpdate: (settings) => adminApi.put('/settings/bulk', { settings }),
   delete: (key) => adminApi.delete(`/settings/${key}`),

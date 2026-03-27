@@ -2,6 +2,106 @@
 import prisma from '../config/database.js';
 import { ApiError } from '../middleware/error.middleware.js';
 
+const DEFAULT_HOME_HERO_CONTENT = {
+  badgeText: "India's Leading PVC Panel Manufacturer",
+  titleLine1: "India's No.1 Manufacturer of PVC Wall Panels,",
+  titleLine2: 'Fluted Panels & ACP/HPL Sheets',
+  subtitle: 'Delivering timeless designs, unmatched durability and premium wall solutions trusted by dealers across India.',
+  featurePills: ['Termite & Water Resistant', 'Fire Retardant', 'Easy Installation'],
+  cta: {
+    primaryText: 'Explore Product Range',
+    secondaryText: 'Download Catalogue',
+    tertiaryText: 'Become a Dealer',
+  },
+  trustBadges: [
+    { label: 'Manufacturing', value: 'Since 2017' },
+    { label: 'Across India', value: '5000+' },
+    { label: 'Projects', value: '10,000+' },
+    { label: 'Certified', value: 'ISO 9001' },
+  ],
+  visualStack: {
+    label: 'Product Visual Stack',
+    title: 'Explore Core Panel Categories',
+    description: 'Premium finishes crafted for dealer display, residential interiors, and commercial projects.',
+  },
+  swatches: [
+    {
+      id: 'pvc-wall-panel',
+      title: 'PVC Wall Panel',
+      subtitle: 'Matte Grain',
+      imageUrl: '/hero-panels/pvc-wall-panel.jpg',
+    },
+    {
+      id: 'fluted-panel',
+      title: 'Fluted Panel',
+      subtitle: 'Vertical Groove',
+      imageUrl: '/hero-panels/fluted-panel.webp',
+    },
+    {
+      id: 'acp-hpl-sheet',
+      title: 'ACP/HPL Sheet',
+      subtitle: 'Metallic Finish',
+      imageUrl: '/hero-panels/acp-hpl-sheet.webp',
+    },
+    {
+      id: 'uv-marble-sheet',
+      title: 'UV Marble Sheet',
+      subtitle: 'High Gloss',
+      imageUrl: '/hero-panels/uv-marble-sheet.jpg',
+    },
+  ],
+};
+
+const normalizeHomeHeroContent = (rawValue) => {
+  const parsed = rawValue && typeof rawValue === 'object' ? rawValue : {};
+
+  const featurePills = Array.isArray(parsed.featurePills)
+    ? parsed.featurePills.filter(Boolean).slice(0, 3)
+    : DEFAULT_HOME_HERO_CONTENT.featurePills;
+
+  const trustBadges = Array.isArray(parsed.trustBadges)
+    ? parsed.trustBadges
+        .filter((item) => item && typeof item === 'object')
+        .slice(0, 4)
+        .map((item, index) => ({
+          label: item.label || DEFAULT_HOME_HERO_CONTENT.trustBadges[index]?.label || `Label ${index + 1}`,
+          value: item.value || DEFAULT_HOME_HERO_CONTENT.trustBadges[index]?.value || '-',
+        }))
+    : DEFAULT_HOME_HERO_CONTENT.trustBadges;
+
+  const swatches = Array.isArray(parsed.swatches)
+    ? parsed.swatches
+        .filter((item) => item && typeof item === 'object')
+        .slice(0, 4)
+        .map((item, index) => ({
+          id: item.id || DEFAULT_HOME_HERO_CONTENT.swatches[index]?.id || `swatch-${index + 1}`,
+          title: item.title || DEFAULT_HOME_HERO_CONTENT.swatches[index]?.title || `Panel ${index + 1}`,
+          subtitle: item.subtitle || DEFAULT_HOME_HERO_CONTENT.swatches[index]?.subtitle || 'Finish',
+          imageUrl: item.imageUrl || DEFAULT_HOME_HERO_CONTENT.swatches[index]?.imageUrl || '',
+        }))
+    : DEFAULT_HOME_HERO_CONTENT.swatches;
+
+  return {
+    badgeText: parsed.badgeText || DEFAULT_HOME_HERO_CONTENT.badgeText,
+    titleLine1: parsed.titleLine1 || DEFAULT_HOME_HERO_CONTENT.titleLine1,
+    titleLine2: parsed.titleLine2 || DEFAULT_HOME_HERO_CONTENT.titleLine2,
+    subtitle: parsed.subtitle || DEFAULT_HOME_HERO_CONTENT.subtitle,
+    featurePills,
+    cta: {
+      primaryText: parsed?.cta?.primaryText || DEFAULT_HOME_HERO_CONTENT.cta.primaryText,
+      secondaryText: parsed?.cta?.secondaryText || DEFAULT_HOME_HERO_CONTENT.cta.secondaryText,
+      tertiaryText: parsed?.cta?.tertiaryText || DEFAULT_HOME_HERO_CONTENT.cta.tertiaryText,
+    },
+    trustBadges,
+    visualStack: {
+      label: parsed?.visualStack?.label || DEFAULT_HOME_HERO_CONTENT.visualStack.label,
+      title: parsed?.visualStack?.title || DEFAULT_HOME_HERO_CONTENT.visualStack.title,
+      description: parsed?.visualStack?.description || DEFAULT_HOME_HERO_CONTENT.visualStack.description,
+    },
+    swatches,
+  };
+};
+
 // ============================================
 // SITE SETTINGS CRUD
 // ============================================
@@ -145,6 +245,33 @@ export const getPublicHomeVideos = async (req, res) => {
     }))
     .filter((item) => item.isActive && item.videoUrl)
     .sort((a, b) => a.order - b.order);
+
+  res.json({
+    success: true,
+    data: normalized,
+  });
+};
+
+/**
+ * @desc    Get public home hero content
+ * @route   GET /api/settings/public/home-hero
+ * @access  Public
+ */
+export const getPublicHomeHero = async (req, res) => {
+  const setting = await prisma.siteSetting.findUnique({
+    where: { key: 'home_hero_content' },
+  });
+
+  let parsed = null;
+  if (setting?.value) {
+    try {
+      parsed = JSON.parse(setting.value);
+    } catch {
+      parsed = null;
+    }
+  }
+
+  const normalized = normalizeHomeHeroContent(parsed);
 
   res.json({
     success: true,

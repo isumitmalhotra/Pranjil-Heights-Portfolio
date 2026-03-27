@@ -30,6 +30,7 @@ import {
   Settings as AdminSettings,
   Catalogues as AdminCatalogues,
   HomeVideos as AdminHomeVideos,
+  HomeHero as AdminHomeHero,
   MediaLibrary as AdminMediaLibrary,
   AdminLayout,
   ProtectedRoute
@@ -260,6 +261,7 @@ function App() {
               <Route path="testimonials" element={<AdminTestimonials />} />
               <Route path="newsletter" element={<AdminNewsletter />} />
               <Route path="catalogues" element={<AdminCatalogues />} />
+              <Route path="home-hero" element={<AdminHomeHero />} />
               <Route path="home-videos" element={<AdminHomeVideos />} />
               <Route path="media" element={<AdminMediaLibrary />} />
               <Route path="settings" element={<AdminSettings />} />

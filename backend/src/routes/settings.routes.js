@@ -6,6 +6,7 @@ import {
   getSettingsByGroup,
   getSetting,
   getPublicHomeVideos,
+  getPublicHomeHero,
   upsertSetting,
   bulkUpdateSettings,
   deleteSetting,
@@ -18,6 +19,7 @@ const router = express.Router();
 
 // Public route
 router.get('/public/home-videos', asyncHandler(getPublicHomeVideos));
+router.get('/public/home-hero', asyncHandler(getPublicHomeHero));
 
 // All routes require authentication
 router.use(protect);

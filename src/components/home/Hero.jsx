@@ -2,9 +2,41 @@ import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { ChevronRight, Download, Building2, Award, Factory, Users, Sparkles, Shield, Droplets, Flame } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 import { Button } from '../ui/Button';
 import { H1 } from '../ui/Typography';
 import { Link } from 'react-router-dom';
+import { homeHeroAPI } from '../../services/api';
+
+const defaultHeroContent = {
+  badgeText: "India's Leading PVC Panel Manufacturer",
+  titleLine1: "India's No.1 Manufacturer of PVC Wall Panels,",
+  titleLine2: 'Fluted Panels & ACP/HPL Sheets',
+  subtitle: 'Delivering timeless designs, unmatched durability and premium wall solutions trusted by dealers across India.',
+  featurePills: ['Termite & Water Resistant', 'Fire Retardant', 'Easy Installation'],
+  cta: {
+    primaryText: 'Explore Product Range',
+    secondaryText: 'Download Catalogue',
+    tertiaryText: 'Become a Dealer',
+  },
+  trustBadges: [
+    { label: 'Manufacturing', value: 'Since 2017' },
+    { label: 'Across India', value: '5000+' },
+    { label: 'Projects', value: '10,000+' },
+    { label: 'Certified', value: 'ISO 9001' },
+  ],
+  visualStack: {
+    label: 'Product Visual Stack',
+    title: 'Explore Core Panel Categories',
+    description: 'Premium finishes crafted for dealer display, residential interiors, and commercial projects.',
+  },
+  swatches: [
+    { id: 'pvc-wall-panel', title: 'PVC Wall Panel', subtitle: 'Matte Grain', imageUrl: '/hero-panels/pvc-wall-panel.jpg' },
+    { id: 'fluted-panel', title: 'Fluted Panel', subtitle: 'Vertical Groove', imageUrl: '/hero-panels/fluted-panel.webp' },
+    { id: 'acp-hpl-sheet', title: 'ACP/HPL Sheet', subtitle: 'Metallic Finish', imageUrl: '/hero-panels/acp-hpl-sheet.webp' },
+    { id: 'uv-marble-sheet', title: 'UV Marble Sheet', subtitle: 'High Gloss', imageUrl: '/hero-panels/uv-marble-sheet.jpg' },
+  ],
+};
 
 // Trust Badge Component
 const TrustBadge = ({ icon: Icon, label, value }) => (
@@ -50,12 +82,15 @@ const ProductSwatch = ({ title, subtitle, image }) => (
 );
 
 export const Hero = () => {
-  const trustBadges = [
-    { icon: Factory, label: "Manufacturing", value: "Since 2017" },
-    { icon: Users, label: "Across India", value: "5000+" },
-    { icon: Building2, label: "Projects", value: "10,000+" },
-    { icon: Award, label: "Certified", value: "ISO 9001" },
-  ];
+  const { data: heroResponse } = useQuery({
+    queryKey: ['home-hero-content'],
+    queryFn: () => homeHeroAPI.getContent(),
+    staleTime: 2 * 60 * 1000,
+  });
+
+  const heroContent = heroResponse?.data || defaultHeroContent;
+  const trustIcons = [Factory, Users, Building2, Award];
+  const featureIcons = [Droplets, Flame, Shield];
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-linear-to-br from-[#0F2A44] via-[#1B2A4A] to-[#243B63]">
@@ -102,7 +137,7 @@ export const Hero = () => {
           >
             <Sparkles className="w-4 h-4 text-white" />
             <span className="text-white text-sm font-medium tracking-wide">
-              India's Leading PVC Panel Manufacturer
+              {heroContent.badgeText}
             </span>
           </motion.div>
           
@@ -114,12 +149,12 @@ export const Hero = () => {
             className="space-y-6 mb-8"
           >
             <H1 className="leading-tight text-white">
-              <span className="block">India's No.1 Manufacturer of PVC Wall Panels,</span>
-              <span className="block">Fluted Panels & ACP/HPL Sheets</span>
+              <span className="block">{heroContent.titleLine1}</span>
+              <span className="block">{heroContent.titleLine2}</span>
             </H1>
             
             <p className="text-xl md:text-2xl text-slate-200 font-light max-w-2xl leading-relaxed">
-              Delivering timeless designs, unmatched durability and premium wall solutions trusted by dealers across India.
+              {heroContent.subtitle}
             </p>
           </motion.div>
 
@@ -130,9 +165,10 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-wrap gap-3 mb-10"
           >
-            <FeaturePill icon={Droplets} text="Termite & Water Resistant" />
-            <FeaturePill icon={Flame} text="Fire Retardant" />
-            <FeaturePill icon={Shield} text="Easy Installation" />
+            {(Array.isArray(heroContent.featurePills) ? heroContent.featurePills : []).slice(0, 3).map((pill, index) => {
+              const Icon = featureIcons[index] || Shield;
+              return <FeaturePill key={`hero-pill-${index}`} icon={Icon} text={pill} />;
+            })}
           </motion.div>
 
           {/* CTA Buttons */}
@@ -144,17 +180,17 @@ export const Hero = () => {
           >
             <Link to="/products">
               <Button variant="primary" size="lg" icon={ChevronRight} className="bg-orange-500 text-white hover:bg-orange-600 shadow-lg shadow-orange-500/30 border-0">
-                Explore Product Range
+                {heroContent?.cta?.primaryText || defaultHeroContent.cta.primaryText}
               </Button>
             </Link>
             <Link to="/resources">
               <Button variant="secondary" size="lg" icon={Download} iconPosition="left" className="bg-blue-300/16 text-white hover:bg-blue-300/25 border border-white/25 shadow-lg shadow-black/20">
-                Download Catalogue
+                {heroContent?.cta?.secondaryText || defaultHeroContent.cta.secondaryText}
               </Button>
             </Link>
             <Link to="/contact">
               <Button variant="secondary" size="lg" className="bg-[#0F2A44] text-white hover:bg-[#0b2238] border border-blue-200/30 shadow-lg shadow-black/30">
-                Become a Dealer
+                {heroContent?.cta?.tertiaryText || defaultHeroContent.cta.tertiaryText}
               </Button>
             </Link>
           </motion.div>
@@ -166,14 +202,14 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-blue-200/30"
           >
-            {trustBadges.map((badge, index) => (
+            {(Array.isArray(heroContent.trustBadges) ? heroContent.trustBadges : defaultHeroContent.trustBadges).slice(0, 4).map((badge, index) => (
               <motion.div
-                key={badge.label}
+                key={`${badge.label}-${index}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 + index * 0.1 }}
               >
-                <TrustBadge {...badge} />
+                <TrustBadge icon={trustIcons[index] || Award} label={badge.label} value={badge.value} />
               </motion.div>
             ))}
           </motion.div>
@@ -187,32 +223,20 @@ export const Hero = () => {
             className="hidden xl:block xl:col-span-4 rounded-2xl border border-blue-200/30 bg-blue-300/10 backdrop-blur-md p-6 shadow-xl shadow-black/25"
           >
             <div className="mb-5">
-              <p className="text-xs uppercase tracking-[0.18em] text-orange-300 font-semibold">Product Visual Stack</p>
-              <h3 className="text-2xl font-bold text-white mt-2 leading-tight">Explore Core Panel Categories</h3>
-              <p className="text-xs text-slate-300 mt-2">Premium finishes crafted for dealer display, residential interiors, and commercial projects.</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-orange-300 font-semibold">{heroContent?.visualStack?.label || defaultHeroContent.visualStack.label}</p>
+              <h3 className="text-2xl font-bold text-white mt-2 leading-tight">{heroContent?.visualStack?.title || defaultHeroContent.visualStack.title}</h3>
+              <p className="text-xs text-slate-300 mt-2">{heroContent?.visualStack?.description || defaultHeroContent.visualStack.description}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <ProductSwatch
-                title="PVC Wall Panel"
-                subtitle="Matte Grain"
-                image="/hero-panels/pvc-wall-panel.jpg"
-              />
-              <ProductSwatch
-                title="Fluted Panel"
-                subtitle="Vertical Groove"
-                image="/hero-panels/fluted-panel.webp"
-              />
-              <ProductSwatch
-                title="ACP/HPL Sheet"
-                subtitle="Metallic Finish"
-                image="/hero-panels/acp-hpl-sheet.webp"
-              />
-              <ProductSwatch
-                title="UV Marble Sheet"
-                subtitle="High Gloss"
-                image="/hero-panels/uv-marble-sheet.jpg"
-              />
+              {(Array.isArray(heroContent.swatches) ? heroContent.swatches : defaultHeroContent.swatches).slice(0, 4).map((swatch, index) => (
+                <ProductSwatch
+                  key={swatch.id || `hero-swatch-${index}`}
+                  title={swatch.title}
+                  subtitle={swatch.subtitle}
+                  image={swatch.imageUrl || defaultHeroContent.swatches[index]?.imageUrl}
+                />
+              ))}
             </div>
           </motion.aside>
         </div>

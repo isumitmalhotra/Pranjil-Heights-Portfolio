@@ -147,6 +147,14 @@ export const homeVideosAPI = {
 };
 
 // ============================================
+// HOMEPAGE HERO API
+// ============================================
+export const homeHeroAPI = {
+  // Get public hero content for home page
+  getContent: () => api.get('/settings/public/home-hero'),
+};
+
+// ============================================
 // AUTH API (for admin)
 // ============================================
 export const authAPI = {
