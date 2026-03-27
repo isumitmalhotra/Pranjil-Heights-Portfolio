@@ -31,9 +31,15 @@ const FeaturePill = ({ icon: Icon, text }) => (
   </div>
 );
 
-const ProductSwatch = ({ title, subtitle, textureClass }) => (
+const ProductSwatch = ({ title, subtitle, image }) => (
   <div className="group rounded-xl border border-blue-200/25 bg-[#0F2A44]/55 p-2 transition-all hover:-translate-y-0.5 hover:border-orange-400/40">
-    <div className={`relative h-28 rounded-lg overflow-hidden ${textureClass}`}>
+    <div className="relative h-28 rounded-lg overflow-hidden bg-[#1B2A4A]">
+      <img
+        src={image}
+        alt={`${title} preview`}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
       <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors" />
       <div className="absolute top-2 left-2 rounded-full bg-[#0F2A44]/75 px-2 py-1 border border-white/20">
         <span className="text-[10px] uppercase tracking-wide text-slate-100 font-semibold">{subtitle}</span>
@@ -190,22 +196,22 @@ export const Hero = () => {
               <ProductSwatch
                 title="PVC Wall Panel"
                 subtitle="Matte Grain"
-                textureClass="bg-linear-to-br from-stone-300 via-stone-400 to-slate-500"
+                image="/hero-panels/pvc-wall-panel.jpg"
               />
               <ProductSwatch
                 title="Fluted Panel"
                 subtitle="Vertical Groove"
-                textureClass="bg-[repeating-linear-gradient(90deg,#6b4f3e_0_6px,#805f49_6px_12px)]"
+                image="/hero-panels/fluted-panel.webp"
               />
               <ProductSwatch
                 title="ACP/HPL Sheet"
                 subtitle="Metallic Finish"
-                textureClass="bg-linear-to-br from-slate-200 via-slate-400 to-slate-700"
+                image="/hero-panels/acp-hpl-sheet.webp"
               />
               <ProductSwatch
                 title="UV Marble Sheet"
                 subtitle="High Gloss"
-                textureClass="bg-[radial-gradient(circle_at_25%_25%,#f8fafc_0_20%,#cbd5e1_20_35%,#f8fafc_35_52%,#94a3b8_52_70%,#e2e8f0_70_100%)]"
+                image="/hero-panels/uv-marble-sheet.jpg"
               />
             </div>
           </motion.aside>
