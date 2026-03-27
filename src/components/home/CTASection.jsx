@@ -80,9 +80,9 @@ export const CTASection = () => {
                 Download Catalogue
               </Button>
             </a>
-            <a href="tel:+919813145740">
+            <a href="tel:+919813027070">
               <Button variant="glass" size="xl" icon={Phone} iconPosition="left" className="bg-blue-300/16 border-white/25 text-white hover:bg-blue-300/25">
-                Call Deepak Now
+                Call Now
               </Button>
             </a>
           </motion.div>

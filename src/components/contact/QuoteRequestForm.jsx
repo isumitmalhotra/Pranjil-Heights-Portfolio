@@ -322,7 +322,7 @@ export const QuoteRequestForm = ({
             id="phone"
             type="tel"
             icon={Phone}
-            placeholder="+91 98131 45740"
+            placeholder="+91 98130 27070"
             required
             value={formData.phone}
             onChange={handleChange}

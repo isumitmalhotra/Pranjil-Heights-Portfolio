@@ -245,7 +245,7 @@ const EnquiryForm = ({ enquiryType, setEnquiryType }) => {
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
-              placeholder="+91 98131 45740"
+              placeholder="+91 98130 27070"
             />
           </div>
         </div>
@@ -429,14 +429,14 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Sales Enquiries",
-      details: ["Deepak (Sales): +91 98131 45740"],
+      details: ["+91 98130 27070"],
       action: "Call Now",
-      link: "tel:+919813145740"
+      link: "tel:+919813027070"
     },
     {
       icon: Mail,
       title: "Email Us",
-      details: ["contact@pranijheightsindia.com", "dealers@pranijheightsindia.com"],
+      details: ["contact@pranijheightsindia.com"],
       action: "Send Email",
       link: "mailto:contact@pranijheightsindia.com"
     },
@@ -629,10 +629,10 @@ const Contact = () => {
                       Become a Dealer
                     </Button>
                   </Link>
-                  <a href="tel:+919813145740">
+                  <a href="tel:+919813027070">
                     <Button variant="outline" size="lg" className="border-gold/50 text-gold hover:bg-gold/10">
                       <Phone className="w-5 h-5 mr-2" />
-                      Call Deepak (Sales)
+                      Call Sales Team
                     </Button>
                   </a>
                 </div>

@@ -188,7 +188,7 @@ export const QuotationForm = ({ compact = false }) => {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+91 98131 45740"
+            placeholder="+91 98130 27070"
           />
           <FormInput
             icon={Building}

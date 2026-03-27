@@ -521,10 +521,10 @@ const Resources = () => {
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </Link>
-                  <a href="tel:+919813145740">
+                  <a href="tel:+919813027070">
                     <Button variant="outline" size="lg" className="border-gold/50 text-gold hover:bg-gold/10">
                       <Phone className="w-5 h-5 mr-2" />
-                      Deepak: +91 98131 45740
+                      +91 98130 27070
                     </Button>
                   </a>
                 </div>

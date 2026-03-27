@@ -25,8 +25,7 @@ const COMPANY = {
   tagline: 'Premium PVC Panel Manufacturer',
   website: process.env.FRONTEND_URL || 'https://pranijheightsindia.com',
   email: 'contact@pranijheightsindia.com',
-  phone: '+91 98131 45740',
-  contactPerson: 'Deepak',
+  phone: '+91 98130 27070',
   address: '8 KM Stone, Agroha Road, Mandi Adampur, Hisar, Haryana - 125052, India',
   logo: 'https://pranijheightsindia.com/logo.png', // Update with actual logo URL
 };
@@ -159,9 +158,6 @@ export const baseTemplate = (content, options = {}) => {
                     <p style="margin: 0 0 8px;">
                       <a href="mailto:${COMPANY.email}" style="color: ${COLORS.primary};">${COMPANY.email}</a> | 
                       <a href="tel:${COMPANY.phone.replace(/\s/g, '')}" style="color: ${COLORS.primary};">${COMPANY.phone}</a>
-                    </p>
-                    <p style="margin: 0 0 8px;">
-                      Contact Person: ${COMPANY.contactPerson}
                     </p>
                     <p style="margin: 0 0 8px;">
                       ${COMPANY.address}

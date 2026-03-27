@@ -186,7 +186,7 @@ const DealerApplicationForm = () => {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="w-full bg-blue-300/15 border border-blue-200/25 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-gold/50 transition-colors"
-                placeholder="+91 98131 45740"
+                placeholder="+91 98130 27070"
               />
             </div>
           </div>
@@ -587,16 +587,16 @@ const DealerPortal = () => {
                 </p>
                 
                 <div className="flex flex-wrap justify-center gap-4">
-                  <a href="tel:+919813145740">
+                  <a href="tel:+919813027070">
                     <Button variant="primary" size="lg" className="bg-gold hover:bg-gold/90 text-charcoal">
                       <Phone className="w-5 h-5 mr-2" />
-                      Call Deepak: +91 98131 45740
+                      Call: +91 98130 27070
                     </Button>
                   </a>
-                  <a href="mailto:dealers@pranijheightsindia.com">
+                  <a href="mailto:contact@pranijheightsindia.com">
                     <Button variant="outline" size="lg" className="border-gold/50 text-gold hover:bg-gold/10">
                       <Mail className="w-5 h-5 mr-2" />
-                      dealers@pranijheightsindia.com
+                      contact@pranijheightsindia.com
                     </Button>
                   </a>
                 </div>

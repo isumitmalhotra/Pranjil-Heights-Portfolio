@@ -142,3 +142,36 @@ Code references:
 
 Validation:
 - Frontend production build passed after change.
+
+---
+
+## CR-006: Update Site-Wide Contact Phone and Email, Remove Named Contact
+Status: [x] Completed
+Priority: High
+
+Client request:
+- Update contact phone everywhere to: 9813027070
+- Use contact@pranijheightsindia.com at all public contact locations
+- Remove "Deepak" name references from contact labels
+
+Fix implemented:
+- Replaced phone/tel links and placeholders across website sections.
+- Updated email displays/links to contact@pranijheightsindia.com where user-facing contact email was shown.
+- Removed named-contact labels and kept neutral call labels.
+- Updated backend email company footer metadata phone and removed contact person line.
+- Updated seed contact phone and removed seeded named-contact key.
+
+Code references:
+- src/components/Footer.jsx
+- src/pages/Contact.jsx
+- src/components/home/CTASection.jsx
+- src/pages/DealerPortal.jsx
+- src/pages/Resources.jsx
+- src/components/contact/QuotationForm.jsx
+- src/components/contact/QuoteRequestForm.jsx
+- src/components/home/DealerPartnershipCTA.jsx
+- backend/src/templates/emails/base.js
+- backend/prisma/seed.js
+
+Validation:
+- Frontend production build passed after change.
