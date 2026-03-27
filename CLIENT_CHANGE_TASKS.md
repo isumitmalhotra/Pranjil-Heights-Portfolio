@@ -71,3 +71,26 @@ Code references:
 
 Validation:
 - Frontend production build passed after fix.
+
+---
+
+## CR-003: Hero Headline Copy Update + Remove Animated Panels
+Status: [x] Completed
+Priority: High
+
+Client feedback:
+- Replace hero headline text:
+  - From: "India's Oldest & Most Trusted PVC Wall Panel Brand"
+  - To: "India's No.1 Manufacturer of PVC Wall Panels, Fluted Panels & ACP/HPL Sheets - Trusted by Dealers Across India"
+- Remove the 3 animated panel visuals in the hero section.
+
+Fix implemented:
+- Updated hero main headline copy exactly as requested.
+- Removed right-side animated panel visual block from hero.
+- Kept hero readability and background overlay balanced after visual removal.
+
+Code references:
+- src/components/home/Hero.jsx
+
+Validation:
+- Frontend production build passed after change.
