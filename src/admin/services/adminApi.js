@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const ADMIN_API_TIMEOUT_MS = 60000;
+const ADMIN_UPLOAD_TIMEOUT_MS = 600000;
+
 const resolveAdminApiBaseUrl = () => {
   const envUrl = import.meta.env.VITE_API_URL?.trim();
   if (envUrl) return envUrl.replace(/\/+$/, '');
@@ -12,7 +15,7 @@ const resolveAdminApiBaseUrl = () => {
 // Create admin axios instance
 const adminApi = axios.create({
   baseURL: resolveAdminApiBaseUrl(),
-  timeout: 15000,
+  timeout: ADMIN_API_TIMEOUT_MS,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -34,7 +37,10 @@ adminApi.interceptors.request.use(
 adminApi.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    const message = error.response?.data?.message || error.message || 'Something went wrong';
+    const isTimeout = error?.code === 'ECONNABORTED' || String(error?.message || '').toLowerCase().includes('timeout');
+    const message = isTimeout
+      ? 'Upload timed out. Please try a smaller file or retry with a stable connection.'
+      : (error.response?.data?.message || error.message || 'Something went wrong');
     
     if (error.response?.status === 401) {
       localStorage.removeItem('adminToken');
@@ -224,6 +230,7 @@ export const uploadAPI = {
     if (alt) formData.append('alt', alt);
     return adminApi.post('/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: ADMIN_UPLOAD_TIMEOUT_MS,
     });
   },
 
@@ -234,6 +241,7 @@ export const uploadAPI = {
     formData.append('folder', folder);
     return adminApi.post('/upload/multiple', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: ADMIN_UPLOAD_TIMEOUT_MS,
     });
   },
 
@@ -244,6 +252,7 @@ export const uploadAPI = {
     if (alt) formData.append('alt', alt);
     return adminApi.post('/upload/product-image', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: ADMIN_UPLOAD_TIMEOUT_MS,
     });
   },
 
@@ -254,6 +263,7 @@ export const uploadAPI = {
     if (alt) formData.append('alt', alt);
     return adminApi.post('/upload/category-image', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: ADMIN_UPLOAD_TIMEOUT_MS,
     });
   },
 
@@ -264,6 +274,7 @@ export const uploadAPI = {
     if (thumbnailFile) formData.append('thumbnail', thumbnailFile);
     return adminApi.post('/upload/catalogue', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: ADMIN_UPLOAD_TIMEOUT_MS,
     });
   },
 
@@ -275,6 +286,7 @@ export const uploadAPI = {
     if (alt) formData.append('alt', alt);
     return adminApi.post('/upload/testimonial-image', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: ADMIN_UPLOAD_TIMEOUT_MS,
     });
   },
 

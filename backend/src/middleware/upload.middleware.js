@@ -45,7 +45,7 @@ const ALL_ALLOWED = [...IMAGE_MIMES, ...DOCUMENT_MIMES];
 const GENERAL_ALLOWED = [...IMAGE_MIMES, ...DOCUMENT_MIMES, ...VIDEO_MIMES];
 
 // File size limits
-const MAX_IMAGE_SIZE = 5 * 1024 * 1024;    // 5MB per image
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024;    // 10MB per image
 const MAX_PDF_SIZE = 200 * 1024 * 1024;     // 200MB per PDF
 const MAX_FILES = 10;                        // Max files per request
 
@@ -244,8 +244,9 @@ export const deleteFile = (fileUrl) => {
 export const handleMulterError = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     if (err.code === 'LIMIT_FILE_SIZE') {
+      const maxImageMb = Math.round(MAX_IMAGE_SIZE / (1024 * 1024));
       const maxPdfMb = Math.round(MAX_PDF_SIZE / (1024 * 1024));
-      return next(new ApiError(400, `File too large. Maximum size is 5MB for images, ${maxPdfMb}MB for PDFs.`));
+      return next(new ApiError(400, `File too large. Maximum size is ${maxImageMb}MB for images, ${maxPdfMb}MB for PDFs.`));
     }
     if (err.code === 'LIMIT_FILE_COUNT') {
       return next(new ApiError(400, `Too many files. Maximum is ${MAX_FILES} files per upload.`));
