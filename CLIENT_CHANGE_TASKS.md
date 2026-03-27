@@ -94,3 +94,27 @@ Code references:
 
 Validation:
 - Frontend production build passed after change.
+
+Final copy refinement:
+- Removed trailing line/phrase "Trusted by Dealers Across India" from the hero heading as requested.
+
+---
+
+## CR-004: Hero Looks Empty After Panel Removal
+Status: [x] Completed
+Priority: High
+
+Client feedback:
+- After removing animated hero panels, hero section looked visually empty.
+
+Fix implemented:
+- Rebalanced hero to a two-column desktop layout.
+- Added a static right-side premium highlights panel (no animated product visuals).
+- Improved headline composition into cleaner line breaks for readability.
+- Kept trust signals and CTA section prominent while preserving clean look.
+
+Code references:
+- src/components/home/Hero.jsx
+
+Validation:
+- Frontend production build passed after change.

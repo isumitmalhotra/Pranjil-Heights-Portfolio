@@ -31,6 +31,13 @@ const FeaturePill = ({ icon: Icon, text }) => (
   </div>
 );
 
+const HeroPoint = ({ title, detail }) => (
+  <div className="rounded-xl border border-blue-200/25 bg-blue-300/10 p-4">
+    <p className="text-sm font-semibold text-white">{title}</p>
+    <p className="text-xs text-slate-300 mt-1 leading-relaxed">{detail}</p>
+  </div>
+);
+
 export const Hero = () => {
   const trustBadges = [
     { icon: Factory, label: "Manufacturing", value: "Since 2017" },
@@ -73,7 +80,8 @@ export const Hero = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-6 relative z-10 pt-32 pb-20">
-        <div className="max-w-4xl">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 items-start">
+          <div className="xl:col-span-8">
           {/* Company Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -95,7 +103,8 @@ export const Hero = () => {
             className="space-y-6 mb-8"
           >
             <H1 className="leading-tight text-white">
-              India's No.1 Manufacturer of PVC Wall Panels, Fluted Panels & ACP/HPL Sheets - Trusted by Dealers Across India
+              <span className="block">India's No.1 Manufacturer of PVC Wall Panels,</span>
+              <span className="block">Fluted Panels & ACP/HPL Sheets</span>
             </H1>
             
             <p className="text-xl md:text-2xl text-slate-200 font-light max-w-2xl leading-relaxed">
@@ -157,6 +166,37 @@ export const Hero = () => {
               </motion.div>
             ))}
           </motion.div>
+
+          </div>
+
+          <motion.aside
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="hidden xl:block xl:col-span-4 rounded-2xl border border-blue-200/30 bg-blue-300/10 backdrop-blur-md p-6 shadow-xl shadow-black/25"
+          >
+            <div className="mb-6">
+              <p className="text-xs uppercase tracking-[0.18em] text-orange-300 font-semibold">Dealer Confidence</p>
+              <h3 className="text-2xl font-bold text-white mt-2 leading-tight">Built for High-Volume Projects</h3>
+            </div>
+
+            <div className="space-y-3 mb-6">
+              <HeroPoint title="Fast Dispatch" detail="Reliable bulk supply and pan-India delivery support for dealers and contractors." />
+              <HeroPoint title="Consistent Finishes" detail="Standardized production quality for repeat orders and project continuity." />
+              <HeroPoint title="Technical Support" detail="Application guidance and product consultation for every requirement." />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-xl border border-blue-200/25 bg-[#0F2A44]/70 p-3 text-center">
+                <p className="text-lg font-bold text-white">5000+</p>
+                <p className="text-[11px] text-slate-300 uppercase tracking-wide">Dealers</p>
+              </div>
+              <div className="rounded-xl border border-blue-200/25 bg-[#0F2A44]/70 p-3 text-center">
+                <p className="text-lg font-bold text-white">10,000+</p>
+                <p className="text-[11px] text-slate-300 uppercase tracking-wide">Projects</p>
+              </div>
+            </div>
+          </motion.aside>
         </div>
       </div>
     </section>
