@@ -65,7 +65,7 @@ const FeaturePill = ({ icon: Icon, text }) => (
 
 const ProductSwatch = ({ title, subtitle, image }) => (
   <div className="group rounded-xl border border-blue-200/25 bg-[#0F2A44]/55 p-2 transition-all hover:-translate-y-0.5 hover:border-orange-400/40">
-    <div className="relative h-28 rounded-lg overflow-hidden bg-[#1B2A4A]">
+    <div className="relative h-32 rounded-lg overflow-hidden bg-[#1B2A4A]">
       <img
         src={image}
         alt={`${title} preview`}
@@ -127,7 +127,7 @@ export const Hero = () => {
       {/* Main Content */}
       <div className="container mx-auto px-6 relative z-10 pt-32 pb-20">
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 items-start">
-          <div className="xl:col-span-8">
+          <div className="xl:col-span-7">
           {/* Company Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -220,7 +220,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="hidden xl:block xl:col-span-4 rounded-2xl border border-blue-200/30 bg-blue-300/10 backdrop-blur-md p-6 shadow-xl shadow-black/25"
+            className="hidden xl:block xl:col-span-5 rounded-2xl border border-blue-200/30 bg-blue-300/10 backdrop-blur-md p-7 shadow-xl shadow-black/25"
           >
             <div className="mb-5">
               <p className="text-xs uppercase tracking-[0.18em] text-orange-300 font-semibold">{heroContent?.visualStack?.label || defaultHeroContent.visualStack.label}</p>
@@ -228,7 +228,7 @@ export const Hero = () => {
               <p className="text-xs text-slate-300 mt-2">{heroContent?.visualStack?.description || defaultHeroContent.visualStack.description}</p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               {(Array.isArray(heroContent.swatches) ? heroContent.swatches : defaultHeroContent.swatches).slice(0, 4).map((swatch, index) => (
                 <ProductSwatch
                   key={swatch.id || `hero-swatch-${index}`}
